@@ -98,7 +98,7 @@
 
     /* Video gallery */
     .video-gallery-controls {display:flex;flex-wrap:wrap;gap:.7rem;margin-bottom:1.2rem;}
-    .filter-chip {background:#ffffff08;border:1px solid #ffffff15;color:var(--muted);padding:.55rem .9rem;font-size:.7rem;font-weight:600;letter-spacing:.8px;text-transform:uppercase;border-radius:28px;cursor:pointer;transition:var(--transition);}
+  .filter-chip {background:#ffffff08;border:1px solid #ffffff15;color:var(--muted);padding:.4rem .65rem;font-size:.65rem;font-weight:600;letter-spacing:.6px;text-transform:uppercase;border-radius:24px;cursor:pointer;transition:var(--transition);}    
     .filter-chip.active,.filter-chip:hover {background:var(--accent-grad);color:#fff;border-color:#ff7f3f;}
   .videos-grid {display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.1rem;}
   .curated-wrapper {margin-bottom:2.8rem;}
@@ -519,24 +519,15 @@
       const allTypes = createChip('Tous types','', 'type'); allTypes.classList.add('active');
       filtersEl.append(allTypes);
       orderedDisplay.forEach(d => filtersEl.append(createChip(d, mapDisplayToInternal(d), 'type')));
-      // Filtres d'origine (superposables)
-      const originsWrapper = document.createElement('div');
-      originsWrapper.style.marginTop = '0.4rem';
-      const originLabel = document.createElement('span');
-      originLabel.className='muted';
-      originLabel.style.fontSize='0.6rem';
-      originLabel.style.letterSpacing='1px';
-      originLabel.style.textTransform='uppercase';
-      originLabel.textContent='Origine';
-      originsWrapper.appendChild(originLabel);
-      const originChips = document.createElement('div');
-      originChips.style.display='flex';
-      originChips.style.flexWrap='wrap';
-      originChips.style.gap='.5rem';
-      originChips.appendChild(createChip('Projets personnels','perso','origin'));
-      originChips.appendChild(createChip('Projets de commande','commande','origin'));
-      originsWrapper.appendChild(originChips);
-      filtersEl.appendChild(originsWrapper);
+      // Filtres d'origine (superposables) sous les types, même style
+      const originRow = document.createElement('div');
+      originRow.style.display='flex';
+      originRow.style.flexWrap='wrap';
+      originRow.style.gap='.5rem';
+      originRow.style.marginTop='.4rem';
+      originRow.appendChild(createChip('Projets personnels','perso','origin'));
+      originRow.appendChild(createChip('Projets de commande','commande','origin'));
+      filtersEl.appendChild(originRow);
     }
 
     function applyFilters(){
@@ -549,9 +540,19 @@
         const originOk = (activeOrigins.length===0 || (v.origin && activeOrigins.includes(v.origin)));
         return typeOk && originOk;
       });
-      // Tri année descendante puis date précise
-      filtered.sort((a,b)=> new Date(b.publishedAt) - new Date(a.publishedAt));
-      renderVideos(filtered);
+      // Ordonnancement : commande avant perso, puis autres, chaque groupe trié par date desc
+      renderVideos(orderVideos(filtered));
+    }
+
+    function orderVideos(list){
+      const byGroup = { commande: [], perso: [], other: [] };
+      list.forEach(v => {
+        if(v.origin === 'commande') byGroup.commande.push(v);
+        else if(v.origin === 'perso') byGroup.perso.push(v);
+        else byGroup.other.push(v);
+      });
+      const sortDesc = arr => arr.sort((a,b)=> new Date(b.publishedAt) - new Date(a.publishedAt));
+      return [...sortDesc(byGroup.commande), ...sortDesc(byGroup.perso), ...sortDesc(byGroup.other)];
     }
 
     function renderVideos(videos){
@@ -606,8 +607,8 @@
       curatedVideos.slice().reverse().forEach(cv => { if(!allVideos.some(v=>v.id===cv.id)) allVideos.unshift(cv); });
       // Suppression explicite de toute vidéo intitulée 'Showreel Ludovic'
       allVideos = allVideos.filter(v => !(v.title && v.title.toLowerCase().trim() === 'showreel ludovic'));
-      // Tri initial global (année descendante)
-      allVideos.sort((a,b)=> new Date(b.publishedAt) - new Date(a.publishedAt));
+      // Tri initial avec priorité commande puis perso puis autres
+      allVideos = orderVideos(allVideos);
       renderFilters(allVideos); applyFilters();
     }
 
