@@ -637,10 +637,9 @@
         const categorie = typeLabelMap[v.type] || (v.type || '—');
         const info = v.description || '—';
         metaEl.innerHTML = `
-          <div class="meta-item"><strong>Titre</strong><span>${v.title||''}</span></div>
           <div class="meta-item"><strong>Réalisation</strong><span>${realisation}</span></div>
           <div class="meta-item"><strong>Montage</strong><span>${montage}</span></div>
-          <div class="meta-item"><strong>Année de production</strong><span>${year}</span></div>
+          <div class="meta-item"><strong>Année</strong><span>${year}</span></div>
           <div class="meta-item"><strong>Catégorie</strong><span>${categorie}</span></div>
           <div class="meta-item"><strong>Informations</strong><span>${info}</span></div>`;
       }
