@@ -492,11 +492,6 @@
     function renderFilters(videos){
       const filtersEl = qs('#videoFilters');
       filtersEl.innerHTML='';
-  const orderedDisplay = ['Fiction','Documentaire','Clip musical','Teaser','Aftermovie'];
-      const mapDisplayToInternal = disp => disp.toLowerCase()
-        .replace(' ','-')
-        .replace('clip-musical','clip-musical')
-        .replace('aftermovie','aftermovie');
       const createChip = (label, value, group) => {
         const chip = document.createElement('button');
         chip.type='button';
@@ -506,41 +501,67 @@
         chip.dataset.group=group;
         chip.addEventListener('click',()=>{
           if(group==='type') {
-            // exclusif pour les types
-            qsa(`.filter-chip[data-group="${group}"]`).forEach(c=> c.classList.toggle('active', c===chip));
-          } else if(group==='origin') {
-            // multi-select toggle
-            chip.classList.toggle('active');
+            qsa(`.filter-chip[data-group="type"]`).forEach(c=> c.classList.toggle('active', c===chip));
+          } else if(group==='subcat') {
+            // bascule sous-catégorie (exclusif)
+            qsa(`.filter-chip[data-group="subcat"]`).forEach(c=> c.classList.toggle('active', c===chip));
+            // reset type selection quand on change de sous-cat
+            qsa('.filter-chip[data-group="type"]').forEach(c=> c.classList.remove('active'));
+            qs('.filter-chip[data-group="type"][data-value=""]').classList.add('active');
+            buildTypeRow();
           }
           applyFilters();
         });
         return chip;
       };
-      const allTypes = createChip('Tous types','', 'type'); allTypes.classList.add('active');
-      filtersEl.append(allTypes);
-      orderedDisplay.forEach(d => filtersEl.append(createChip(d, mapDisplayToInternal(d), 'type')));
-      // Filtres d'origine (superposables) sous les types, même style
-      const originRow = document.createElement('div');
-      originRow.style.display='flex';
-      originRow.style.flexWrap='wrap';
-      originRow.style.gap='.5rem';
-      originRow.style.marginTop='.4rem';
-      originRow.appendChild(createChip('Projets personnels','perso','origin'));
-      originRow.appendChild(createChip('Projets de commande','commande','origin'));
-      filtersEl.appendChild(originRow);
+
+      // Rangée sous-catégories
+      const subRow = document.createElement('div');
+      subRow.style.display='flex';
+      subRow.style.flexWrap='wrap';
+      subRow.style.gap='.5rem';
+      const persoChip = createChip('Projets personnels','perso','subcat');
+      const commandeChip = createChip('Projets de commande','commande','subcat');
+      // Par défaut on sélectionne commande (priorité d'affichage actuelle)
+      commandeChip.classList.add('active');
+      subRow.appendChild(commandeChip);
+      subRow.appendChild(persoChip);
+      filtersEl.appendChild(subRow);
+
+      // Conteneur types dynamiques selon sous-catégorie
+      const typeRow = document.createElement('div');
+      typeRow.id='typeFilterRow';
+      typeRow.style.display='flex';
+      typeRow.style.flexWrap='wrap';
+      typeRow.style.gap='.5rem';
+      typeRow.style.marginTop='.4rem';
+      filtersEl.appendChild(typeRow);
+
+      function buildTypeRow(){
+        typeRow.innerHTML='';
+        const activeSub = qs('.filter-chip[data-group="subcat"].active')?.dataset.value;
+        let typesList = [];
+        if(activeSub==='perso') typesList = ['Fiction','Documentaire'];
+        else if(activeSub==='commande') typesList = ['Teaser','Documentaire','Aftermovie','Clip musical'];
+        const allTypesChip = createChip('Tous types','', 'type');
+        allTypesChip.classList.add('active');
+        typeRow.appendChild(allTypesChip);
+        typesList.forEach(lbl => {
+          const val = lbl.toLowerCase().replace(' ','-').replace('clip-musical','clip-musical').replace('aftermovie','aftermovie');
+          typeRow.appendChild(createChip(lbl, val, 'type'));
+        });
+      }
+      buildTypeRow();
     }
 
     function applyFilters(){
       const activeType = qs('.filter-chip[data-group="type"].active')?.dataset.value || '';
-      const activeOrigins = qsa('.filter-chip[data-group="origin"].active').map(c=> c.dataset.value);
+      const activeSub = qs('.filter-chip[data-group="subcat"].active')?.dataset.value || '';
       const filtered = allVideos.filter(v => {
-        const y = new Date(v.publishedAt).getFullYear();
-        // Exclusions précédentes supprimées car les curées doivent toutes apparaître
+        const subOk = !activeSub || v.origin === activeSub; // origin = perso/commande
         const typeOk = (!activeType || v.type===activeType);
-        const originOk = (activeOrigins.length===0 || (v.origin && activeOrigins.includes(v.origin)));
-        return typeOk && originOk;
+        return subOk && typeOk;
       });
-      // Ordonnancement : commande avant perso, puis autres, chaque groupe trié par date desc
       renderVideos(orderVideos(filtered));
     }
 
