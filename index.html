@@ -100,11 +100,12 @@
     .video-gallery-controls {display:flex;flex-wrap:wrap;gap:.7rem;margin-bottom:1.2rem;}
     .filter-chip {background:#ffffff08;border:1px solid #ffffff15;color:var(--muted);padding:.55rem .9rem;font-size:.7rem;font-weight:600;letter-spacing:.8px;text-transform:uppercase;border-radius:28px;cursor:pointer;transition:var(--transition);}
     .filter-chip.active,.filter-chip:hover {background:var(--accent-grad);color:#fff;border-color:#ff7f3f;}
-    .videos-grid {display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.1rem;}
+  .videos-grid {display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.1rem;}
   .curated-wrapper {margin-bottom:2.8rem;}
   .curated-wrapper h3 {margin:0 0 1rem;font-family:var(--font-serif);font-size:1.6rem;}
   .curated-grid .video-card {border:1px solid #ff40401c;}
   .curated-grid .video-card:hover {box-shadow:0 14px 30px -12px #ff5a2a33,0 0 0 1px #ff6a3a66;}
+  .hidden-filter {display:none !important;}
     .video-card {background:linear-gradient(150deg,#24242a,#1d1d22);border:1px solid #ffffff12;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;position:relative;transition:var(--transition);cursor:pointer;}
     .video-card:hover {transform:translateY(-4px);box-shadow:0 14px 28px -10px #000b,0 0 0 1px #ffffff18;}
     .video-thumb {position:relative;aspect-ratio:16/9;overflow:hidden;}
@@ -220,82 +221,76 @@
     <section id="videos" aria-labelledby="videos-title">
       <div class="section-intro" data-reveal>
         <h2 id="videos-title">Vidéos</h2>
-        <p class="muted">Agrégation automatique des contenus YouTube mentionnant « Ludovic Gacquer ». Filtrage par type et année.</p>
+        <p class="muted">Agrégation automatique & sélection. Filtrage par catégorie.</p>
       </div>
-      <!-- Bloc Réalisation (curation fixe) -->
+      <!-- Filtres déplacés en haut -->
+      <div class="video-gallery-controls" id="videoFilters" data-reveal></div>
+      <div id="videosContainer" class="videos-grid" data-reveal aria-live="polite"></div>
+      <div id="videosEmpty" class="empty-state" style="display:none;">Aucune vidéo trouvée.</div>
+      <!-- Bloc Projets personnels (curation fixe) -->
       <div class="curated-wrapper" data-reveal aria-labelledby="projets-personnels-title">
         <h3 id="projets-personnels-title">Projets personnels</h3>
         <div class="videos-grid curated-grid" id="realisationGrid">
-          <article class="video-card" role="button" tabindex="0" data-video-id="Ky2rIGLTFv4">
+          <article class="video-card" role="button" tabindex="0" data-video-id="Ky2rIGLTFv4" data-filter-type="fiction">
             <div class="video-thumb"><img src="https://img.youtube.com/vi/Ky2rIGLTFv4/mqdefault.jpg" alt="La Belle et la Caisse"></div>
             <div class="video-body">
               <div class="video-title">La Belle et la Caisse</div>
-              <div class="video-meta"><span>Réalisation</span><span>Scène</span></div>
+              <div class="video-meta"><span>Fiction</span></div>
             </div>
           </article>
-          <article class="video-card" role="button" tabindex="0" data-video-id="kWmNQbJBcok">
+          <article class="video-card" role="button" tabindex="0" data-video-id="kWmNQbJBcok" data-filter-type="documentaire">
             <div class="video-thumb"><img src="https://img.youtube.com/vi/kWmNQbJBcok/mqdefault.jpg" alt="Bieu conme un Indien"></div>
             <div class="video-body">
               <div class="video-title">Bieu conme un Indien</div>
-              <div class="video-meta"><span>Réalisation</span><span>Scène</span></div>
+              <div class="video-meta"><span>Documentaire</span></div>
             </div>
           </article>
-          <article class="video-card" role="button" tabindex="0" data-video-id="A6F3vW_wpZY">
+            <article class="video-card" role="button" tabindex="0" data-video-id="A6F3vW_wpZY" data-filter-type="fiction">
             <div class="video-thumb"><img src="https://img.youtube.com/vi/A6F3vW_wpZY/mqdefault.jpg" alt="Garphilde"></div>
             <div class="video-body">
               <div class="video-title">Garphilde</div>
-              <div class="video-meta"><span>Réalisation</span><span>Making-of</span></div>
+              <div class="video-meta"><span>Fiction</span></div>
             </div>
           </article>
-          <article class="video-card" role="button" tabindex="0" data-video-id="7dLSe8_8rKQ">
+          <article class="video-card" role="button" tabindex="0" data-video-id="7dLSe8_8rKQ" data-filter-type="fiction">
             <div class="video-thumb"><img src="https://img.youtube.com/vi/7dLSe8_8rKQ/mqdefault.jpg" alt="GOBELET - Global Offensive By Electrical Light Energy The Terminal"></div>
             <div class="video-body">
               <div class="video-title">GOBELET - Global Offensive By Electrical Light Energy The Terminal</div>
-              <div class="video-meta"><span>Réalisation</span><span>Scène</span></div>
+              <div class="video-meta"><span>Fiction</span></div>
             </div>
           </article>
         </div>
       </div>
-      <div class="video-gallery-controls" id="videoFilters" data-reveal></div>
-      <div id="videosContainer" class="videos-grid" data-reveal aria-live="polite"></div>
-      <div id="videosEmpty" class="empty-state" style="display:none;">Aucune vidéo trouvée.</div>
       <!-- Bloc Projets de commande -->
       <div class="curated-wrapper" data-reveal aria-labelledby="projets-commande-title">
         <h3 id="projets-commande-title">Projets de commande</h3>
         <div class="videos-grid curated-grid" id="projetsCommandeGrid">
-          <article class="video-card" role="button" tabindex="0" data-video-id="g-gyTVi_iT8">
+          <article class="video-card" role="button" tabindex="0" data-video-id="g-gyTVi_iT8" data-filter-type="clip-musical">
             <div class="video-thumb"><img src="https://img.youtube.com/vi/g-gyTVi_iT8/mqdefault.jpg" alt="Nightmare - Thinking Too Much - Music clip"></div>
             <div class="video-body">
               <div class="video-title">Nightmare - Thinking Too Much - Music clip</div>
-              <div class="video-meta"><span>Commande</span><span>Clip</span></div>
+              <div class="video-meta"><span>Clip musical</span></div>
             </div>
           </article>
-          <article class="video-card" role="button" tabindex="0" data-video-id="ILtUNe4Q3LA">
+          <article class="video-card" role="button" tabindex="0" data-video-id="ILtUNe4Q3LA" data-filter-type="teaser">
             <div class="video-thumb"><img src="https://img.youtube.com/vi/ILtUNe4Q3LA/mqdefault.jpg" alt="Teaser 54h Chrono! 2024"></div>
             <div class="video-body">
               <div class="video-title">Teaser 54h Chrono! 2024</div>
-              <div class="video-meta"><span>Commande</span><span>Teaser</span></div>
+              <div class="video-meta"><span>Teaser</span></div>
             </div>
           </article>
-          <article class="video-card" role="button" tabindex="0" data-video-id="9bKy3DJzbVQ">
+          <article class="video-card" role="button" tabindex="0" data-video-id="9bKy3DJzbVQ" data-filter-type="documentaire">
             <div class="video-thumb"><img src="https://img.youtube.com/vi/9bKy3DJzbVQ/mqdefault.jpg" alt="Festival de la Photographie au Cinéma"></div>
             <div class="video-body">
               <div class="video-title">Festival de la Photographie au Cinéma</div>
-              <div class="video-meta"><span>Commande</span><span>Événement</span></div>
+              <div class="video-meta"><span>Documentaire</span></div>
             </div>
           </article>
-          <article class="video-card" role="button" tabindex="0" data-video-id="Ty9t8MBemzE">
+          <article class="video-card" role="button" tabindex="0" data-video-id="Ty9t8MBemzE" data-filter-type="aftermovie">
             <div class="video-thumb"><img src="https://img.youtube.com/vi/Ty9t8MBemzE/mqdefault.jpg" alt="Aftermovie Fenêtre sur Court 2024"></div>
             <div class="video-body">
               <div class="video-title">Aftermovie Fenêtre sur Court 2024</div>
-              <div class="video-meta"><span>Commande</span><span>Aftermovie</span></div>
-            </div>
-          </article>
-            <article class="video-card" role="button" tabindex="0" data-video-id="fDawK7263Hk">
-            <div class="video-thumb"><img src="https://img.youtube.com/vi/fDawK7263Hk/mqdefault.jpg" alt="Aftermovie Forum de la Création Audiovisuelle 2023"></div>
-            <div class="video-body">
-              <div class="video-title">Aftermovie Forum de la Création Audiovisuelle 2023</div>
-              <div class="video-meta"><span>Commande</span><span>Aftermovie</span></div>
+              <div class="video-meta"><span>Aftermovie</span></div>
             </div>
           </article>
         </div>
@@ -549,20 +544,22 @@
 
     function classifyVideo(title, desc='') {
       const t = (title+' '+desc).toLowerCase();
-      if(t.includes('bande annonce')|| t.includes('trailer')) return 'trailer';
+      if(t.includes('bande annonce')|| t.includes('trailer')|| t.includes('teaser')) return 'teaser';
       if(t.includes('interview')) return 'interview';
       if(t.includes('showreel')|| t.includes('reel')) return 'showreel';
-      if(t.includes('making of')|| t.includes('behind')) return 'makingof';
+      if(t.includes('making of')|| t.includes('behind')|| t.includes('after movie')|| t.includes('aftermovie')) return 'aftermovie';
+      if(t.includes('clip')) return 'clip-musical';
       return 'autre';
     }
 
     function renderFilters(videos){
       const filtersEl = qs('#videoFilters');
       filtersEl.innerHTML='';
-      // Exclure type 'scene'
-      const types = Array.from(new Set(videos.map(v=>v.type))).filter(t => t !== 'scene');
-      // Exclure année 2025
-      const years = Array.from(new Set(videos.map(v=> new Date(v.publishedAt).getFullYear()))).filter(y => y !== 2025).sort((a,b)=> b-a);
+      const orderedDisplay = ['Fiction','Documentaire','Clip musical','Teaser','Aftermovie','Showreel'];
+      const mapDisplayToInternal = disp => disp.toLowerCase()
+        .replace(' ','-')
+        .replace('clip-musical','clip-musical')
+        .replace('aftermovie','aftermovie');
       const createChip = (label, value, group) => {
         const chip = document.createElement('button');
         chip.type='button';
@@ -571,16 +568,14 @@
         chip.dataset.value=value;
         chip.dataset.group=group;
         chip.addEventListener('click',()=>{
-          // toggle active for group
           qsa(`.filter-chip[data-group="${group}"]`).forEach(c=> c.classList.toggle('active', c===chip));
           applyFilters();
         });
         return chip;
       };
-      // Chip global types seulement (pas de "Toutes années")
       const allTypes = createChip('Tous types','', 'type'); allTypes.classList.add('active');
-      filtersEl.append(allTypes,...types.map(t=>createChip(t,t,'type')));
-      years.forEach(y => filtersEl.append(createChip(String(y),String(y),'year')));
+      filtersEl.append(allTypes);
+      orderedDisplay.forEach(d => filtersEl.append(createChip(d, mapDisplayToInternal(d), 'type')));
     }
 
     function applyFilters(){
@@ -588,11 +583,19 @@
       const activeYear = qs('.filter-chip[data-group="year"].active')?.dataset.value || '';
       const filtered = allVideos.filter(v => {
         const y = new Date(v.publishedAt).getFullYear();
-        if(v.type === 'scene') return false; // exclusion définitive
-        if(y === 2025) return false;        // exclusion année 2025
-        return (!activeType || v.type===activeType) && (!activeYear || String(y)===activeYear);
+        if(v.type === 'scene') return false;
+        if(y === 2025) return false;
+        return (!activeType || v.type===activeType);
       });
       renderVideos(filtered);
+      // Filtrage des blocs curés
+      const curatedCards = qsa('#realisationGrid .video-card, #projetsCommandeGrid .video-card');
+      curatedCards.forEach(card => {
+        const t = card.getAttribute('data-filter-type');
+        if(!activeType || activeType === '' ) card.classList.remove('hidden-filter');
+        else if(t === activeType) card.classList.remove('hidden-filter');
+        else card.classList.add('hidden-filter');
+      });
     }
 
     function renderVideos(videos){
