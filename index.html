@@ -101,6 +101,10 @@
     .filter-chip {background:#ffffff08;border:1px solid #ffffff15;color:var(--muted);padding:.55rem .9rem;font-size:.7rem;font-weight:600;letter-spacing:.8px;text-transform:uppercase;border-radius:28px;cursor:pointer;transition:var(--transition);}
     .filter-chip.active,.filter-chip:hover {background:var(--accent-grad);color:#fff;border-color:#ff7f3f;}
     .videos-grid {display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.1rem;}
+  .curated-wrapper {margin-bottom:2.8rem;}
+  .curated-wrapper h3 {margin:0 0 1rem;font-family:var(--font-serif);font-size:1.6rem;}
+  .curated-grid .video-card {border:1px solid #ff40401c;}
+  .curated-grid .video-card:hover {box-shadow:0 14px 30px -12px #ff5a2a33,0 0 0 1px #ff6a3a66;}
     .video-card {background:linear-gradient(150deg,#24242a,#1d1d22);border:1px solid #ffffff12;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;position:relative;transition:var(--transition);cursor:pointer;}
     .video-card:hover {transform:translateY(-4px);box-shadow:0 14px 28px -10px #000b,0 0 0 1px #ffffff18;}
     .video-thumb {position:relative;aspect-ratio:16/9;overflow:hidden;}
@@ -217,6 +221,40 @@
       <div class="section-intro" data-reveal>
         <h2 id="videos-title">Vidéos</h2>
         <p class="muted">Agrégation automatique des contenus YouTube mentionnant « Ludovic Gacquer ». Filtrage par type et année.</p>
+      </div>
+      <!-- Bloc Réalisation (curation fixe) -->
+      <div class="curated-wrapper" data-reveal aria-labelledby="realisation-title">
+        <h3 id="realisation-title">Réalisation</h3>
+        <div class="videos-grid curated-grid" id="realisationGrid">
+          <article class="video-card" role="button" tabindex="0" data-video-id="Ky2rIGLTFv4">
+            <div class="video-thumb"><img src="https://img.youtube.com/vi/Ky2rIGLTFv4/mqdefault.jpg" alt="La Belle et la Caisse"></div>
+            <div class="video-body">
+              <div class="video-title">La Belle et la Caisse</div>
+              <div class="video-meta"><span>Réalisation</span><span>Scène</span></div>
+            </div>
+          </article>
+          <article class="video-card" role="button" tabindex="0" data-video-id="kWmNQbJBcok">
+            <div class="video-thumb"><img src="https://img.youtube.com/vi/kWmNQbJBcok/mqdefault.jpg" alt="Bieu conme un Indien"></div>
+            <div class="video-body">
+              <div class="video-title">Bieu conme un Indien</div>
+              <div class="video-meta"><span>Réalisation</span><span>Scène</span></div>
+            </div>
+          </article>
+          <article class="video-card" role="button" tabindex="0" data-video-id="A6F3vW_wpZY">
+            <div class="video-thumb"><img src="https://img.youtube.com/vi/A6F3vW_wpZY/mqdefault.jpg" alt="Garphilde"></div>
+            <div class="video-body">
+              <div class="video-title">Garphilde</div>
+              <div class="video-meta"><span>Réalisation</span><span>Making-of</span></div>
+            </div>
+          </article>
+          <article class="video-card" role="button" tabindex="0" data-video-id="7dLSe8_8rKQ">
+            <div class="video-thumb"><img src="https://img.youtube.com/vi/7dLSe8_8rKQ/mqdefault.jpg" alt="GOBELET - Global Offensive By Electrical Light Energy The Terminal"></div>
+            <div class="video-body">
+              <div class="video-title">GOBELET - Global Offensive By Electrical Light Energy The Terminal</div>
+              <div class="video-meta"><span>Réalisation</span><span>Scène</span></div>
+            </div>
+          </article>
+        </div>
       </div>
       <div class="video-gallery-controls" id="videoFilters" data-reveal></div>
       <div id="videosContainer" class="videos-grid" data-reveal aria-live="polite"></div>
@@ -572,6 +610,12 @@
         saveVideosToCache(allVideos);
         renderFilters(allVideos); applyFilters();
       }
+      // Attach events for curated realisation block (not filtered)
+      qsa('#realisationGrid .video-card').forEach(card => {
+        const vid = card.getAttribute('data-video-id');
+        card.addEventListener('click', ()=> openLightbox(vid));
+        card.addEventListener('keydown', e=> { if(e.key==='Enter') openLightbox(vid); });
+      });
     }
 
     // Contact form (demo: local only)
