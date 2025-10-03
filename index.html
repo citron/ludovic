@@ -208,74 +208,6 @@
       <div class="video-gallery-controls" id="videoFilters" data-reveal></div>
       <div id="videosContainer" class="videos-grid" data-reveal aria-live="polite"></div>
       <div id="videosEmpty" class="empty-state" style="display:none;">Aucune vidéo trouvée.</div>
-      <!-- Bloc Projets personnels (curation fixe) -->
-      <div class="curated-wrapper" data-reveal aria-labelledby="projets-personnels-title">
-        <h3 id="projets-personnels-title">Projets personnels</h3>
-        <div class="videos-grid curated-grid" id="realisationGrid">
-          <article class="video-card" role="button" tabindex="0" data-video-id="Ky2rIGLTFv4" data-filter-type="fiction">
-            <div class="video-thumb"><img src="https://img.youtube.com/vi/Ky2rIGLTFv4/mqdefault.jpg" alt="La Belle et la Caisse"></div>
-            <div class="video-body">
-              <div class="video-title">La Belle et la Caisse</div>
-              <div class="video-meta"><span>Fiction</span></div>
-            </div>
-          </article>
-          <article class="video-card" role="button" tabindex="0" data-video-id="kWmNQbJBcok" data-filter-type="documentaire">
-            <div class="video-thumb"><img src="https://img.youtube.com/vi/kWmNQbJBcok/mqdefault.jpg" alt="Bieu conme un Indien"></div>
-            <div class="video-body">
-              <div class="video-title">Bieu conme un Indien</div>
-              <div class="video-meta"><span>Documentaire</span></div>
-            </div>
-          </article>
-            <article class="video-card" role="button" tabindex="0" data-video-id="A6F3vW_wpZY" data-filter-type="fiction">
-            <div class="video-thumb"><img src="https://img.youtube.com/vi/A6F3vW_wpZY/mqdefault.jpg" alt="Garphilde"></div>
-            <div class="video-body">
-              <div class="video-title">Garphilde</div>
-              <div class="video-meta"><span>Fiction</span></div>
-            </div>
-          </article>
-          <article class="video-card" role="button" tabindex="0" data-video-id="7dLSe8_8rKQ" data-filter-type="fiction">
-            <div class="video-thumb"><img src="https://img.youtube.com/vi/7dLSe8_8rKQ/mqdefault.jpg" alt="GOBELET - Global Offensive By Electrical Light Energy The Terminal"></div>
-            <div class="video-body">
-              <div class="video-title">GOBELET - Global Offensive By Electrical Light Energy The Terminal</div>
-              <div class="video-meta"><span>Fiction</span></div>
-            </div>
-          </article>
-        </div>
-      </div>
-      <!-- Bloc Projets de commande -->
-      <div class="curated-wrapper" data-reveal aria-labelledby="projets-commande-title">
-        <h3 id="projets-commande-title">Projets de commande</h3>
-        <div class="videos-grid curated-grid" id="projetsCommandeGrid">
-          <article class="video-card" role="button" tabindex="0" data-video-id="g-gyTVi_iT8" data-filter-type="clip-musical">
-            <div class="video-thumb"><img src="https://img.youtube.com/vi/g-gyTVi_iT8/mqdefault.jpg" alt="Nightmare - Thinking Too Much - Music clip"></div>
-            <div class="video-body">
-              <div class="video-title">Nightmare - Thinking Too Much - Music clip</div>
-              <div class="video-meta"><span>Clip musical</span></div>
-            </div>
-          </article>
-          <article class="video-card" role="button" tabindex="0" data-video-id="ILtUNe4Q3LA" data-filter-type="teaser">
-            <div class="video-thumb"><img src="https://img.youtube.com/vi/ILtUNe4Q3LA/mqdefault.jpg" alt="Teaser 54h Chrono! 2024"></div>
-            <div class="video-body">
-              <div class="video-title">Teaser 54h Chrono! 2024</div>
-              <div class="video-meta"><span>Teaser</span></div>
-            </div>
-          </article>
-          <article class="video-card" role="button" tabindex="0" data-video-id="9bKy3DJzbVQ" data-filter-type="documentaire">
-            <div class="video-thumb"><img src="https://img.youtube.com/vi/9bKy3DJzbVQ/mqdefault.jpg" alt="Festival de la Photographie au Cinéma"></div>
-            <div class="video-body">
-              <div class="video-title">Festival de la Photographie au Cinéma</div>
-              <div class="video-meta"><span>Documentaire</span></div>
-            </div>
-          </article>
-          <article class="video-card" role="button" tabindex="0" data-video-id="Ty9t8MBemzE" data-filter-type="aftermovie">
-            <div class="video-thumb"><img src="https://img.youtube.com/vi/Ty9t8MBemzE/mqdefault.jpg" alt="Aftermovie Fenêtre sur Court 2024"></div>
-            <div class="video-body">
-              <div class="video-title">Aftermovie Fenêtre sur Court 2024</div>
-              <div class="video-meta"><span>Aftermovie</span></div>
-            </div>
-          </article>
-        </div>
-      </div>
     </section>
 
     <!-- Compétences -->
@@ -407,12 +339,18 @@
       { titre: 'Mention Spéciale', event: 'Rencontres Ciné 2023', detail: 'Projet D' },
     ];
 
-    // Fallback vidéos manuelles (si API absente)
-    const manualVideos = [
-      { id: 'Ky2rIGLTFv4', title: 'Sélection – Scène', publishedAt: '2025-01-02', channelTitle: 'Portfolio', description: 'Scène sélectionnée', type: 'scene' },
-      { id: 'kWmNQbJBcok', title: 'Extrait – Jeu dramatique', publishedAt: '2025-01-03', channelTitle: 'Portfolio', description: 'Extrait démonstratif du registre dramatique.', type: 'scene' },
-      { id: 'A6F3vW_wpZY', title: 'Extrait – Intention de mise en scène', publishedAt: '2025-01-04', channelTitle: 'Portfolio', description: 'Présentation du travail de direction et d’intentions visuelles.', type: 'makingof' },
-      { id: '7dLSe8_8rKQ', title: 'Extrait – Performance émotionnelle', publishedAt: '2025-01-05', channelTitle: 'Portfolio', description: 'Concentration sur la justesse émotionnelle et la nuance.', type: 'scene' }
+    // Vidéos curées (Projets personnels + Projets de commande) insérées directement dans la grille principale
+    const curatedVideos = [
+      // Projets personnels
+      { id: 'Ky2rIGLTFv4', title: 'La Belle et la Caisse', publishedAt: '2024-10-01', channelTitle: 'Projet personnel', description: 'Court de fiction', type: 'fiction' },
+      { id: 'kWmNQbJBcok', title: 'Bieu conme un Indien', publishedAt: '2024-06-15', channelTitle: 'Projet personnel', description: 'Documentaire', type: 'documentaire' },
+      { id: 'A6F3vW_wpZY', title: 'Garphilde', publishedAt: '2024-05-20', channelTitle: 'Projet personnel', description: 'Fiction', type: 'fiction' },
+      { id: '7dLSe8_8rKQ', title: 'GOBELET - Global Offensive By Electrical Light Energy The Terminal', publishedAt: '2024-04-10', channelTitle: 'Projet personnel', description: 'Fiction', type: 'fiction' },
+      // Projets de commande
+      { id: 'g-gyTVi_iT8', title: 'Nightmare - Thinking Too Much - Music clip', publishedAt: '2024-03-15', channelTitle: 'Commande', description: 'Clip musical', type: 'clip-musical' },
+      { id: 'ILtUNe4Q3LA', title: 'Teaser 54h Chrono! 2024', publishedAt: '2024-02-20', channelTitle: 'Commande', description: 'Teaser', type: 'teaser' },
+      { id: '9bKy3DJzbVQ', title: 'Festival de la Photographie au Cinéma', publishedAt: '2024-01-25', channelTitle: 'Commande', description: 'Documentaire', type: 'documentaire' },
+      { id: 'Ty9t8MBemzE', title: 'Aftermovie Fenêtre sur Court 2024', publishedAt: '2024-01-05', channelTitle: 'Commande', description: 'Aftermovie', type: 'aftermovie' }
     ];
 
     // --- Utilitaires ---
@@ -509,7 +447,7 @@
     }
 
     async function fetchYouTube() {
-      if(!YOUTUBE_API_KEY) return manualVideos; // no key fallback
+  if(!YOUTUBE_API_KEY) return []; // on utilisera juste curatedVideos si pas de clé
       const collected = new Map();
       for (const q of SEARCH_QUERIES) {
         try {
@@ -579,22 +517,12 @@
 
     function applyFilters(){
       const activeType = qs('.filter-chip[data-group="type"].active')?.dataset.value || '';
-      const activeYear = qs('.filter-chip[data-group="year"].active')?.dataset.value || '';
       const filtered = allVideos.filter(v => {
         const y = new Date(v.publishedAt).getFullYear();
-        if(v.type === 'scene') return false;
-        if(y === 2025) return false;
+        // Exclusions précédentes supprimées car les curées doivent toutes apparaître
         return (!activeType || v.type===activeType);
       });
       renderVideos(filtered);
-      // Filtrage des blocs curés
-      const curatedCards = qsa('#realisationGrid .video-card, #projetsCommandeGrid .video-card');
-      curatedCards.forEach(card => {
-        const t = card.getAttribute('data-filter-type');
-        if(!activeType || activeType === '' ) card.classList.remove('hidden-filter');
-        else if(t === activeType) card.classList.remove('hidden-filter');
-        else card.classList.add('hidden-filter');
-      });
     }
 
     function renderVideos(videos){
@@ -641,29 +569,13 @@
       const cached = loadVideosFromCache();
       if(cached){
         allVideos = cached;
-        manualVideos.slice().reverse().forEach(m => { if(!allVideos.some(v=>v.id===m.id)) allVideos.unshift(m); });
-        renderFilters(allVideos); applyFilters();
       } else {
         allVideos = await fetchYouTube();
-        if(!allVideos.length) {
-          allVideos = [...manualVideos];
-        } else {
-          manualVideos.slice().reverse().forEach(m => { if(!allVideos.some(v=>v.id===m.id)) allVideos.unshift(m); });
-        }
         saveVideosToCache(allVideos);
-        renderFilters(allVideos); applyFilters();
       }
-      // Attach events for curated realisation block (not filtered)
-      qsa('#realisationGrid .video-card').forEach(card => {
-        const vid = card.getAttribute('data-video-id');
-        card.addEventListener('click', ()=> openLightbox(vid));
-        card.addEventListener('keydown', e=> { if(e.key==='Enter') openLightbox(vid); });
-      });
-      qsa('#projetsCommandeGrid .video-card').forEach(card => {
-        const vid = card.getAttribute('data-video-id');
-        card.addEventListener('click', ()=> openLightbox(vid));
-        card.addEventListener('keydown', e=> { if(e.key==='Enter') openLightbox(vid); });
-      });
+      // Fusion : on place les vidéos curées en tête, en évitant les doublons
+      curatedVideos.slice().reverse().forEach(cv => { if(!allVideos.some(v=>v.id===cv.id)) allVideos.unshift(cv); });
+      renderFilters(allVideos); applyFilters();
     }
 
     // Contact form (demo: local only)
