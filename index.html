@@ -555,7 +555,7 @@
     function renderFilters(videos){
       const filtersEl = qs('#videoFilters');
       filtersEl.innerHTML='';
-      const orderedDisplay = ['Fiction','Documentaire','Clip musical','Teaser','Aftermovie','Showreel'];
+  const orderedDisplay = ['Fiction','Documentaire','Clip musical','Teaser','Aftermovie'];
       const mapDisplayToInternal = disp => disp.toLowerCase()
         .replace(' ','-')
         .replace('clip-musical','clip-musical')
