@@ -214,22 +214,12 @@
     <section id="comedien" aria-labelledby="comedien-title">
       <div class="section-intro" data-reveal>
         <h2 id="comedien-title">Comédien</h2>
-        <p class="muted">Approche de jeu, axes de travail et présence à l'écran. (Contenu à enrichir.)</p>
+        <p class="muted">Extraits de jeu – cinéma et théâtre.</p>
       </div>
-      <div class="cards-flex" data-reveal>
-        <div class="mini-card">
-          <h4>Préparation</h4>
-          <p>Analyse d'intentions, objectifs internes, respiration et ancrage physique avant prise.</p>
-        </div>
-        <div class="mini-card">
-          <h4>Jeu</h4>
-          <p>Recherche de la tension sous-jacente, modulation de l'énergie, écoute active partenaire.</p>
-        </div>
-        <div class="mini-card">
-          <h4>Orientation</h4>
-          <p>Personnages ambivalents, fragilité maîtrisée, contrastes émotionnels subtils.</p>
-        </div>
-      </div>
+      <h3>Cinéma</h3>
+      <div class="videos-grid" id="actingCinemaGrid" data-reveal></div>
+      <h3 style="margin-top:1.8rem;">Théâtre</h3>
+      <div class="videos-grid" id="actingTheatreGrid" data-reveal></div>
     </section>
 
     <!-- Compétences -->
@@ -359,6 +349,18 @@
     const awards = [
       { titre: 'Sélection Officielle', event: 'Festival Court 2024', detail: 'Projet A' },
       { titre: 'Mention Spéciale', event: 'Rencontres Ciné 2023', detail: 'Projet D' },
+    ];
+
+    // Comédien: listes dédiées
+    const actingCinema = [
+      { id: '5pD9tEb4ufU', title: 'Si - Bande annonce' },
+      { id: '2SbHKIoA3oo', title: '23h37' },
+      { id: 'fYBwWGi-_e', title: 'A Demain' },
+      { id: '6YYhZIYyiNc', title: 'La Collection de Madame Laursen' },
+      { id: 'QY-AJ7IV3lE', title: 'Scheol' }
+    ];
+    const actingTheatre = [
+      { id: 'L1tkQrXh940', title: 'LAC' }
     ];
 
     // Vidéos curées (Projets personnels + Projets de commande) insérées directement dans la grille principale
@@ -511,6 +513,34 @@
       return 'autre';
     }
 
+    // Rendu des vidéos acteur (cartes simples)
+    function renderActingSection(){
+      const cinema = qs('#actingCinemaGrid');
+      const theatre = qs('#actingTheatreGrid');
+      if(cinema){
+        cinema.innerHTML='';
+        actingCinema.forEach(v => cinema.appendChild(buildVideoCard({
+          id: v.id,
+          title: v.title,
+          channelTitle: 'Cinéma',
+          publishedAt: '1970-01-01',
+          type: 'extrait',
+          thumb: 'https://img.youtube.com/vi/'+v.id+'/mqdefault.jpg'
+        })));
+      }
+      if(theatre){
+        theatre.innerHTML='';
+        actingTheatre.forEach(v => theatre.appendChild(buildVideoCard({
+          id: v.id,
+          title: v.title,
+          channelTitle: 'Théâtre',
+          publishedAt: '1970-01-01',
+          type: 'extrait',
+          thumb: 'https://img.youtube.com/vi/'+v.id+'/mqdefault.jpg'
+        })));
+      }
+    }
+
     // Affichage groupé (sans bulles de sélection)
     function renderGroupedVideos(){
       const container = qs('#videosContainer');
@@ -616,6 +646,7 @@
       // Tri initial avec priorité commande puis perso puis autres
       allVideos = orderVideos(allVideos);
       renderGroupedVideos();
+      renderActingSection();
     }
 
     // Contact form (demo: local only)
