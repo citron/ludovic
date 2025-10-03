@@ -179,7 +179,6 @@
         </div>
         <p class="lead">Présence, sens du rythme et regard cinématographique. J'explore l'émotion, la tension et la narration visuelle – devant comme derrière la caméra.</p>
         <div class="cta-row">
-          <button class="btn btn-primary" data-scroll-to="#showreel">Voir le Showreel</button>
           <button class="btn btn-outline" data-scroll-to="#contact">Contact Professionnel</button>
         </div>
       </div>
@@ -195,17 +194,7 @@
       </div>
     </section>
 
-    <!-- Showreel -->
-    <section id="showreel" aria-labelledby="showreel-title">
-      <div class="section-intro" data-reveal>
-        <h2 id="showreel-title">Showreel</h2>
-        <p class="muted">Sélection condensée – rythme, intensité dramatique et précision du montage.</p>
-      </div>
-      <div class="video-wrapper" data-reveal>
-        <div class="floating-label">Showreel</div>
-  <iframe src="https://www.youtube.com/embed/wlkT31SIwdU?rel=0&modestbranding=1" title="Showreel Ludovic Gacquer" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-      </div>
-    </section>
+    <!-- Section facultative showreel supprimée -->
 
     <!-- Biographie -->
     <section id="bio" aria-labelledby="bio-title">
@@ -368,7 +357,6 @@
 
     // Fallback vidéos manuelles (si API absente)
     const manualVideos = [
-      { id: 'wlkT31SIwdU', title: 'Showreel Ludovic', publishedAt: '2025-01-01', channelTitle: 'Portfolio', description: 'Showreel officiel', type: 'showreel' },
       { id: 'Ky2rIGLTFv4', title: 'Sélection – Scène', publishedAt: '2025-01-02', channelTitle: 'Portfolio', description: 'Scène sélectionnée', type: 'scene' },
       { id: 'kWmNQbJBcok', title: 'Extrait – Jeu dramatique', publishedAt: '2025-01-03', channelTitle: 'Portfolio', description: 'Extrait démonstratif du registre dramatique.', type: 'scene' },
       { id: 'A6F3vW_wpZY', title: 'Extrait – Intention de mise en scène', publishedAt: '2025-01-04', channelTitle: 'Portfolio', description: 'Présentation du travail de direction et d’intentions visuelles.', type: 'makingof' },
@@ -520,8 +508,10 @@
     function renderFilters(videos){
       const filtersEl = qs('#videoFilters');
       filtersEl.innerHTML='';
-      const types = Array.from(new Set(videos.map(v=>v.type)));
-      const years = Array.from(new Set(videos.map(v=> new Date(v.publishedAt).getFullYear()))).sort((a,b)=> b-a);
+      // Exclure type 'scene'
+      const types = Array.from(new Set(videos.map(v=>v.type))).filter(t => t !== 'scene');
+      // Exclure année 2025
+      const years = Array.from(new Set(videos.map(v=> new Date(v.publishedAt).getFullYear()))).filter(y => y !== 2025).sort((a,b)=> b-a);
       const createChip = (label, value, group) => {
         const chip = document.createElement('button');
         chip.type='button';
@@ -536,11 +526,10 @@
         });
         return chip;
       };
-      // All chips
+      // Chip global types seulement (pas de "Toutes années")
       const allTypes = createChip('Tous types','', 'type'); allTypes.classList.add('active');
-      const allYears = createChip('Toutes années','', 'year'); allYears.classList.add('active');
       filtersEl.append(allTypes,...types.map(t=>createChip(t,t,'type')));
-      filtersEl.append(allYears,...years.map(y=>createChip(String(y),String(y),'year')));
+      years.forEach(y => filtersEl.append(createChip(String(y),String(y),'year')));
     }
 
     function applyFilters(){
@@ -548,6 +537,8 @@
       const activeYear = qs('.filter-chip[data-group="year"].active')?.dataset.value || '';
       const filtered = allVideos.filter(v => {
         const y = new Date(v.publishedAt).getFullYear();
+        if(v.type === 'scene') return false; // exclusion définitive
+        if(y === 2025) return false;        // exclusion année 2025
         return (!activeType || v.type===activeType) && (!activeYear || String(y)===activeYear);
       });
       renderVideos(filtered);
