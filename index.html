@@ -134,12 +134,19 @@
     .socials a {background:#ffffff08;border:1px solid #ffffff15;padding:.6rem .85rem;border-radius:30px;font-size:.7rem;text-transform:uppercase;letter-spacing:.8px;font-weight:600;color:var(--muted);transition:var(--transition);}    
     .socials a:hover {background:var(--accent-grad);color:#fff;border-color:#ff7f3f;}
 
-    /* Modal player */
-    .lightbox {position:fixed;inset:0;background:#000d;backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:200;padding:2rem;opacity:0;pointer-events:none;transition:var(--transition);}
-    .lightbox.open {opacity:1;pointer-events:auto;}
-    .lightbox-inner {width:min(1100px,100%);aspect-ratio:16/9;position:relative;background:#000;border-radius:var(--radius);overflow:hidden;box-shadow:0 20px 50px -18px #000c;}
-    .lightbox-inner iframe {width:100%;height:100%;border:0;}
-    .close-btn {position:absolute;top:-46px;right:0;background:#ffffff12;border:1px solid #ffffff25;color:#fff;font-weight:600;letter-spacing:1px;font-size:.65rem;padding:.55rem .9rem;border-radius:30px;cursor:pointer;text-transform:uppercase;display:flex;align-items:center;gap:.4rem;}
+  /* Modal player */
+  .lightbox {position:fixed;inset:0;background:#000d;backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:200;padding:2rem;opacity:0;pointer-events:none;transition:var(--transition);}
+  .lightbox.open {opacity:1;pointer-events:auto;}
+  .lightbox-inner {width:min(1200px,100%);max-height:calc(100vh - 4rem);display:grid;grid-template-columns:2fr 1fr;gap:1rem;position:relative;background:#0b0b0d;border-radius:var(--radius);overflow:hidden;padding:1rem;box-shadow:0 20px 50px -18px #000c;}
+  @media (max-width: 900px){ .lightbox-inner {grid-template-columns:1fr;max-height:none;height:auto;} }
+  .player-area {position:relative;aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden;}
+  .player-area iframe {width:100%;height:100%;border:0;display:block;}
+  .meta-area {background:#111115;border:1px solid #ffffff15;border-radius:12px;padding:1rem;overflow:auto;}
+  .meta-area h3 {margin:0 0 .6rem;font-size:1rem;font-weight:700;}
+  .meta-list {display:flex;flex-direction:column;gap:.5rem;font-size:.85rem;}
+  .meta-item {display:flex;gap:.5rem;align-items:flex-start;}
+  .meta-item strong {min-width:160px;font-size:.75rem;text-transform:uppercase;letter-spacing:.8px;color:#cfcfd8;}
+  .close-btn {position:absolute;top:-46px;right:0;background:#ffffff12;border:1px solid #ffffff25;color:#fff;font-weight:600;letter-spacing:1px;font-size:.65rem;padding:.55rem .9rem;border-radius:30px;cursor:pointer;text-transform:uppercase;display:flex;align-items:center;gap:.4rem;}
 
     /* Footer */
     footer {margin-top:4rem;padding:3rem 2rem 4rem;background:#0a0a0d;border-top:1px solid #ffffff10;}
@@ -300,7 +307,11 @@
   <div class="lightbox" id="lightbox" aria-modal="true" role="dialog" aria-label="Lecteur vidéo" hidden>
     <div class="lightbox-inner">
       <button class="close-btn" id="closeLightbox" aria-label="Fermer">Fermer ✕</button>
-      <iframe id="lightboxFrame" allowfullscreen title="Lecture vidéo"></iframe>
+      <div class="player-area"><iframe id="lightboxFrame" allowfullscreen title="Lecture vidéo"></iframe></div>
+      <aside class="meta-area" aria-label="Informations sur la vidéo">
+        <h3 id="lbTitle">Titre</h3>
+        <div class="meta-list" id="lbMeta"></div>
+      </aside>
     </div>
   </div>
 
@@ -353,14 +364,14 @@
 
     // Comédien: listes dédiées
     const actingCinema = [
-      { id: '5pD9tEb4ufU', title: 'Si - Bande annonce' },
-      { id: '2SbHKIoA3oo', title: '23h37' },
-      { id: 'fYBwWGi-_e', title: 'A Demain' },
-      { id: '6YYhZIYyiNc', title: 'La Collection de Madame Laursen' },
-      { id: 'QY-AJ7IV3lE', title: 'Scheol' }
+      { id: '5pD9tEb4ufU', title: 'Si - Bande annonce', publishedAt: '2022-01-01' },
+      { id: '2SbHKIoA3oo', title: '23h37', publishedAt: '2021-01-01' },
+      { id: 'fYBwWGi-_e', title: 'A Demain', publishedAt: '2021-01-01' },
+      { id: '6YYhZIYyiNc', title: 'La Collection de Madame Laursen', publishedAt: '2023-01-01' },
+      { id: 'QY-AJ7IV3lE', title: 'Scheol', publishedAt: '2020-01-01' }
     ];
     const actingTheatre = [
-      { id: 'L1tkQrXh940', title: 'LAC' }
+      { id: 'L1tkQrXh940', title: 'LAC', publishedAt: '2020-01-01' }
     ];
 
     // Vidéos curées (Projets personnels + Projets de commande) insérées directement dans la grille principale
@@ -519,22 +530,24 @@
       const theatre = qs('#actingTheatreGrid');
       if(cinema){
         cinema.innerHTML='';
-        actingCinema.forEach(v => cinema.appendChild(buildVideoCard({
+        const sortedCinema = [...actingCinema].sort((a,b)=> new Date(a.publishedAt) - new Date(b.publishedAt));
+        sortedCinema.forEach(v => cinema.appendChild(buildVideoCard({
           id: v.id,
           title: v.title,
           channelTitle: 'Cinéma',
-          publishedAt: '1970-01-01',
+          publishedAt: v.publishedAt,
           type: 'extrait',
           thumb: 'https://img.youtube.com/vi/'+v.id+'/mqdefault.jpg'
         })));
       }
       if(theatre){
         theatre.innerHTML='';
-        actingTheatre.forEach(v => theatre.appendChild(buildVideoCard({
+        const sortedTheatre = [...actingTheatre].sort((a,b)=> new Date(a.publishedAt) - new Date(b.publishedAt));
+        sortedTheatre.forEach(v => theatre.appendChild(buildVideoCard({
           id: v.id,
           title: v.title,
           channelTitle: 'Théâtre',
-          publishedAt: '1970-01-01',
+          publishedAt: v.publishedAt,
           type: 'extrait',
           thumb: 'https://img.youtube.com/vi/'+v.id+'/mqdefault.jpg'
         })));
@@ -601,15 +614,36 @@
           <div class="video-title">${v.title}</div>
           <div class="video-meta"><span>${v.channelTitle||''}</span><span>${new Date(v.publishedAt).getFullYear()}</span><span>${v.type}</span></div>
         </div>`;
-      card.addEventListener('click', ()=> openLightbox(v.id));
-      card.addEventListener('keydown', e=> { if(e.key==='Enter') openLightbox(v.id); });
+      card.addEventListener('click', ()=> openLightbox(v));
+      card.addEventListener('keydown', e=> { if(e.key==='Enter') openLightbox(v); });
       return card;
     }
 
-    function openLightbox(id){
+    const typeLabelMap = { fiction:'Fiction', documentaire:'Documentaire', teaser:'Teaser', interview:'Interview', aftermovie:'Aftermovie', 'clip-musical':'Clip musical', autre:'Autre', extrait:'Extrait' };
+
+    function openLightbox(v){
       const lb = qs('#lightbox');
       const frame = qs('#lightboxFrame');
-      frame.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
+      frame.src = 'https://www.youtube.com/embed/' + v.id + '?autoplay=1&rel=0&modestbranding=1';
+      const titleEl = qs('#lbTitle');
+      const metaEl = qs('#lbMeta');
+      if(titleEl) titleEl.textContent = v.title || '';
+      if(metaEl){
+        const isMain = !!v.origin; // vidéos de la section principale
+        const realisation = isMain ? 'Ludovic Gacquer' : 'Ludovic Gacquer';
+        let montage = isMain ? 'Ludovic Gacquer' : 'Ludovic Gacquer';
+        if(v.id === 'kWmNQbJBcok') montage = 'Jean Bresson et Ludovic Gacquer';
+        const year = v.publishedAt ? new Date(v.publishedAt).getFullYear() : '—';
+        const categorie = typeLabelMap[v.type] || (v.type || '—');
+        const info = v.description || '—';
+        metaEl.innerHTML = `
+          <div class="meta-item"><strong>Titre</strong><span>${v.title||''}</span></div>
+          <div class="meta-item"><strong>Réalisation</strong><span>${realisation}</span></div>
+          <div class="meta-item"><strong>Montage</strong><span>${montage}</span></div>
+          <div class="meta-item"><strong>Année de production</strong><span>${year}</span></div>
+          <div class="meta-item"><strong>Catégorie</strong><span>${categorie}</span></div>
+          <div class="meta-item"><strong>Informations</strong><span>${info}</span></div>`;
+      }
       lb.classList.add('open');
       lb.hidden=false;
     }
