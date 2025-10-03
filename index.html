@@ -603,8 +603,15 @@
         allVideos = await fetchYouTube();
         saveVideosToCache(allVideos);
       }
-      // Fusion : on place les vidéos curées en tête, en évitant les doublons
-      curatedVideos.slice().reverse().forEach(cv => { if(!allVideos.some(v=>v.id===cv.id)) allVideos.unshift(cv); });
+      // Fusion : injecte/écrase les vidéos curées (priorité aux métadonnées curées)
+      curatedVideos.forEach(cv => {
+        const idx = allVideos.findIndex(v => v.id === cv.id);
+        if(idx >= 0) {
+          allVideos[idx] = { ...allVideos[idx], ...cv }; // écrase titre/type/origin si différent
+        } else {
+          allVideos.unshift(cv); // ajoute devant pour conserver priorité visuelle avant tri ordre
+        }
+      });
       // Suppression explicite de toute vidéo intitulée 'Showreel Ludovic'
       allVideos = allVideos.filter(v => !(v.title && v.title.toLowerCase().trim() === 'showreel ludovic'));
       // Tri initial avec priorité commande puis perso puis autres
