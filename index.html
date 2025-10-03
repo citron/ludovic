@@ -203,7 +203,7 @@
       </div>
       <div class="video-wrapper" data-reveal>
         <div class="floating-label">Showreel</div>
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1" title="Showreel Ludovic Gacquer" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  <iframe src="https://www.youtube.com/embed/wlkT31SIwdU?rel=0&modestbranding=1" title="Showreel Ludovic Gacquer" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
     </section>
 
@@ -368,7 +368,8 @@
 
     // Fallback vidéos manuelles (si API absente)
     const manualVideos = [
-      { id: 'dQw4w9WgXcQ', title: 'Showreel Ludovic', publishedAt: '2025-01-01', channelTitle: 'Portfolio', description: 'Showreel officiel', type: 'showreel' }
+      { id: 'wlkT31SIwdU', title: 'Showreel Ludovic', publishedAt: '2025-01-01', channelTitle: 'Portfolio', description: 'Showreel officiel', type: 'showreel' },
+      { id: 'Ky2rIGLTFv4', title: 'Sélection – Scène', publishedAt: '2025-01-02', channelTitle: 'Portfolio', description: 'Scène sélectionnée', type: 'scene' }
     ];
 
     // --- Utilitaires ---
@@ -591,10 +592,17 @@
 
     async function initVideos(){
       const cached = loadVideosFromCache();
-      if(cached){ allVideos = cached; renderFilters(allVideos); applyFilters(); }
-      else {
+      if(cached){
+        allVideos = cached;
+        manualVideos.slice().reverse().forEach(m => { if(!allVideos.some(v=>v.id===m.id)) allVideos.unshift(m); });
+        renderFilters(allVideos); applyFilters();
+      } else {
         allVideos = await fetchYouTube();
-        if(!allVideos.length) allVideos = manualVideos; // fallback final
+        if(!allVideos.length) {
+          allVideos = [...manualVideos];
+        } else {
+          manualVideos.slice().reverse().forEach(m => { if(!allVideos.some(v=>v.id===m.id)) allVideos.unshift(m); });
+        }
         saveVideosToCache(allVideos);
         renderFilters(allVideos); applyFilters();
       }
