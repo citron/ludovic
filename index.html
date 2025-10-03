@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Ludovic Gacquer – Acteur · Réalisateur · Monteur</title>
-  <meta name="description" content="Portfolio officiel de Ludovic Gacquer – acteur, réalisateur et monteur. Filmographie, vidéos, showreel et contact professionnel." />
+  <meta name="description" content="Portfolio officiel de Ludovic Gacquer – acteur, réalisateur et monteur. Filmographie, vidéos et contact professionnel." />
   <meta property="og:title" content="Ludovic Gacquer – Portfolio" />
   <meta property="og:description" content="Acteur · Réalisateur · Monteur – Filmographie, vidéos et contact professionnel." />
   <meta property="og:type" content="website" />
@@ -342,15 +342,15 @@
     // Vidéos curées (Projets personnels + Projets de commande) insérées directement dans la grille principale
     const curatedVideos = [
       // Projets personnels
-      { id: 'Ky2rIGLTFv4', title: 'La Belle et la Caisse', publishedAt: '2024-10-01', channelTitle: 'Projet personnel', description: 'Court de fiction', type: 'fiction' },
-      { id: 'kWmNQbJBcok', title: 'Bieu conme un Indien', publishedAt: '2024-06-15', channelTitle: 'Projet personnel', description: 'Documentaire', type: 'documentaire' },
-      { id: 'A6F3vW_wpZY', title: 'Garphilde', publishedAt: '2024-05-20', channelTitle: 'Projet personnel', description: 'Fiction', type: 'fiction' },
-      { id: '7dLSe8_8rKQ', title: 'GOBELET - Global Offensive By Electrical Light Energy The Terminal', publishedAt: '2024-04-10', channelTitle: 'Projet personnel', description: 'Fiction', type: 'fiction' },
+      { id: 'Ky2rIGLTFv4', title: 'La Belle et la Caisse', publishedAt: '2025-10-01', channelTitle: 'Projet personnel', description: 'Court de fiction', type: 'fiction', origin: 'perso' },
+      { id: 'kWmNQbJBcok', title: 'Bieu conme un Indien', publishedAt: '2023-06-15', channelTitle: 'Projet personnel', description: 'Documentaire', type: 'documentaire', origin: 'perso' },
+      { id: 'A6F3vW_wpZY', title: 'Garphilde', publishedAt: '2024-05-20', channelTitle: 'Projet personnel', description: 'Fiction', type: 'fiction', origin: 'perso' },
+      { id: '7dLSe8_8rKQ', title: 'GOBELET - Global Offensive By Electrical Light Energy The Terminal', publishedAt: '2022-04-10', channelTitle: 'Projet personnel', description: 'Fiction', type: 'fiction', origin: 'perso' },
       // Projets de commande
-      { id: 'g-gyTVi_iT8', title: 'Nightmare - Thinking Too Much - Music clip', publishedAt: '2024-03-15', channelTitle: 'Commande', description: 'Clip musical', type: 'clip-musical' },
-      { id: 'ILtUNe4Q3LA', title: 'Teaser 54h Chrono! 2024', publishedAt: '2024-02-20', channelTitle: 'Commande', description: 'Teaser', type: 'teaser' },
-      { id: '9bKy3DJzbVQ', title: 'Festival de la Photographie au Cinéma', publishedAt: '2024-01-25', channelTitle: 'Commande', description: 'Documentaire', type: 'documentaire' },
-      { id: 'Ty9t8MBemzE', title: 'Aftermovie Fenêtre sur Court 2024', publishedAt: '2024-01-05', channelTitle: 'Commande', description: 'Aftermovie', type: 'aftermovie' }
+      { id: 'g-gyTVi_iT8', title: 'Nightmare - Thinking Too Much - Music clip', publishedAt: '2023-03-15', channelTitle: 'Commande', description: 'Clip musical', type: 'clip-musical', origin: 'commande' },
+      { id: 'ILtUNe4Q3LA', title: 'Teaser 54h Chrono! 2024', publishedAt: '2024-02-20', channelTitle: 'Commande', description: 'Teaser', type: 'teaser', origin: 'commande' },
+      { id: '9bKy3DJzbVQ', title: 'Festival de la Photographie au Cinéma', publishedAt: '2024-01-25', channelTitle: 'Commande', description: 'Documentaire', type: 'documentaire', origin: 'commande' },
+      { id: 'Ty9t8MBemzE', title: 'Aftermovie Fenêtre sur Court 2024', publishedAt: '2024-01-05', channelTitle: 'Commande', description: 'Aftermovie', type: 'aftermovie', origin: 'commande' }
     ];
 
     // --- Utilitaires ---
@@ -470,7 +470,8 @@
                 channelTitle: it.snippet.channelTitle,
                 publishedAt: it.snippet.publishedAt,
                 thumb: it.snippet.thumbnails?.medium?.url || it.snippet.thumbnails?.default?.url,
-                type: classifyVideo(it.snippet.title, it.snippet.description)
+                type: classifyVideo(it.snippet.title, it.snippet.description),
+                origin: 'auto'
               });
             }
           });
@@ -483,7 +484,6 @@
       const t = (title+' '+desc).toLowerCase();
       if(t.includes('bande annonce')|| t.includes('trailer')|| t.includes('teaser')) return 'teaser';
       if(t.includes('interview')) return 'interview';
-      if(t.includes('showreel')|| t.includes('reel')) return 'showreel';
       if(t.includes('making of')|| t.includes('behind')|| t.includes('after movie')|| t.includes('aftermovie')) return 'aftermovie';
       if(t.includes('clip')) return 'clip-musical';
       return 'autre';
@@ -505,7 +505,13 @@
         chip.dataset.value=value;
         chip.dataset.group=group;
         chip.addEventListener('click',()=>{
-          qsa(`.filter-chip[data-group="${group}"]`).forEach(c=> c.classList.toggle('active', c===chip));
+          if(group==='type') {
+            // exclusif pour les types
+            qsa(`.filter-chip[data-group="${group}"]`).forEach(c=> c.classList.toggle('active', c===chip));
+          } else if(group==='origin') {
+            // multi-select toggle
+            chip.classList.toggle('active');
+          }
           applyFilters();
         });
         return chip;
@@ -513,15 +519,38 @@
       const allTypes = createChip('Tous types','', 'type'); allTypes.classList.add('active');
       filtersEl.append(allTypes);
       orderedDisplay.forEach(d => filtersEl.append(createChip(d, mapDisplayToInternal(d), 'type')));
+      // Filtres d'origine (superposables)
+      const originsWrapper = document.createElement('div');
+      originsWrapper.style.marginTop = '0.4rem';
+      const originLabel = document.createElement('span');
+      originLabel.className='muted';
+      originLabel.style.fontSize='0.6rem';
+      originLabel.style.letterSpacing='1px';
+      originLabel.style.textTransform='uppercase';
+      originLabel.textContent='Origine';
+      originsWrapper.appendChild(originLabel);
+      const originChips = document.createElement('div');
+      originChips.style.display='flex';
+      originChips.style.flexWrap='wrap';
+      originChips.style.gap='.5rem';
+      originChips.appendChild(createChip('Projets personnels','perso','origin'));
+      originChips.appendChild(createChip('Projets de commande','commande','origin'));
+      originsWrapper.appendChild(originChips);
+      filtersEl.appendChild(originsWrapper);
     }
 
     function applyFilters(){
       const activeType = qs('.filter-chip[data-group="type"].active')?.dataset.value || '';
+      const activeOrigins = qsa('.filter-chip[data-group="origin"].active').map(c=> c.dataset.value);
       const filtered = allVideos.filter(v => {
         const y = new Date(v.publishedAt).getFullYear();
         // Exclusions précédentes supprimées car les curées doivent toutes apparaître
-        return (!activeType || v.type===activeType);
+        const typeOk = (!activeType || v.type===activeType);
+        const originOk = (activeOrigins.length===0 || (v.origin && activeOrigins.includes(v.origin)));
+        return typeOk && originOk;
       });
+      // Tri année descendante puis date précise
+      filtered.sort((a,b)=> new Date(b.publishedAt) - new Date(a.publishedAt));
       renderVideos(filtered);
     }
 
@@ -575,6 +604,10 @@
       }
       // Fusion : on place les vidéos curées en tête, en évitant les doublons
       curatedVideos.slice().reverse().forEach(cv => { if(!allVideos.some(v=>v.id===cv.id)) allVideos.unshift(cv); });
+      // Suppression explicite de toute vidéo intitulée 'Showreel Ludovic'
+      allVideos = allVideos.filter(v => !(v.title && v.title.toLowerCase().trim() === 'showreel ludovic'));
+      // Tri initial global (année descendante)
+      allVideos.sort((a,b)=> new Date(b.publishedAt) - new Date(a.publishedAt));
       renderFilters(allVideos); applyFilters();
     }
 
