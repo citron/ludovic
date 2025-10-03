@@ -205,8 +205,7 @@
         <p class="muted">Agrégation automatique & sélection. Filtrage par catégorie.</p>
       </div>
       <!-- Filtres en haut -->
-      <div class="video-gallery-controls" id="videoFilters" data-reveal></div>
-      <div id="videosContainer" class="videos-grid" data-reveal aria-live="polite"></div>
+      <div id="videosContainer" data-reveal aria-live="polite"></div>
       <div id="videosEmpty" class="empty-state" style="display:none;">Aucune vidéo trouvée.</div>
     </section>
 
@@ -489,80 +488,42 @@
       return 'autre';
     }
 
-    function renderFilters(videos){
-      const filtersEl = qs('#videoFilters');
-      filtersEl.innerHTML='';
-      const createChip = (label, value, group) => {
-        const chip = document.createElement('button');
-        chip.type='button';
-        chip.className='filter-chip';
-        chip.textContent=label;
-        chip.dataset.value=value;
-        chip.dataset.group=group;
-        chip.addEventListener('click',()=>{
-          if(group==='type') {
-            qsa(`.filter-chip[data-group="type"]`).forEach(c=> c.classList.toggle('active', c===chip));
-          } else if(group==='subcat') {
-            // bascule sous-catégorie (exclusif)
-            qsa(`.filter-chip[data-group="subcat"]`).forEach(c=> c.classList.toggle('active', c===chip));
-            // reset type selection quand on change de sous-cat
-            qsa('.filter-chip[data-group="type"]').forEach(c=> c.classList.remove('active'));
-            qs('.filter-chip[data-group="type"][data-value=""]').classList.add('active');
-            buildTypeRow();
-          }
-          applyFilters();
-        });
-        return chip;
-      };
-
-      // Rangée sous-catégories
-      const subRow = document.createElement('div');
-      subRow.style.display='flex';
-      subRow.style.flexWrap='wrap';
-      subRow.style.gap='.5rem';
-      const persoChip = createChip('Projets personnels','perso','subcat');
-      const commandeChip = createChip('Projets de commande','commande','subcat');
-      // Par défaut on sélectionne commande (priorité d'affichage actuelle)
-      commandeChip.classList.add('active');
-      subRow.appendChild(commandeChip);
-      subRow.appendChild(persoChip);
-      filtersEl.appendChild(subRow);
-
-      // Conteneur types dynamiques selon sous-catégorie
-      const typeRow = document.createElement('div');
-      typeRow.id='typeFilterRow';
-      typeRow.style.display='flex';
-      typeRow.style.flexWrap='wrap';
-      typeRow.style.gap='.5rem';
-      typeRow.style.marginTop='.4rem';
-      filtersEl.appendChild(typeRow);
-
-      function buildTypeRow(){
-        typeRow.innerHTML='';
-        const activeSub = qs('.filter-chip[data-group="subcat"].active')?.dataset.value;
-        let typesList = [];
-        if(activeSub==='perso') typesList = ['Fiction','Documentaire'];
-        else if(activeSub==='commande') typesList = ['Teaser','Documentaire','Aftermovie','Clip musical'];
-        const allTypesChip = createChip('Tous types','', 'type');
-        allTypesChip.classList.add('active');
-        typeRow.appendChild(allTypesChip);
-        typesList.forEach(lbl => {
-          const val = lbl.toLowerCase().replace(' ','-').replace('clip-musical','clip-musical').replace('aftermovie','aftermovie');
-          typeRow.appendChild(createChip(lbl, val, 'type'));
-        });
-      }
-      buildTypeRow();
-    }
-
-    function applyFilters(){
-      const activeType = qs('.filter-chip[data-group="type"].active')?.dataset.value || '';
-      const activeSub = qs('.filter-chip[data-group="subcat"].active')?.dataset.value || '';
-      const filtered = allVideos.filter(v => {
-        const subOk = !activeSub || v.origin === activeSub; // origin = perso/commande
-        const typeOk = (!activeType || v.type===activeType);
-        return subOk && typeOk;
+    // Affichage groupé (sans bulles de sélection)
+    function renderGroupedVideos(){
+      const container = qs('#videosContainer');
+      const empty = qs('#videosEmpty');
+      container.innerHTML='';
+      const groups = [
+        { key: 'perso',     title: 'Projets personnels' },
+        { key: 'commande',  title: 'Projets de commande' },
+        { key: 'other',     title: 'Autres' }
+      ];
+      let totalCount = 0;
+      groups.forEach(g => {
+        let vids;
+        if(g.key === 'other') {
+          vids = allVideos.filter(v => v.origin !== 'perso' && v.origin !== 'commande');
+        } else {
+          vids = allVideos.filter(v => v.origin === g.key);
+        }
+        if(!vids.length) {
+          // Ne pas afficher le groupe 'Autres' vide, et ignorer groupes vides si aucune vidéo
+          return;
+        }
+        totalCount += vids.length;
+        // Titre de groupe
+        const heading = document.createElement('h3');
+        heading.textContent = g.title;
+        heading.className = 'video-group-title';
+        container.appendChild(heading);
+        // Grille du groupe
+        const grid = document.createElement('div');
+        grid.className='videos-grid video-group-grid';
+        vids.sort((a,b)=> new Date(b.publishedAt) - new Date(a.publishedAt));
+        vids.forEach(v => grid.appendChild(buildVideoCard(v)));
+        container.appendChild(grid);
       });
-      renderVideos(orderVideos(filtered));
+      if(totalCount === 0) empty.style.display='block'; else empty.style.display='none';
     }
 
     function orderVideos(list){
@@ -576,26 +537,20 @@
       return [...sortDesc(byGroup.commande), ...sortDesc(byGroup.perso), ...sortDesc(byGroup.other)];
     }
 
-    function renderVideos(videos){
-      const container = qs('#videosContainer');
-      const empty = qs('#videosEmpty');
-      container.innerHTML='';
-      if(!videos.length){ empty.style.display='block'; return; } else empty.style.display='none';
-      videos.forEach(v => {
-        const card = document.createElement('article');
-        card.className='video-card';
-        card.setAttribute('role','button');
-        card.setAttribute('tabindex','0');
-        card.innerHTML = `
-          <div class="video-thumb"><img src="${v.thumb || 'https://img.youtube.com/vi/'+v.id+'/mqdefault.jpg'}" alt="Miniature ${v.title}"></div>
-          <div class="video-body">
-            <div class="video-title">${v.title}</div>
-            <div class="video-meta"><span>${v.channelTitle||''}</span><span>${new Date(v.publishedAt).getFullYear()}</span><span>${v.type}</span></div>
-          </div>`;
-        card.addEventListener('click', ()=> openLightbox(v.id));
-        card.addEventListener('keydown', e=> { if(e.key==='Enter') openLightbox(v.id); });
-        container.appendChild(card);
-      });
+    function buildVideoCard(v){
+      const card = document.createElement('article');
+      card.className='video-card';
+      card.setAttribute('role','button');
+      card.setAttribute('tabindex','0');
+      card.innerHTML = `
+        <div class="video-thumb"><img src="${v.thumb || 'https://img.youtube.com/vi/'+v.id+'/mqdefault.jpg'}" alt="Miniature ${v.title}"></div>
+        <div class="video-body">
+          <div class="video-title">${v.title}</div>
+          <div class="video-meta"><span>${v.channelTitle||''}</span><span>${new Date(v.publishedAt).getFullYear()}</span><span>${v.type}</span></div>
+        </div>`;
+      card.addEventListener('click', ()=> openLightbox(v.id));
+      card.addEventListener('keydown', e=> { if(e.key==='Enter') openLightbox(v.id); });
+      return card;
     }
 
     function openLightbox(id){
@@ -637,7 +592,7 @@
       allVideos = allVideos.filter(v => !(v.title && v.title.toLowerCase().trim() === 'showreel ludovic'));
       // Tri initial avec priorité commande puis perso puis autres
       allVideos = orderVideos(allVideos);
-      renderFilters(allVideos); applyFilters();
+      renderGroupedVideos();
     }
 
     // Contact form (demo: local only)
