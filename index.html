@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="fr" prefix="og: http://ogp.me/ns#">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ludovic Gacquer – Acteur · Réalisateur · Monteur</title>
+  <meta name="description" content="Portfolio officiel de Ludovic Gacquer – acteur, réalisateur et monteur. Filmographie, vidéos, showreel et contact professionnel." />
+  <meta property="og:title" content="Ludovic Gacquer – Portfolio" />
+  <meta property="og:description" content="Acteur · Réalisateur · Monteur – Filmographie, vidéos et contact professionnel." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta name="theme-color" content="#0d0d0f" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:#0d0d0f;--bg-alt:#16161a;--panel:#1f1f24;--panel-alt:#26262c;--accent:#ff4040;--accent-grad:linear-gradient(135deg,#ff4040,#ff7f3f);--text:#e9e9ef;--muted:#a3a3b0;--radius:18px;--radius-sm:8px;--font-sans:'Montserrat',system-ui,sans-serif;--font-serif:'Playfair Display',serif;--max-w:1320px;--transition:0.35s cubic-bezier(.4,.08,.2,1);--focus-ring:0 0 0 3px #ffffff10,0 0 0 6px #ff404055;
+    }
+    * {box-sizing:border-box;margin:0;padding:0;}
+    html {scroll-behavior:smooth;}
+    body {background:radial-gradient(circle at 15% 20%,#18181d,#0d0d0f 60%);color:var(--text);font-family:var(--font-sans);-webkit-font-smoothing:antialiased;}
+    body::before {content:"";position:fixed;inset:0;background:radial-gradient(circle at 85% 10%,#39151555,transparent 60%),radial-gradient(circle at 10% 90%,#17353f55,transparent 60%);mix-blend-mode:overlay;pointer-events:none;opacity:.5;}
+    a {color:var(--accent);text-decoration:none;}
+    img {max-width:100%;display:block;border-radius:var(--radius-sm);}
+    h1,h2,h3 {font-family:var(--font-serif);font-weight:600;line-height:1.15;letter-spacing:.5px;}
+    h1 {font-size:clamp(2.8rem,5vw,4.2rem);}
+    h2 {font-size:clamp(2rem,3.2vw,2.8rem);margin-bottom:.75rem;}
+    h3 {font-size:clamp(1.25rem,2.2vw,1.6rem);margin:1.2rem 0 .6rem;}
+    p {line-height:1.6;}
+    ::selection {background:#ff404055;color:#fff;}
+
+    /* Layout */
+    header {position:fixed;top:0;left:0;right:0;z-index:80;backdrop-filter:blur(12px);background:#0d0d0fbf;border-bottom:1px solid #ffffff0e;}
+    .nav-wrapper {display:flex;align-items:center;justify-content:space-between;max-width:var(--max-w);margin:0 auto;padding:.9rem 2rem;}
+    .brand {font-family:var(--font-serif);font-size:1.35rem;font-weight:600;letter-spacing:.5px;display:flex;align-items:center;gap:.6rem;}
+  .brand span.role {background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700;}
+    nav ul {list-style:none;display:flex;gap:1.4rem;}
+    nav a {font-size:.9rem;font-weight:500;letter-spacing:.5px;position:relative;padding:.4rem .2rem;color:var(--muted);transition:var(--transition);}
+    nav a::after {content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;transform:scaleX(0);transform-origin:left;background:var(--accent-grad);transition:var(--transition);border-radius:2px;}
+    nav a:hover,nav a:focus {color:var(--text);}nav a:hover::after,nav a:focus::after,nav a.active::after {transform:scaleX(1);}    
+
+    .burger {display:none;flex-direction:column;gap:5px;cursor:pointer;}
+    .burger span {width:26px;height:2px;background:var(--text);transition:var(--transition);}
+    @media (max-width:900px){
+      nav ul {position:fixed;top:65px;right:1rem;flex-direction:column;background:var(--panel);padding:1.2rem 1.4rem;border:1px solid #ffffff10;border-radius:var(--radius);box-shadow:0 20px 40px -10px #000a;max-width:240px;transform:translateY(-10px) scale(.95);opacity:0;pointer-events:none;transition:var(--transition);}
+      nav ul.open {opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+      .burger {display:flex;}
+    }
+
+    main {max-width:var(--max-w);margin:0 auto;padding:120px 2rem 4rem;}
+    section {margin-bottom:6rem;position:relative;}
+    section:last-of-type {margin-bottom:2rem;}
+    .section-intro {max-width:880px;margin-bottom:2.2rem;}
+
+    /* Hero */
+    .hero {display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:3.5rem;align-items:center;}
+    .hero-media {position:relative;}
+    .portrait-frame {position:relative;overflow:hidden;border-radius:min(var(--radius),28px);background:linear-gradient(135deg,#27272f,#15151a);padding:8px;}
+  .portrait-frame::before {content:"";position:absolute;inset:0;padding:2px;border-radius:inherit;background:linear-gradient(130deg,#ff4040,#ff7f3f,#ff4040 70%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.5;}
+    .portrait-frame img {width:100%;height:100%;object-fit:cover;aspect-ratio:4/5;filter:saturate(1.05) contrast(1.05);transition:transform 1.2s ease;}
+    .portrait-frame:hover img {transform:scale(1.04);}    
+    .badge-stack {position:absolute;bottom:-14px;left:16px;display:flex;gap:.6rem;flex-wrap:wrap;}
+    .badge {background:#ffffff08;border:1px solid #ffffff12;padding:.45rem .7rem;font-size:.7rem;letter-spacing:.5px;text-transform:uppercase;border-radius:30px;font-weight:600;backdrop-filter:blur(6px);display:inline-flex;align-items:center;gap:.4rem;}
+    .badge svg {width:14px;height:14px;}
+    .hero-text h1 {margin-bottom:1.2rem;}
+    .hero-roles {display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1.2rem;}
+    .hero-roles span {background:linear-gradient(120deg,#ffffff10,#ffffff05);border:1px solid #ffffff18;padding:.55rem .9rem;font-size:.72rem;letter-spacing:.8px;text-transform:uppercase;border-radius:26px;font-weight:600;color:var(--muted);}
+    .lead {font-size:1.15rem;max-width:620px;margin-bottom:2rem;color:#d7d7df;}
+    .cta-row {display:flex;flex-wrap:wrap;gap:1rem;align-items:center;}
+    .btn {--btn-bg:var(--panel);--btn-border:#ffffff18;position:relative;display:inline-flex;align-items:center;gap:.55rem;padding:.9rem 1.35rem;font-weight:600;font-size:.85rem;letter-spacing:.7px;text-transform:uppercase;border-radius:40px;color:var(--text);border:1px solid var(--btn-border);background:var(--btn-bg);cursor:pointer;transition:var(--transition);overflow:hidden;}
+    .btn-primary {--btn-bg:linear-gradient(135deg,#ff4040,#ff7f3f);}    
+    .btn-outline {background:#ffffff05;}
+    .btn:hover {filter:brightness(1.08) saturate(1.1);}    
+    .btn:focus-visible {outline:none;box-shadow:var(--focus-ring);}    
+
+    /* Showreel */
+    .video-wrapper {position:relative;aspect-ratio:16/9;background:#000;border-radius:var(--radius);overflow:hidden;box-shadow:0 20px 40px -18px #000b,0 0 0 1px #ffffff10;}
+    .video-wrapper iframe {width:100%;height:100%;border:0;}
+    .floating-label {position:absolute;top:10px;left:10px;background:#ffffff12;padding:.4rem .7rem;border-radius:30px;font-size:.65rem;letter-spacing:1px;font-weight:600;text-transform:uppercase;color:#fff;backdrop-filter:blur(8px);}
+
+    /* Skills */
+    .skills-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.2rem;}
+    .skill-card {background:linear-gradient(160deg,#222228,#1a1a20);border:1px solid #ffffff10;padding:1.1rem 1.1rem 1.15rem;border-radius:var(--radius-sm);position:relative;overflow:hidden;}
+    .skill-card::before {content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at 85% 15%,#ff404010,transparent 60%);opacity:.8;pointer-events:none;}
+    .skill-card h4 {font-size:.9rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:.55rem;font-weight:600;color:#fff;}
+    .meter {height:7px;background:#ffffff10;border-radius:6px;overflow:hidden;position:relative;margin-top:.4rem;}
+    .meter span {display:block;height:100%;background:var(--accent-grad);width:0;transition:width 1.2s ease .15s;box-shadow:0 0 0 1px #ffffff05 inset;}
+
+    /* Timeline */
+    .timeline {position:relative;padding-left:1rem;margin-top:1rem;}
+    .timeline::before {content:"";position:absolute;left:6px;top:0;bottom:0;width:2px;background:linear-gradient(#ff4040,#ff7f3f);border-radius:2px;opacity:.9;}
+    .timeline-item {position:relative;margin:0 0 2rem 0;padding-left:1.6rem;}
+    .timeline-item:last-child {margin-bottom:0;}
+    .timeline-item::before {content:"";position:absolute;left:-1px;top:4px;width:14px;height:14px;border-radius:50%;background:#16161a;border:3px solid #ff5656;box-shadow:0 0 0 4px #ff404020;}
+    .timeline-item h4 {margin:0;font-size:1rem;font-weight:600;}
+    .timeline-item small {display:block;margin:.25rem 0 .4rem;color:var(--muted);font-size:.7rem;letter-spacing:1px;text-transform:uppercase;}
+
+    /* Video gallery */
+    .video-gallery-controls {display:flex;flex-wrap:wrap;gap:.7rem;margin-bottom:1.2rem;}
+    .filter-chip {background:#ffffff08;border:1px solid #ffffff15;color:var(--muted);padding:.55rem .9rem;font-size:.7rem;font-weight:600;letter-spacing:.8px;text-transform:uppercase;border-radius:28px;cursor:pointer;transition:var(--transition);}
+    .filter-chip.active,.filter-chip:hover {background:var(--accent-grad);color:#fff;border-color:#ff7f3f;}
+    .videos-grid {display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.1rem;}
+    .video-card {background:linear-gradient(150deg,#24242a,#1d1d22);border:1px solid #ffffff12;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;position:relative;transition:var(--transition);cursor:pointer;}
+    .video-card:hover {transform:translateY(-4px);box-shadow:0 14px 28px -10px #000b,0 0 0 1px #ffffff18;}
+    .video-thumb {position:relative;aspect-ratio:16/9;overflow:hidden;}
+    .video-thumb img {width:100%;height:100%;object-fit:cover;transition:transform 1.2s ease;filter:brightness(.92) saturate(1.05);}
+    .video-card:hover img {transform:scale(1.06);}    
+    .video-body {padding:.85rem .9rem 1rem;display:flex;flex-direction:column;gap:.55rem;}
+    .video-title {font-size:.78rem;font-weight:600;line-height:1.3;}
+    .video-meta {font-size:.65rem;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);display:flex;gap:.6rem;flex-wrap:wrap;}
+    .empty-state {padding:2.2rem;text-align:center;background:#ffffff06;border:1px dashed #ffffff20;border-radius:var(--radius-sm);color:var(--muted);}    
+
+    /* Testimonials & Awards placeholders */
+    .cards-flex {display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;}
+    .mini-card {background:linear-gradient(160deg,#202027,#16161b);border:1px solid #ffffff12;padding:1.1rem 1rem;border-radius:16px;position:relative;overflow:hidden;}
+    .mini-card h4 {font-size:.85rem;letter-spacing:.8px;text-transform:uppercase;margin-bottom:.4rem;}
+    .mini-card p {font-size:.8rem;color:#d2d2da;}
+
+    /* Contact */
+    .contact-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:2.5rem;align-items:start;}
+    form {display:flex;flex-direction:column;gap:.9rem;}
+    label {font-size:.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:600;}
+    input,textarea {background:#ffffff08;border:1px solid #ffffff20;border-radius:12px;padding:.9rem;font:inherit;color:var(--text);resize:vertical;min-height:54px;}
+    input:focus,textarea:focus {outline:none;box-shadow:var(--focus-ring);}
+    textarea {min-height:140px;}
+    .contact-info {display:flex;flex-direction:column;gap:1rem;font-size:.9rem;}
+    .socials {display:flex;flex-wrap:wrap;gap:.7rem;margin-top:.5rem;}
+    .socials a {background:#ffffff08;border:1px solid #ffffff15;padding:.6rem .85rem;border-radius:30px;font-size:.7rem;text-transform:uppercase;letter-spacing:.8px;font-weight:600;color:var(--muted);transition:var(--transition);}    
+    .socials a:hover {background:var(--accent-grad);color:#fff;border-color:#ff7f3f;}
+
+    /* Modal player */
+    .lightbox {position:fixed;inset:0;background:#000d;backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:200;padding:2rem;opacity:0;pointer-events:none;transition:var(--transition);}
+    .lightbox.open {opacity:1;pointer-events:auto;}
+    .lightbox-inner {width:min(1100px,100%);aspect-ratio:16/9;position:relative;background:#000;border-radius:var(--radius);overflow:hidden;box-shadow:0 20px 50px -18px #000c;}
+    .lightbox-inner iframe {width:100%;height:100%;border:0;}
+    .close-btn {position:absolute;top:-46px;right:0;background:#ffffff12;border:1px solid #ffffff25;color:#fff;font-weight:600;letter-spacing:1px;font-size:.65rem;padding:.55rem .9rem;border-radius:30px;cursor:pointer;text-transform:uppercase;display:flex;align-items:center;gap:.4rem;}
+
+    /* Footer */
+    footer {margin-top:4rem;padding:3rem 2rem 4rem;background:#0a0a0d;border-top:1px solid #ffffff10;}
+    .footer-inner {max-width:var(--max-w);margin:0 auto;display:flex;flex-direction:column;gap:1.5rem;font-size:.75rem;color:var(--muted);}
+    .legal {display:flex;flex-wrap:wrap;gap:1.2rem;}
+
+    /* Scroll reveal */
+    [data-reveal] {opacity:0;transform:translateY(28px);transition:1s cubic-bezier(.25,.46,.25,1);}
+    [data-reveal].visible {opacity:1;transform:none;}
+
+    /* Utility */
+  .gradient-text {background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+    .muted {color:var(--muted);}
+    .center {text-align:center;}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-wrapper">
+      <div class="brand" aria-label="Ludovic Gacquer"><span>Ludovic Gacquer</span><span class="role gradient-text">Portfolio</span></div>
+      <nav>
+        <div class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></div>
+        <ul id="navList">
+          <li><a href="#hero">Accueil</a></li>
+          <li><a href="#showreel">Showreel</a></li>
+          <li><a href="#bio">Bio</a></li>
+            <li><a href="#skills">Compétences</a></li>
+          <li><a href="#filmographie">Filmographie</a></li>
+          <li><a href="#videos">Vidéos</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <!-- Hero -->
+    <section id="hero" class="hero" aria-label="Présentation">
+      <div class="hero-text" data-reveal>
+        <h1><span class="gradient-text">Ludovic Gacquer</span></h1>
+        <div class="hero-roles">
+          <span>Acteur</span><span>Réalisateur</span><span>Monteur</span><span>Créatif</span>
+        </div>
+        <p class="lead">Présence, sens du rythme et regard cinématographique. J'explore l'émotion, la tension et la narration visuelle – devant comme derrière la caméra.</p>
+        <div class="cta-row">
+          <button class="btn btn-primary" data-scroll-to="#showreel">Voir le Showreel</button>
+          <button class="btn btn-outline" data-scroll-to="#contact">Contact Professionnel</button>
+        </div>
+      </div>
+      <div class="hero-media" data-reveal>
+        <div class="portrait-frame">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80" alt="Portrait de Ludovic Gacquer" loading="lazy" />
+          <div class="badge-stack">
+            <div class="badge">Expérience</div>
+            <div class="badge">Narration</div>
+            <div class="badge">Émotion</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Showreel -->
+    <section id="showreel" aria-labelledby="showreel-title">
+      <div class="section-intro" data-reveal>
+        <h2 id="showreel-title">Showreel</h2>
+        <p class="muted">Sélection condensée – rythme, intensité dramatique et précision du montage.</p>
+      </div>
+      <div class="video-wrapper" data-reveal>
+        <div class="floating-label">Showreel</div>
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1" title="Showreel Ludovic Gacquer" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+    </section>
+
+    <!-- Biographie -->
+    <section id="bio" aria-labelledby="bio-title">
+      <div class="section-intro" data-reveal>
+        <h2 id="bio-title">Biographie</h2>
+        <p>TODO: Remplacer ce texte par une biographie authentique. Passionné par la direction d'acteurs et le rythme du montage, Ludovic développe une approche hybride mêlant exigence cinématographique et sens du détail. Expérience en courts-métrages, publicité, formats web et collaboration créative.</p>
+      </div>
+    </section>
+
+    <!-- Compétences -->
+    <section id="skills" aria-labelledby="skills-title">
+      <div class="section-intro" data-reveal>
+        <h2 id="skills-title">Compétences</h2>
+        <p class="muted">Jeux, vision, précision narrative – un ensemble complémentaire au service de projets ambitieux.</p>
+      </div>
+      <div class="skills-grid" id="skillsGrid"></div>
+    </section>
+
+    <!-- Filmographie / Timeline -->
+    <section id="filmographie" aria-labelledby="filmographie-title">
+      <div class="section-intro" data-reveal>
+        <h2 id="filmographie-title">Filmographie & Crédits</h2>
+        <p class="muted">Sélection de projets – acting, réalisation, montage.</p>
+      </div>
+      <div class="timeline" id="timeline" aria-live="polite"></div>
+    </section>
+
+    <!-- Galerie Vidéos -->
+    <section id="videos" aria-labelledby="videos-title">
+      <div class="section-intro" data-reveal>
+        <h2 id="videos-title">Vidéos</h2>
+        <p class="muted">Agrégation automatique des contenus YouTube mentionnant « Ludovic Gacquer ». Filtrage par type et année.</p>
+      </div>
+      <div class="video-gallery-controls" id="videoFilters" data-reveal></div>
+      <div id="videosContainer" class="videos-grid" data-reveal aria-live="polite"></div>
+      <div id="videosEmpty" class="empty-state" style="display:none;">Aucune vidéo trouvée.</div>
+    </section>
+
+    <!-- Témoignages (placeholder) -->
+    <section id="temoignages" aria-labelledby="temoignages-title">
+      <div class="section-intro" data-reveal>
+        <h2 id="temoignages-title">Témoignages</h2>
+        <p class="muted">Retours de collaborateurs – à compléter.</p>
+      </div>
+      <div class="cards-flex" id="testimonials" data-reveal></div>
+    </section>
+
+    <!-- Distinctions (placeholder) -->
+    <section id="distinctions" aria-labelledby="distinctions-title">
+      <div class="section-intro" data-reveal>
+        <h2 id="distinctions-title">Distinctions</h2>
+        <p class="muted">Sélections et prix – à compléter.</p>
+      </div>
+      <div class="cards-flex" id="awards" data-reveal></div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="section-intro" data-reveal>
+        <h2 id="contact-title">Contact</h2>
+        <p class="muted">Pour propositions, collaborations artistiques ou demandes de casting.</p>
+      </div>
+      <div class="contact-grid" data-reveal>
+        <form id="contactForm" novalidate>
+          <div>
+            <label for="name">Nom</label>
+            <input type="text" id="name" name="name" required placeholder="Votre nom" />
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="vous@example.com" />
+          </div>
+          <div>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required placeholder="Votre message..."></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit">Envoyer</button>
+          <div id="formStatus" class="muted" role="status" aria-live="polite" style="min-height:24px;margin-top:.4rem;"></div>
+        </form>
+        <div class="contact-info">
+          <div>
+            <strong>Représentation / Booking</strong><br />
+            <span class="muted">TODO: agence / contact professionnel.</span>
+          </div>
+          <div>
+            <strong>Email direct</strong><br />
+            <a href="mailto:contact@example.com">contact@example.com</a>
+          </div>
+          <div>
+            <strong>Réseaux</strong>
+            <div class="socials">
+              <a href="#" rel="noopener" target="_blank">Instagram</a>
+              <a href="#" rel="noopener" target="_blank">LinkedIn</a>
+              <a href="#" rel="noopener" target="_blank">YouTube</a>
+              <a href="#" rel="noopener" target="_blank">IMDb</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="lightbox" id="lightbox" aria-modal="true" role="dialog" aria-label="Lecteur vidéo" hidden>
+    <div class="lightbox-inner">
+      <button class="close-btn" id="closeLightbox" aria-label="Fermer">Fermer ✕</button>
+      <iframe id="lightboxFrame" allowfullscreen title="Lecture vidéo"></iframe>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div>© <span id="year"></span> Ludovic Gacquer. Tous droits réservés.</div>
+      <div class="legal">
+        <span>Mentions légales (à compléter)</span>
+        <span>Crédits visuels sous licence ou propriété auteur</span>
+        <span>Développement front-end personnalisé</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // --- Configuration YouTube ---
+    const YOUTUBE_API_KEY = '';// TODO: insérer clé API (ne pas publier clé sensible)
+    const SEARCH_QUERIES = [
+      '"Ludovic Gacquer"', '"Ludovic Gacquer acteur"', '"Ludovic Gacquer réalisateur"','"Ludovic Gacquer monteur"'
+    ];
+    const MAX_RESULTS_PER_QUERY = 8;
+    const VIDEO_CACHE_HOURS = 6;
+
+    // --- Données statiques (exemples) ---
+    const skills = [
+      { name: 'Jeu dramatique', level: 92 },
+      { name: 'Direction acteurs', level: 85 },
+      { name: 'Montage narratif', level: 90 },
+      { name: 'Rythme & tempo', level: 88 },
+      { name: 'Scène émotion', level: 87 },
+      { name: 'Improvisation', level: 78 },
+      { name: 'Cadre & mouvement', level: 82 },
+      { name: 'Collaboration plateau', level: 89 }
+    ];
+
+    const filmographie = [
+      { annee: 2025, titre: 'Titre Projet A', role: 'Acteur principal', type: 'Court-métrage', description: 'Rôle intense – drame psychologique.' },
+      { annee: 2024, titre: 'Titre Projet B', role: 'Réalisateur & Monteur', type: 'Publicité', description: 'Narration rythmée orientée impact.' },
+      { annee: 2024, titre: 'Titre Projet C', role: 'Acteur secondaire', type: 'Série Web', description: 'Création tension narrative.' },
+      { annee: 2023, titre: 'Titre Projet D', role: 'Monteur', type: 'Documentaire', description: 'Structuration émotionnelle.' },
+      { annee: 2023, titre: 'Titre Projet E', role: 'Acteur', type: 'Court-métrage', description: 'Exploration vulnérabilité.' },
+    ];
+
+    const testimonials = [
+      { auteur: 'Réalisateur X', texte: 'Présence scénique rare, précision et écoute sur le plateau.' },
+      { auteur: 'Producteur Y', texte: 'Fiable, créatif et force de proposition sur les projets courts.' },
+      { auteur: 'Monteur Z', texte: 'Sens remarquable du rythme, efficacité en post-production.' }
+    ];
+
+    const awards = [
+      { titre: 'Sélection Officielle', event: 'Festival Court 2024', detail: 'Projet A' },
+      { titre: 'Mention Spéciale', event: 'Rencontres Ciné 2023', detail: 'Projet D' },
+    ];
+
+    // Fallback vidéos manuelles (si API absente)
+    const manualVideos = [
+      { id: 'dQw4w9WgXcQ', title: 'Showreel Ludovic', publishedAt: '2025-01-01', channelTitle: 'Portfolio', description: 'Showreel officiel', type: 'showreel' }
+    ];
+
+    // --- Utilitaires ---
+    const qs = s => document.querySelector(s);
+    const qsa = s => Array.from(document.querySelectorAll(s));
+    const formatDate = iso => new Date(iso).toLocaleDateString('fr-FR',{year:'numeric',month:'short'});
+
+    // Smooth scroll for buttons
+    qsa('[data-scroll-to]').forEach(btn => btn.addEventListener('click', e => {
+      const id = btn.getAttribute('data-scroll-to');
+      const target = qs(id);
+      if(target) target.scrollIntoView({behavior:'smooth'});
+    }));
+
+    // Burger menu
+    const burger = qs('#burger');
+    const navList = qs('#navList');
+    if (burger) {
+      burger.addEventListener('click', () => {
+        navList.classList.toggle('open');
+        const expanded = burger.getAttribute('aria-expanded') === 'true';
+        burger.setAttribute('aria-expanded', String(!expanded));
+      });
+      qsa('#navList a').forEach(a => a.addEventListener('click', () => navList.classList.remove('open')));
+    }
+
+    // Scroll spy
+    const sections = qsa('main section[id]');
+    const navLinks = qsa('nav a');
+    const observerSpy = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + entry.target.id));
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+    sections.forEach(s => observerSpy.observe(s));
+
+    // Reveal on scroll
+    const revealObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); revealObs.unobserve(e.target);} });
+    }, { threshold: .2 });
+    qsa('[data-reveal]').forEach(el => revealObs.observe(el));
+
+    // Populate skills
+    const skillsGrid = qs('#skillsGrid');
+    skills.forEach(sk => {
+      const div = document.createElement('div');
+      div.className='skill-card';
+      div.innerHTML = `<h4>${sk.name}</h4><div class="meter"><span style="width:0%"></span></div>`;
+      skillsGrid.appendChild(div);
+      requestAnimationFrame(()=>{
+        const span = div.querySelector('.meter span');
+        span.style.width = sk.level + '%';
+      });
+    });
+
+    // Timeline
+    const timeline = qs('#timeline');
+    filmographie.sort((a,b)=> b.annee - a.annee).forEach(item => {
+      const el = document.createElement('div');
+      el.className='timeline-item';
+      el.innerHTML = `<h4>${item.titre}</h4><small>${item.annee} · ${item.type} · ${item.role}</small><p class="muted">${item.description}</p>`;
+      timeline.appendChild(el);
+    });
+
+    // Testimonials
+    const testimonialsEl = qs('#testimonials');
+    testimonials.forEach(t => {
+      const card = document.createElement('div');
+      card.className='mini-card';
+      card.innerHTML = `<h4>${t.auteur}</h4><p>“${t.texte}”</p>`;
+      testimonialsEl.appendChild(card);
+    });
+
+    // Awards
+    const awardsEl = qs('#awards');
+    awards.forEach(a => {
+      const card = document.createElement('div');
+      card.className='mini-card';
+      card.innerHTML = `<h4>${a.titre}</h4><p>${a.event}<br><span class="muted">${a.detail}</span></p>`;
+      awardsEl.appendChild(card);
+    });
+
+    // Video Aggregation
+    let allVideos = [];
+
+    function loadVideosFromCache() {
+      const raw = localStorage.getItem('lg_videos_cache');
+      if(!raw) return null;
+      try {
+        const data = JSON.parse(raw);
+        const age = Date.now() - data.timestamp;
+        if (age > VIDEO_CACHE_HOURS*3600*1000) { localStorage.removeItem('lg_videos_cache'); return null; }
+        return data.items;
+      } catch { return null; }
+    }
+
+    function saveVideosToCache(items){
+      localStorage.setItem('lg_videos_cache', JSON.stringify({ timestamp: Date.now(), items }));
+    }
+
+    async function fetchYouTube() {
+      if(!YOUTUBE_API_KEY) return manualVideos; // no key fallback
+      const collected = new Map();
+      for (const q of SEARCH_QUERIES) {
+        try {
+          const url = new URL('https://www.googleapis.com/youtube/v3/search');
+          url.searchParams.set('part','snippet');
+          url.searchParams.set('q', q);
+          url.searchParams.set('maxResults', String(MAX_RESULTS_PER_QUERY));
+          url.searchParams.set('type','video');
+          url.searchParams.set('key', YOUTUBE_API_KEY);
+          const res = await fetch(url);
+          if(!res.ok) throw new Error('HTTP ' + res.status);
+          const json = await res.json();
+          (json.items||[]).forEach(it => {
+            const id = it.id.videoId;
+            if(!collected.has(id)) {
+              collected.set(id, {
+                id,
+                title: it.snippet.title,
+                description: it.snippet.description,
+                channelTitle: it.snippet.channelTitle,
+                publishedAt: it.snippet.publishedAt,
+                thumb: it.snippet.thumbnails?.medium?.url || it.snippet.thumbnails?.default?.url,
+                type: classifyVideo(it.snippet.title, it.snippet.description)
+              });
+            }
+          });
+        } catch (e) { console.warn('Erreur API YouTube pour', q, e); }
+      }
+      return Array.from(collected.values()).sort((a,b)=> new Date(b.publishedAt)-new Date(a.publishedAt));
+    }
+
+    function classifyVideo(title, desc='') {
+      const t = (title+' '+desc).toLowerCase();
+      if(t.includes('bande annonce')|| t.includes('trailer')) return 'trailer';
+      if(t.includes('interview')) return 'interview';
+      if(t.includes('showreel')|| t.includes('reel')) return 'showreel';
+      if(t.includes('making of')|| t.includes('behind')) return 'makingof';
+      return 'autre';
+    }
+
+    function renderFilters(videos){
+      const filtersEl = qs('#videoFilters');
+      filtersEl.innerHTML='';
+      const types = Array.from(new Set(videos.map(v=>v.type)));
+      const years = Array.from(new Set(videos.map(v=> new Date(v.publishedAt).getFullYear()))).sort((a,b)=> b-a);
+      const createChip = (label, value, group) => {
+        const chip = document.createElement('button');
+        chip.type='button';
+        chip.className='filter-chip';
+        chip.textContent=label;
+        chip.dataset.value=value;
+        chip.dataset.group=group;
+        chip.addEventListener('click',()=>{
+          // toggle active for group
+          qsa(`.filter-chip[data-group="${group}"]`).forEach(c=> c.classList.toggle('active', c===chip));
+          applyFilters();
+        });
+        return chip;
+      };
+      // All chips
+      const allTypes = createChip('Tous types','', 'type'); allTypes.classList.add('active');
+      const allYears = createChip('Toutes années','', 'year'); allYears.classList.add('active');
+      filtersEl.append(allTypes,...types.map(t=>createChip(t,t,'type')));
+      filtersEl.append(allYears,...years.map(y=>createChip(String(y),String(y),'year')));
+    }
+
+    function applyFilters(){
+      const activeType = qs('.filter-chip[data-group="type"].active')?.dataset.value || '';
+      const activeYear = qs('.filter-chip[data-group="year"].active')?.dataset.value || '';
+      const filtered = allVideos.filter(v => {
+        const y = new Date(v.publishedAt).getFullYear();
+        return (!activeType || v.type===activeType) && (!activeYear || String(y)===activeYear);
+      });
+      renderVideos(filtered);
+    }
+
+    function renderVideos(videos){
+      const container = qs('#videosContainer');
+      const empty = qs('#videosEmpty');
+      container.innerHTML='';
+      if(!videos.length){ empty.style.display='block'; return; } else empty.style.display='none';
+      videos.forEach(v => {
+        const card = document.createElement('article');
+        card.className='video-card';
+        card.setAttribute('role','button');
+        card.setAttribute('tabindex','0');
+        card.innerHTML = `
+          <div class="video-thumb"><img src="${v.thumb || 'https://img.youtube.com/vi/'+v.id+'/mqdefault.jpg'}" alt="Miniature ${v.title}"></div>
+          <div class="video-body">
+            <div class="video-title">${v.title}</div>
+            <div class="video-meta"><span>${v.channelTitle||''}</span><span>${new Date(v.publishedAt).getFullYear()}</span><span>${v.type}</span></div>
+          </div>`;
+        card.addEventListener('click', ()=> openLightbox(v.id));
+        card.addEventListener('keydown', e=> { if(e.key==='Enter') openLightbox(v.id); });
+        container.appendChild(card);
+      });
+    }
+
+    function openLightbox(id){
+      const lb = qs('#lightbox');
+      const frame = qs('#lightboxFrame');
+      frame.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
+      lb.classList.add('open');
+      lb.hidden=false;
+    }
+    function closeLightbox(){
+      const lb = qs('#lightbox');
+      const frame = qs('#lightboxFrame');
+      frame.src='';
+      lb.classList.remove('open');
+      setTimeout(()=> lb.hidden=true, 350);
+    }
+    qs('#closeLightbox').addEventListener('click', closeLightbox);
+    qs('#lightbox').addEventListener('click', e=> { if(e.target.id==='lightbox') closeLightbox(); });
+    document.addEventListener('keydown', e=> { if(e.key==='Escape') closeLightbox(); });
+
+    async function initVideos(){
+      const cached = loadVideosFromCache();
+      if(cached){ allVideos = cached; renderFilters(allVideos); applyFilters(); }
+      else {
+        allVideos = await fetchYouTube();
+        if(!allVideos.length) allVideos = manualVideos; // fallback final
+        saveVideosToCache(allVideos);
+        renderFilters(allVideos); applyFilters();
+      }
+    }
+
+    // Contact form (demo: local only)
+    const form = qs('#contactForm');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const status = qs('#formStatus');
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      if(!data.name || !data.email || !data.message){ status.textContent='Veuillez compléter tous les champs.'; return; }
+      status.textContent='Envoi...';
+      // Simuler envoi
+      setTimeout(()=> { status.textContent='Message envoyé (simulation).'; form.reset(); }, 900);
+    });
+
+    // Year
+    qs('#year').textContent = new Date().getFullYear();
+
+    // Start
+    initVideos();
+  </script>
+</body>
+</html>
