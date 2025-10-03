@@ -182,16 +182,6 @@
           <button class="btn btn-outline" data-scroll-to="#contact">Contact Professionnel</button>
         </div>
       </div>
-      <div class="hero-media" data-reveal>
-        <div class="portrait-frame">
-          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80" alt="Portrait de Ludovic Gacquer" loading="lazy" />
-          <div class="badge-stack">
-            <div class="badge">Expérience</div>
-            <div class="badge">Narration</div>
-            <div class="badge">Émotion</div>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- Section facultative showreel supprimée -->
@@ -233,14 +223,7 @@
       <div id="videosEmpty" class="empty-state" style="display:none;">Aucune vidéo trouvée.</div>
     </section>
 
-    <!-- Témoignages (placeholder) -->
-    <section id="temoignages" aria-labelledby="temoignages-title">
-      <div class="section-intro" data-reveal>
-        <h2 id="temoignages-title">Témoignages</h2>
-        <p class="muted">Retours de collaborateurs – à compléter.</p>
-      </div>
-      <div class="cards-flex" id="testimonials" data-reveal></div>
-    </section>
+    <!-- Section Témoignages supprimée -->
 
     <!-- Distinctions (placeholder) -->
     <section id="distinctions" aria-labelledby="distinctions-title">
@@ -344,11 +327,7 @@
       { annee: 2023, titre: 'Titre Projet E', role: 'Acteur', type: 'Court-métrage', description: 'Exploration vulnérabilité.' },
     ];
 
-    const testimonials = [
-      { auteur: 'Réalisateur X', texte: 'Présence scénique rare, précision et écoute sur le plateau.' },
-      { auteur: 'Producteur Y', texte: 'Fiable, créatif et force de proposition sur les projets courts.' },
-      { auteur: 'Monteur Z', texte: 'Sens remarquable du rythme, efficacité en post-production.' }
-    ];
+    // Témoignages supprimés
 
     const awards = [
       { titre: 'Sélection Officielle', event: 'Festival Court 2024', detail: 'Projet A' },
@@ -427,14 +406,7 @@
       timeline.appendChild(el);
     });
 
-    // Testimonials
-    const testimonialsEl = qs('#testimonials');
-    testimonials.forEach(t => {
-      const card = document.createElement('div');
-      card.className='mini-card';
-      card.innerHTML = `<h4>${t.auteur}</h4><p>“${t.texte}”</p>`;
-      testimonialsEl.appendChild(card);
-    });
+    // Génération des témoignages supprimée
 
     // Awards
     const awardsEl = qs('#awards');
