@@ -18,7 +18,7 @@
       --bg:#0d0d0f;--bg-alt:#16161a;--panel:#1f1f24;--panel-alt:#26262c;--accent:#ff4040;--accent-grad:linear-gradient(135deg,#ff4040,#ff7f3f);--text:#e9e9ef;--muted:#a3a3b0;--radius:18px;--radius-sm:8px;--font-sans:'Montserrat',system-ui,sans-serif;--font-serif:'Playfair Display',serif;--max-w:1320px;--transition:0.35s cubic-bezier(.4,.08,.2,1);--focus-ring:0 0 0 3px #ffffff10,0 0 0 6px #ff404055;
     }
     * {box-sizing:border-box;margin:0;padding:0;}
-    html {scroll-behavior:smooth;}
+    html {scroll-behavior:smooth;}      
     body {background:radial-gradient(circle at 15% 20%,#18181d,#0d0d0f 60%);color:var(--text);font-family:var(--font-sans);-webkit-font-smoothing:antialiased;}
     body::before {content:"";position:fixed;inset:0;background:radial-gradient(circle at 85% 10%,#39151555,transparent 60%),radial-gradient(circle at 10% 90%,#17353f55,transparent 60%);mix-blend-mode:overlay;pointer-events:none;opacity:.5;}
     a {color:var(--accent);text-decoration:none;}
@@ -315,7 +315,7 @@
     <div class="lightbox-inner">
       <button class="close-btn" id="closeLightbox" aria-label="Fermer">Fermer ✕</button>
       <div class="player-area"><iframe id="lightboxFrame" allowfullscreen title="Lecture vidéo"></iframe></div>
-      <aside class="meta-area" aria-label="Informations sur la vidéo">
+      <aside class="meta-area" aria-label="Contexte et résumé de la vidéo">
         <h3 id="lbTitle">Titre</h3>
         <div class="meta-list" id="lbMeta"></div>
       </aside>
@@ -642,13 +642,22 @@
         if(v.id === 'kWmNQbJBcok') montage = 'Jean Bresson et Ludovic Gacquer';
         const year = v.publishedAt ? new Date(v.publishedAt).getFullYear() : '—';
         const categorie = typeLabelMap[v.type] || (v.type || '—');
-        const info = v.description || '—';
+        const info = (v.description && v.description.trim()) ? v.description.trim() : '—';
+        // Génération d'un résumé court basé sur la première phrase/ligne (max ~180 caractères)
+        let resumeTxt = '—';
+        if (typeof v.description === 'string' && v.description.trim().length){
+          const raw = v.description.trim().replace(/\s+/g,' ');
+          const match = raw.match(/.*?[.!?](\s|$)/);
+          resumeTxt = (match ? match[0] : raw.split('\n')[0] || raw).trim();
+          if (resumeTxt.length > 180) resumeTxt = resumeTxt.slice(0,177).trimEnd() + '…';
+        }
         metaEl.innerHTML = `
           <div class="meta-item"><strong>Réalisation</strong><span>${realisation}</span></div>
           <div class="meta-item"><strong>Montage</strong><span>${montage}</span></div>
           <div class="meta-item"><strong>Année</strong><span>${year}</span></div>
           <div class="meta-item"><strong>Catégorie</strong><span>${categorie}</span></div>
-          <div class="meta-item"><strong>Informations</strong><span>${info}</span></div>`;
+          <div class="meta-item"><strong>Contexte</strong><span>${info}</span></div>
+          <div class="meta-item"><strong>Résumé</strong><span>${resumeTxt}</span></div>`;
       }
       lb.classList.add('open');
       lb.hidden=false;
