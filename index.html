@@ -63,6 +63,7 @@
     .badge-stack {position:absolute;bottom:-14px;left:16px;display:flex;gap:.6rem;flex-wrap:wrap;}
     .badge {background:#ffffff08;border:1px solid #ffffff12;padding:.45rem .7rem;font-size:.7rem;letter-spacing:.5px;text-transform:uppercase;border-radius:30px;font-weight:600;backdrop-filter:blur(6px);display:inline-flex;align-items:center;gap:.4rem;}
     .badge svg {width:14px;height:14px;}
+  #langToggle {margin-left:.8rem;cursor:pointer;}
     .hero-text h1 {margin-bottom:1.2rem;}
     .hero-roles {display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1.2rem;}
     .hero-roles span {background:linear-gradient(120deg,#ffffff10,#ffffff05);border:1px solid #ffffff18;padding:.55rem .9rem;font-size:.72rem;letter-spacing:.8px;text-transform:uppercase;border-radius:26px;font-weight:600;color:var(--muted);}
@@ -175,15 +176,15 @@
       <nav>
         <div class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></div>
         <ul id="navList">
-          <li><a href="#hero">Accueil</a></li>
-          <li><a href="#videos">Vidéos</a></li>
-          <li><a href="#comedien">Comédien</a></li>
-          <li><a href="#bio">Bio</a></li>
-          
-          <li><a href="#filmographie">Filmographie</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a id="nav-home" href="#hero">Accueil</a></li>
+          <li><a id="nav-videos" href="#videos">Vidéos</a></li>
+          <li><a id="nav-actor" href="#comedien">Comédien</a></li>
+          <li><a id="nav-bio" href="#bio">Bio</a></li>
+          <li><a id="nav-filmographie" href="#filmographie">Filmographie</a></li>
+          <li><a id="nav-contact" href="#contact">Contact</a></li>
         </ul>
       </nav>
+      <button id="langToggle" class="badge" aria-label="Changer de langue">FR/EN</button>
     </div>
   </header>
   <main>
@@ -208,7 +209,7 @@
     <!-- Galerie Vidéos -->
     <section id="videos" aria-labelledby="videos-title">
       <div class="section-intro" data-reveal>
-        <h2 id="videos-title">Vidéos</h2>
+  <h2 id="videos-title">Vidéos</h2>
       </div>
       <!-- Filtres en haut -->
       <div id="videosContainer" data-reveal aria-live="polite"></div>
@@ -382,6 +383,58 @@
     const qsa = s => Array.from(document.querySelectorAll(s));
     const formatDate = iso => new Date(iso).toLocaleDateString('fr-FR',{year:'numeric',month:'short'});
 
+    // --- Internationalisation ---
+    const i18n = {
+      fr: {
+        nav: { home:'Accueil', videos:'Vidéos', actor:'Comédien', bio:'Bio', filmographie:'Filmographie', contact:'Contact' },
+        headings: { videos:'Vidéos', actor:'Comédien', bio:'Expériences et qualifications', filmographie:'Autres crédits', distinctions:'Distinctions', contact:'Contact' },
+        ctas: { contact:'Contact Professionnel' },
+        groups: { perso:'Projets personnels', commande:'Projets de commande', other:'Autres' },
+        lightbox: { close:'Fermer ✕', aside:'Contexte et résumé de la vidéo', real:'Réalisation', edit:'Montage', year:'Année', cat:'Catégorie', ctx:'Contexte', sum:'Résumé', playerTitle:'Lecture vidéo' },
+        channels: { cinema:'Cinéma', theatre:'Théâtre' }
+      },
+      en: {
+        nav: { home:'Home', videos:'Videos', actor:'Actor', bio:'Experience & Qualifications', filmographie:'Other credits', contact:'Contact' },
+        headings: { videos:'Videos', actor:'Actor', bio:'Experience & Qualifications', filmographie:'Other credits', distinctions:'Awards', contact:'Contact' },
+        ctas: { contact:'Professional Contact' },
+        groups: { perso:'Personal projects', commande:'Commissioned projects', other:'Other' },
+        lightbox: { close:'Close ✕', aside:'Context and summary of the video', real:'Directed by', edit:'Editing', year:'Year', cat:'Category', ctx:'Context', sum:'Summary', playerTitle:'Video playback' },
+        channels: { cinema:'Cinema', theatre:'Theatre' }
+      }
+    };
+    let currentLang = (localStorage.getItem('lang') || 'fr');
+    const t = (path) => {
+      const parts = path.split('.');
+      let obj = i18n[currentLang];
+      for(const p of parts){ obj = obj?.[p]; if(obj === undefined) return path; }
+      return obj;
+    };
+    function applyTranslations(){
+      // Nav
+      const m = {
+        '#nav-home':'nav.home', '#nav-videos':'nav.videos', '#nav-actor':'nav.actor', '#nav-bio':'nav.bio', '#nav-filmographie':'nav.filmographie', '#nav-contact':'nav.contact'
+      };
+      Object.entries(m).forEach(([sel,key])=> { const el = qs(sel); if(el) el.textContent = t(key); });
+      // Headings
+      const h = { '#videos-title':'headings.videos', '#comedien-title':'headings.actor', '#bio-title':'headings.bio', '#filmographie-title':'headings.filmographie', '#distinctions-title':'headings.distinctions', '#contact-title':'headings.contact' };
+      Object.entries(h).forEach(([sel,key])=> { const el = qs(sel); if(el) el.textContent = t(key); });
+      // CTA
+      const cta = qs('.cta-row .btn'); if(cta) cta.textContent = t('ctas.contact');
+      // Lightbox static labels
+      const lb = qs('#lightbox'); if(lb) lb.setAttribute('aria-label', t('lightbox.playerTitle'));
+      const closeBtn = qs('#closeLightbox'); if(closeBtn) closeBtn.textContent = t('lightbox.close');
+      const aside = qs('.meta-area'); if(aside) aside.setAttribute('aria-label', t('lightbox.aside'));
+      // Re-render dynamic sections that include translated strings
+      renderGroupedVideos();
+      renderActingSection();
+    }
+    function toggleLanguage(){
+      currentLang = currentLang === 'fr' ? 'en' : 'fr';
+      localStorage.setItem('lang', currentLang);
+      applyTranslations();
+    }
+    const langToggle = qs('#langToggle'); if(langToggle){ langToggle.addEventListener('click', toggleLanguage); }
+
     // Smooth scroll for buttons
     qsa('[data-scroll-to]').forEach(btn => btn.addEventListener('click', e => {
       const id = btn.getAttribute('data-scroll-to');
@@ -525,7 +578,7 @@
         sortedCinema.forEach(v => cinema.appendChild(buildVideoCard({
           id: v.id,
           title: v.title,
-          channelTitle: 'Cinéma',
+          channelTitle: t('channels.cinema'),
           publishedAt: v.publishedAt,
           type: v.type || 'extrait',
           thumb: 'https://img.youtube.com/vi/'+v.id+'/mqdefault.jpg',
@@ -541,7 +594,7 @@
         sortedTheatre.forEach(v => theatre.appendChild(buildVideoCard({
           id: v.id,
           title: v.title,
-          channelTitle: 'Théâtre',
+          channelTitle: t('channels.theatre'),
           publishedAt: v.publishedAt,
           type: v.type || 'extrait',
           thumb: v.thumb || (v.id ? 'https://img.youtube.com/vi/'+v.id+'/mqdefault.jpg' : undefined),
@@ -562,9 +615,9 @@
       const empty = qs('#videosEmpty');
       container.innerHTML='';
       const groups = [
-        { key: 'perso',     title: 'Projets personnels' },
-        { key: 'commande',  title: 'Projets de commande' },
-        { key: 'other',     title: 'Autres' }
+        { key: 'perso',     title: t('groups.perso') },
+        { key: 'commande',  title: t('groups.commande') },
+        { key: 'other',     title: t('groups.other') }
       ];
       let totalCount = 0;
       groups.forEach(g => {
@@ -580,8 +633,8 @@
         }
         totalCount += vids.length;
         // Titre de groupe
-        const heading = document.createElement('h3');
-        heading.textContent = g.title;
+  const heading = document.createElement('h3');
+  heading.textContent = g.title;
         heading.className = 'video-group-title';
         container.appendChild(heading);
         // Grille du groupe
@@ -635,7 +688,7 @@
         const imgSrc = v.thumb || '';
         player.innerHTML = imgSrc ? `<img src="${imgSrc}" alt="${v.title}" style="width:100%;height:100%;object-fit:cover;display:block;">` : '';
       } else {
-        player.innerHTML = '<iframe id="lightboxFrame" allowfullscreen title="Lecture vidéo"></iframe>';
+        player.innerHTML = `<iframe id="lightboxFrame" allowfullscreen title="${t('lightbox.playerTitle')}"></iframe>`;
         const newFrame = qs('#lightboxFrame');
         newFrame.src = 'https://www.youtube.com/embed/' + v.id + '?autoplay=1&rel=0&modestbranding=1';
       }
@@ -659,14 +712,14 @@
           resumeTxt = (match ? match[0] : raw.split('\n')[0] || raw).trim();
         }
         if (resumeTxt.length > 180) resumeTxt = resumeTxt.slice(0,177).trimEnd() + '…';
-        const realisationLabel = (typeof v.realisationLabel === 'string' && v.realisationLabel.trim()) ? v.realisationLabel.trim() : 'Réalisation';
+        const realisationLabel = (typeof v.realisationLabel === 'string' && v.realisationLabel.trim()) ? v.realisationLabel.trim() : t('lightbox.real');
         metaEl.innerHTML = `
           <div class="meta-item"><strong>${realisationLabel}</strong><span>${realisation}</span></div>
-          ${montage !== null ? `<div class=\"meta-item\"><strong>Montage</strong><span>${montage}</span></div>` : ''}
-          <div class="meta-item"><strong>Année</strong><span>${year}</span></div>
-          ${v.hideType ? '' : `<div class="meta-item"><strong>Catégorie</strong><span>${categorie}</span></div>`}
-          <div class="meta-item"><strong>Contexte</strong><span>${info}</span></div>
-          <div class="meta-item"><strong>Résumé</strong><span>${resumeTxt}</span></div>`;
+          ${montage !== null ? `<div class=\"meta-item\"><strong>${t('lightbox.edit')}</strong><span>${montage}</span></div>` : ''}
+          <div class="meta-item"><strong>${t('lightbox.year')}</strong><span>${year}</span></div>
+          ${v.hideType ? '' : `<div class=\"meta-item\"><strong>${t('lightbox.cat')}</strong><span>${categorie}</span></div>`}
+          <div class="meta-item"><strong>${t('lightbox.ctx')}</strong><span>${info}</span></div>
+          <div class="meta-item"><strong>${t('lightbox.sum')}</strong><span>${resumeTxt}</span></div>`;
       }
       lb.classList.add('open');
       lb.hidden=false;
@@ -726,6 +779,7 @@
     qs('#year').textContent = new Date().getFullYear();
 
     // Start
+    applyTranslations();
     initVideos();
   </script>
 </body>
