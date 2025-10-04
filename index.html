@@ -209,7 +209,6 @@
     <section id="videos" aria-labelledby="videos-title">
       <div class="section-intro" data-reveal>
         <h2 id="videos-title">Vidéos</h2>
-        <p class="muted">Agrégation automatique & sélection. Filtrage par catégorie.</p>
       </div>
       <!-- Filtres en haut -->
       <div id="videosContainer" data-reveal aria-live="polite"></div>
@@ -220,7 +219,6 @@
     <section id="comedien" aria-labelledby="comedien-title">
       <div class="section-intro" data-reveal>
         <h2 id="comedien-title">Comédien</h2>
-        <p class="muted">Extraits de jeu – cinéma et théâtre.</p>
       </div>
       <h3>Cinéma</h3>
       <div class="videos-grid" id="actingCinemaGrid" data-reveal></div>
@@ -240,7 +238,6 @@
     <section id="skills" aria-labelledby="skills-title">
       <div class="section-intro" data-reveal>
         <h2 id="skills-title">Compétences</h2>
-        <p class="muted">Jeux, vision, précision narrative – un ensemble complémentaire au service de projets ambitieux.</p>
       </div>
       <div class="skills-grid" id="skillsGrid"></div>
     </section>
@@ -249,7 +246,6 @@
     <section id="filmographie" aria-labelledby="filmographie-title">
       <div class="section-intro" data-reveal>
   <h2 id="filmographie-title">Autres crédits</h2>
-        <p class="muted">Sélection de projets – acting, réalisation, montage.</p>
       </div>
       <div class="timeline" id="timeline" aria-live="polite"></div>
     </section>
@@ -290,16 +286,11 @@
         </form>
         <div class="contact-info">
           <div>
-            <strong>Représentation / Booking</strong><br />
-            <span class="muted">TODO: agence / contact professionnel.</span>
-          </div>
-          <div>
             <strong>Email direct</strong><br />
             <a href="mailto:ludovic.gacquer@gmail.com">ludovic.gacquer@gmail.com</a>
           </div>
           <div>
             <strong>CV</strong><br />
-            <a class="btn btn-outline" style="margin-top:.6rem;padding:.55rem 1rem;font-size:.7rem;" href="cv-ludovic-gacquer.pdf" download>Télécharger le CV (PDF)</a>
           </div>
           <div>
             <strong>Réseaux</strong>
@@ -358,11 +349,7 @@
     ];
 
     const filmographie = [
-      { annee: 2024, titre: 'Le Soleil est Parti', role: 'Premier assitant réalisateur', type: 'Court-métrage', description: 'Création et gestion du planning de tournage. Coordination des équipes techniques et des comédiens.' },
-      { annee: 2024, titre: 'Titre Projet B', role: 'Réalisateur & Monteur', type: 'Publicité', description: 'Narration rythmée orientée impact.' },
-      { annee: 2024, titre: 'Titre Projet C', role: 'Acteur secondaire', type: 'Série Web', description: 'Création tension narrative.' },
-      { annee: 2023, titre: 'Titre Projet D', role: 'Monteur', type: 'Documentaire', description: 'Structuration émotionnelle.' },
-      { annee: 2023, titre: 'Titre Projet E', role: 'Acteur', type: 'Court-métrage', description: 'Exploration vulnérabilité.' },
+      { annee: 2024, titre: 'Le Soleil est Parti - Arthur Monville', role: 'Premier assitant réalisateur', type: 'Court-métrage', description: 'Création et gestion du planning de tournage. Coordination des équipes techniques et des comédiens.' }
     ];
 
     // Témoignages supprimés
@@ -381,7 +368,8 @@
       { id: 'QY-AJ7IV3lE', title: 'Scheol', publishedAt: '2020-01-01', description: 'Film étudiant', resume: 'Un couple est détruit par le traumatisme d\'un viol.', realisation: 'Allan Masson', type: 'court-métrage' }
     ];
     const actingTheatre = [
-      { id: 'L1tkQrXh940', title: 'LAC', publishedAt: '2020-01-01', description: "Projet de fin d'études de comédien", resume: "Trois monologues par autant de membres d'une compagnie de théâtre qui font face au deuil.", realisation: 'Grégoire Aussilou', realisationLabel: 'Mise en scène', montage: null }
+      { id: 'L1tkQrXh940', title: 'LAC', publishedAt: '2020-01-01', description: "Projet de fin d'études de comédien", resume: "Trois monologues par autant de membres d'une compagnie de théâtre qui font face au deuil.", realisation: 'Grégoire Aussilou', realisationLabel: 'Mise en scène', montage: null },
+      { title: 'Stevenson', publishedAt: '2022-01-01', description: 'Création Compagnie des Lucioles', resume: "Deux comédiens jouent divers rôles des livres de Stevenson avec un costume évolutif.", realisation: 'Emilien Rousvoal', realisationLabel: 'Mise en scène', montage: null, media: 'image', thumb: 'assets/stevenson.jpg' }
     ];
 
     // Vidéos curées (Projets personnels + Projets de commande) insérées directement dans la grille principale
@@ -563,12 +551,13 @@
           channelTitle: 'Théâtre',
           publishedAt: v.publishedAt,
           type: v.type || 'extrait',
-          thumb: 'https://img.youtube.com/vi/'+v.id+'/mqdefault.jpg',
+          thumb: v.thumb || (v.id ? 'https://img.youtube.com/vi/'+v.id+'/mqdefault.jpg' : undefined),
           description: v.description,
           resume: v.resume,
           realisation: v.realisation,
           realisationLabel: v.realisationLabel,
-          montage: v.montage
+          montage: v.montage,
+          media: v.media
         })));
       }
     }
@@ -627,8 +616,9 @@
       card.className='video-card';
       card.setAttribute('role','button');
       card.setAttribute('tabindex','0');
+      const thumbSrc = v.thumb || (v.id ? ('https://img.youtube.com/vi/'+v.id+'/mqdefault.jpg') : '');
       card.innerHTML = `
-        <div class="video-thumb"><img src="${v.thumb || 'https://img.youtube.com/vi/'+v.id+'/mqdefault.jpg'}" alt="Miniature ${v.title}"></div>
+        <div class="video-thumb">${thumbSrc ? `<img src="${thumbSrc}" alt="Miniature ${v.title}">` : ''}</div>
         <div class="video-body">
           <div class="video-title">${v.title}</div>
           <div class="video-meta"><span>${v.channelTitle||''}</span><span>${new Date(v.publishedAt).getFullYear()}</span><span>${v.type}</span></div>
@@ -643,7 +633,18 @@
     function openLightbox(v){
       const lb = qs('#lightbox');
       const frame = qs('#lightboxFrame');
-      frame.src = 'https://www.youtube.com/embed/' + v.id + '?autoplay=1&rel=0&modestbranding=1';
+      const player = qs('.player-area');
+      // Reset player area
+      frame.src = '';
+      // If media is image or no video id, show image instead of iframe
+      if (v.media === 'image' || !v.id) {
+        const imgSrc = v.thumb || '';
+        player.innerHTML = imgSrc ? `<img src="${imgSrc}" alt="${v.title}" style="width:100%;height:100%;object-fit:cover;display:block;">` : '';
+      } else {
+        player.innerHTML = '<iframe id="lightboxFrame" allowfullscreen title="Lecture vidéo"></iframe>';
+        const newFrame = qs('#lightboxFrame');
+        newFrame.src = 'https://www.youtube.com/embed/' + v.id + '?autoplay=1&rel=0&modestbranding=1';
+      }
       const titleEl = qs('#lbTitle');
       const metaEl = qs('#lbMeta');
       if(titleEl) titleEl.textContent = v.title || '';
@@ -678,8 +679,8 @@
     }
     function closeLightbox(){
       const lb = qs('#lightbox');
-      const frame = qs('#lightboxFrame');
-      frame.src='';
+  const frame2 = qs('#lightboxFrame');
+  if(frame2) frame2.src='';
       lb.classList.remove('open');
       setTimeout(()=> lb.hidden=true, 350);
     }
