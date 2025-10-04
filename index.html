@@ -145,9 +145,9 @@
   @media (max-width: 900px){ .lightbox-inner {grid-template-columns:1fr;max-height:none;height:auto;} }
   .player-area {position:relative;aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden;}
   .player-area iframe {width:100%;height:100%;border:0;display:block;}
-  .meta-area {background:#111115;border:1px solid #ffffff15;border-radius:12px;padding:1rem;overflow:auto;}
+  .meta-area {background:#111115;border:1px solid #ffffff15;border-radius:12px;padding:1rem;overflow:hidden;display:flex;flex-direction:column;}
   .meta-area h3 {margin:0 0 1rem;font-size:1rem;font-weight:700;}
-  .meta-list {display:flex;flex-direction:column;gap:.75rem;font-size:.85rem;}
+  .meta-list {display:flex;flex-direction:column;gap:.75rem;font-size:.85rem;flex:1;overflow:auto;-webkit-overflow-scrolling:touch;padding-right:.25rem;}
   .meta-item {display:flex;gap:.75rem;align-items:flex-start;}
   .meta-item strong {min-width:160px;font-size:.75rem;text-transform:uppercase;letter-spacing:.8px;color:#cfcfd8;}
   .meta-item span {line-height:1.6;}
@@ -372,14 +372,14 @@
 
     // Comédien: listes dédiées
     const actingCinema = [
-      { id: '5pD9tEb4ufU', title: 'Si - Bande annonce', publishedAt: '2022-01-01' },
-      { id: '2SbHKIoA3oo', title: '23h37', publishedAt: '2021-01-01' },
-      { id: 'fYBwWGi-_es', title: 'A Demain', publishedAt: '2021-01-01' },
-      { id: '6YYhZIYyiNc', title: 'La Collection de Madame Laursen', publishedAt: '2023-01-01' },
-      { id: 'QY-AJ7IV3lE', title: 'Scheol', publishedAt: '2020-01-01' }
+      { id: '5pD9tEb4ufU', title: 'Si - Bande annonce', publishedAt: '2022-01-01', description: 'Film soutenu par le fond Émergence de Pictanovo.', resume: 'Une jeune femme perd son audition et se coupe progressivement du monde.', realisation: 'Alexandra Kokoreva', montage: null },
+  { id: '2SbHKIoA3oo', title: '23h37', publishedAt: '2021-01-01', description: 'Film étudiant', resume: 'Une jeune femme garde une maison et un enfant caché. Elle est surprise par son groupe d\'amis, venus fêter Halloween avec elle.', realisation: 'Charline Toulza' },
+  { id: 'fYBwWGi-_es', title: 'A Demain', publishedAt: '2021-01-01', description: 'Film étudiant', resume: 'D\'après une histoire vraie. Une histoire d\'amour tragique.', realisation: 'Christophe Generoso' },
+  { id: '6YYhZIYyiNc', title: 'La Collection de Madame Laursen', publishedAt: '2023-01-01', description: 'Film étudiant', resume: 'Un homme d\'affaires prend des vacances dans une maison isolée.', realisation: 'Tony Fredj & Valentin Dieudonné', montage: null },
+  { id: 'QY-AJ7IV3lE', title: 'Scheol', publishedAt: '2020-01-01', description: 'Film étudiant', resume: 'Un couple est détruit par le traumatisme d\'un viol.', realisation: 'Allan Masson' }
     ];
     const actingTheatre = [
-      { id: 'L1tkQrXh940', title: 'LAC', publishedAt: '2020-01-01' }
+      { id: 'L1tkQrXh940', title: 'LAC', publishedAt: '2020-01-01', description: "Projet de fin d'études de comédien", resume: "Trois monologues par autant de membres d'une compagnie de théâtre qui font face au deuil.", realisation: 'Grégoire Aussilou', realisationLabel: 'Mise en scène', montage: null }
     ];
 
     // Vidéos curées (Projets personnels + Projets de commande) insérées directement dans la grille principale
@@ -390,10 +390,10 @@
   { id: 'A6F3vW_wpZY', title: 'Garphilde', publishedAt: '2023-05-20', channelTitle: 'Projet personnel', description: 'Court-métrage auto-produit.', resume: 'Un homme est pourchassé par une version corrompue et maléfique de Garfield le chat.', type: 'fiction', origin: 'perso' },
   { id: '7dLSe8_8rKQ', title: 'GOBELET - Global Offensive By Electrical Light Energy The Terminal', publishedAt: '2022-04-10', channelTitle: 'Projet personnel', description: 'Court-métrage de fin de Licence Arts du Spectacle à l\'Université de Picardie Jules Verne, Amiens. Premier court-métrage de fiction. Faux plan-séquence.', resume: 'Un homme cherche son gobelet pour se rincer la bouche après s\'être brossé les dents.', type: 'fiction', origin: 'perso' },
       // Projets de commande
-      { id: 'g-gyTVi_iT8', title: 'Nightmare - Thinking Too Much - Music clip', publishedAt: '2023-03-15', channelTitle: 'Commande', description: 'Clip musical', type: 'clip-musical', origin: 'commande' },
+  { id: 'g-gyTVi_iT8', title: 'Nightmare - Thinking Too Much - Music clip', publishedAt: '2023-03-15', channelTitle: 'Commande', description: 'Commande du groupe de musique rock amiénois Thinking Too Much.', resume: 'Cover de la chanson Nightmare du groupe Avenged Sevenfold.', type: 'clip-musical', origin: 'commande' },
   { id: 'ILtUNe4Q3LA', title: 'Teaser 54h Chrono! 2024', publishedAt: '2024-02-20', channelTitle: 'Commande', description: 'Commande pour l\'association Bulldog Audiovisuel', resume: 'Teaser d\'introduction pour la compétition de films 54h Chrono!, dans laquelle 20 équipes doivent créer un film en moins de 3 jours. Cette vidéo révèle le thème et la contrainte de la compétition de l\'année 2024. 54h Chrono est un événement organisé par l\'association Bulldog Audiovisuel, à Amiens.', type: 'teaser', origin: 'commande' },
-      { id: '9bKy3DJzbVQ', title: 'Festival de la Photographie au Cinéma', publishedAt: '2024-01-25', channelTitle: 'Commande', description: 'Documentaire', type: 'documentaire', origin: 'commande' },
-      { id: 'Ty9t8MBemzE', title: 'Aftermovie Fenêtre sur Court 2024', publishedAt: '2024-01-05', channelTitle: 'Commande', description: 'Aftermovie', type: 'aftermovie', origin: 'commande' }
+  { id: '9bKy3DJzbVQ', title: 'Festival de la Photographie au Cinéma', publishedAt: '2024-01-25', channelTitle: 'Commande', description: 'Commande de l\'association Bulldog Audiovisuel', resume: 'Documentaire introductif présentant le projet du Festival de la Photographie au Cinéma, un événement produit par l\'association Bulldog Audiovisuel.', type: 'documentaire', origin: 'commande' },
+  { id: 'Ty9t8MBemzE', title: 'Aftermovie Fenêtre sur Court 2024', publishedAt: '2024-01-05', channelTitle: 'Commande', description: 'Commande de l\'association Bulldog Audiovisuel.', resume: 'Vidéo récapitulative de l\'événement Fenêtre sur Court, où un groupe d\'adolescents et de jeunes adultes conçoivent un court-métrage en une semaine avec un intervenant.', type: 'aftermovie', origin: 'commande' }
     ];
 
     // --- Utilitaires ---
@@ -545,7 +545,11 @@
           channelTitle: 'Cinéma',
           publishedAt: v.publishedAt,
           type: 'extrait',
-          thumb: 'https://img.youtube.com/vi/'+v.id+'/mqdefault.jpg'
+          thumb: 'https://img.youtube.com/vi/'+v.id+'/mqdefault.jpg',
+          description: v.description,
+          resume: v.resume,
+          realisation: v.realisation,
+          montage: v.montage
         })));
       }
       if(theatre){
@@ -557,7 +561,12 @@
           channelTitle: 'Théâtre',
           publishedAt: v.publishedAt,
           type: 'extrait',
-          thumb: 'https://img.youtube.com/vi/'+v.id+'/mqdefault.jpg'
+          thumb: 'https://img.youtube.com/vi/'+v.id+'/mqdefault.jpg',
+          description: v.description,
+          resume: v.resume,
+          realisation: v.realisation,
+          realisationLabel: v.realisationLabel,
+          montage: v.montage
         })));
       }
     }
@@ -637,13 +646,14 @@
       const metaEl = qs('#lbMeta');
       if(titleEl) titleEl.textContent = v.title || '';
       if(metaEl){
-        const isMain = !!v.origin; // vidéos de la section principale
-        const realisation = isMain ? 'Ludovic Gacquer' : 'Ludovic Gacquer';
-        let montage = isMain ? 'Ludovic Gacquer' : 'Ludovic Gacquer';
-        if(v.id === 'kWmNQbJBcok') montage = 'Jean Bresson et Ludovic Gacquer';
+  const isMain = !!v.origin; // vidéos de la section principale
+  // Gestion des overrides éventuels par vidéo
+  const realisation = (typeof v.realisation === 'string' && v.realisation.trim()) ? v.realisation.trim() : 'Ludovic Gacquer';
+  let montage = v.montage === null ? null : ((typeof v.montage === 'string' && v.montage.trim()) ? v.montage.trim() : 'Ludovic Gacquer');
+  if(v.id === 'kWmNQbJBcok') montage = 'Jean Bresson et Ludovic Gacquer';
         const year = v.publishedAt ? new Date(v.publishedAt).getFullYear() : '—';
         const categorie = typeLabelMap[v.type] || (v.type || '—');
-        const info = (v.description && v.description.trim()) ? v.description.trim() : '—';
+  const info = (v.description && String(v.description).trim()) ? String(v.description).trim() : '—';
         // Génération d'un résumé court basé sur la première phrase/ligne (max ~180 caractères)
         let resumeTxt = (typeof v.resume === 'string' && v.resume.trim().length) ? v.resume.trim() : '—';
         if (resumeTxt === '—' && typeof v.description === 'string' && v.description.trim().length){
@@ -652,9 +662,10 @@
           resumeTxt = (match ? match[0] : raw.split('\n')[0] || raw).trim();
         }
         if (resumeTxt.length > 180) resumeTxt = resumeTxt.slice(0,177).trimEnd() + '…';
+        const realisationLabel = (typeof v.realisationLabel === 'string' && v.realisationLabel.trim()) ? v.realisationLabel.trim() : 'Réalisation';
         metaEl.innerHTML = `
-          <div class="meta-item"><strong>Réalisation</strong><span>${realisation}</span></div>
-          <div class="meta-item"><strong>Montage</strong><span>${montage}</span></div>
+          <div class="meta-item"><strong>${realisationLabel}</strong><span>${realisation}</span></div>
+          ${montage !== null ? `<div class=\"meta-item\"><strong>Montage</strong><span>${montage}</span></div>` : ''}
           <div class="meta-item"><strong>Année</strong><span>${year}</span></div>
           <div class="meta-item"><strong>Catégorie</strong><span>${categorie}</span></div>
           <div class="meta-item"><strong>Contexte</strong><span>${info}</span></div>
