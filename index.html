@@ -176,9 +176,9 @@
         <div class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></div>
         <ul id="navList">
           <li><a href="#hero">Accueil</a></li>
-          <li><a href="#bio">Bio</a></li>
           <li><a href="#videos">Vidéos</a></li>
           <li><a href="#comedien">Comédien</a></li>
+          <li><a href="#bio">Bio</a></li>
           <li><a href="#skills">Compétences</a></li>
           <li><a href="#filmographie">Filmographie</a></li>
           <li><a href="#contact">Contact</a></li>
@@ -203,15 +203,9 @@
 
     <!-- Section facultative showreel supprimée -->
 
-    <!-- Biographie -->
-    <section id="bio" aria-labelledby="bio-title">
-      <div class="section-intro" data-reveal>
-        <h2 id="bio-title">Biographie</h2>
-        <p>TODO: Remplacer ce texte par une biographie authentique. Passionné par la direction d'acteurs et le rythme du montage, Ludovic développe une approche hybride mêlant exigence cinématographique et sens du détail. Expérience en courts-métrages, publicité, formats web et collaboration créative.</p>
-      </div>
-    </section>
+    
 
-    <!-- Galerie Vidéos (déplacé entre Bio et Compétences) -->
+    <!-- Galerie Vidéos -->
     <section id="videos" aria-labelledby="videos-title">
       <div class="section-intro" data-reveal>
         <h2 id="videos-title">Vidéos</h2>
@@ -234,6 +228,14 @@
       <div class="videos-grid" id="actingTheatreGrid" data-reveal></div>
     </section>
 
+    <!-- Biographie -->
+    <section id="bio" aria-labelledby="bio-title">
+      <div class="section-intro" data-reveal>
+        <h2 id="bio-title">Biographie</h2>
+        <p>TODO: Remplacer ce texte par une biographie authentique. Passionné par la direction d'acteurs et le rythme du montage, Ludovic développe une approche hybride mêlant exigence cinématographique et sens du détail. Expérience en courts-métrages, publicité, formats web et collaboration créative.</p>
+      </div>
+    </section>
+
     <!-- Compétences -->
     <section id="skills" aria-labelledby="skills-title">
       <div class="section-intro" data-reveal>
@@ -246,7 +248,7 @@
     <!-- Filmographie / Timeline -->
     <section id="filmographie" aria-labelledby="filmographie-title">
       <div class="section-intro" data-reveal>
-        <h2 id="filmographie-title">Filmographie & Crédits</h2>
+  <h2 id="filmographie-title">Autres crédits</h2>
         <p class="muted">Sélection de projets – acting, réalisation, montage.</p>
       </div>
       <div class="timeline" id="timeline" aria-live="polite"></div>
@@ -356,7 +358,7 @@
     ];
 
     const filmographie = [
-      { annee: 2025, titre: 'Titre Projet A', role: 'Acteur principal', type: 'Court-métrage', description: 'Rôle intense – drame psychologique.' },
+      { annee: 2024, titre: 'Le Soleil est Parti', role: 'Premier assitant réalisateur', type: 'Court-métrage', description: 'Création et gestion du planning de tournage. Coordination des équipes techniques et des comédiens.' },
       { annee: 2024, titre: 'Titre Projet B', role: 'Réalisateur & Monteur', type: 'Publicité', description: 'Narration rythmée orientée impact.' },
       { annee: 2024, titre: 'Titre Projet C', role: 'Acteur secondaire', type: 'Série Web', description: 'Création tension narrative.' },
       { annee: 2023, titre: 'Titre Projet D', role: 'Monteur', type: 'Documentaire', description: 'Structuration émotionnelle.' },
