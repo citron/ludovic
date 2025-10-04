@@ -196,10 +196,10 @@
       <div class="hero-text" data-reveal>
         <h1><span class="gradient-text">Ludovic Gacquer</span></h1>
         <div class="hero-roles">
-          <span>Réalisateur</span><span>Monteur</span><span>Comédien</span>
+          <span id="role-director">Réalisateur</span><span id="role-editor">Monteur</span><span id="role-actor">Comédien</span>
         </div>
-  <p class="lead">Entre cinéma et théâtre, je prends l’absurde très au sérieux .<br />
-  Projets personnels et de commande, réalisation et montage, un parcours du conservatoire au master documentaire, et une année en Nouvelle‑Zélande.</p>
+        <p class="lead" id="hero-lead">Entre cinéma et théâtre, je prends l’absurde très au sérieux .<br />
+        Projets personnels et de commande, réalisation et montage, un parcours du conservatoire au master documentaire, et une année en Nouvelle‑Zélande.</p>
         <div class="cta-row">
           <button class="btn btn-outline" data-scroll-to="#contact">Contact Professionnel</button>
         </div>
@@ -225,9 +225,9 @@
       <div class="section-intro" data-reveal>
         <h2 id="comedien-title">Comédien</h2>
       </div>
-      <h3>Cinéma</h3>
+  <h3 id="sub-cinema-title">Cinéma</h3>
       <div class="videos-grid" id="actingCinemaGrid" data-reveal></div>
-      <h3 style="margin-top:1.8rem;">Théâtre</h3>
+  <h3 id="sub-theatre-title" style="margin-top:1.8rem;">Théâtre</h3>
       <div class="videos-grid" id="actingTheatreGrid" data-reveal></div>
     </section>
 
@@ -235,24 +235,7 @@
     <section id="bio" aria-labelledby="bio-title">
       <div class="section-intro" data-reveal>
         <h2 id="bio-title">Expériences et qualifications</h2>
-        <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.9rem;">
-          <li>
-            <strong>2024/2025&nbsp;:</strong> Expatriation d’un an en Nouvelle-Zélande, sous la forme d’un visa vacances travail<br />
-            <small class="muted" style="display:block; margin-top:0.25rem;">Pratique et consolidation de mon anglais, travail en restauration.</small>
-          </li>
-          <li>
-            <strong>2023/2024&nbsp;:</strong> Service civique pour l’association Bulldog Audiovisuel<br />
-            <small class="muted" style="display:block; margin-top:0.25rem;">Montage vidéo de teaser, de courts-métrages et d’aftermovies; création et organisations d’événements autour du cinéma; gestion d’ateliers cinéma pour collèges et lycées.</small>
-          </li>
-          <li>
-            <strong>2022/2023&nbsp;:</strong> Master 2 professionnel Cinéma Documentaire Empreintes du Réel<br />
-            <small class="muted" style="display:block; margin-top:0.25rem;">Obtention du diplôme mention Assez Bien.</small>
-          </li>
-          <li>
-            <strong>2022&nbsp;:</strong> Obtention de mon diplôme de fin d’études d’art dramatique au Conservatoire à Rayonnement Régional d’Amiens<br />
-            <small class="muted" style="display:block; margin-top:0.25rem;">Mention Très Bien.</small>
-          </li>
-        </ul>
+        <ul id="bioList" style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.9rem;"></ul>
       </div>
     </section>
 
@@ -280,7 +263,7 @@
     <section id="contact" aria-labelledby="contact-title">
       <div class="section-intro" data-reveal>
         <h2 id="contact-title">Contact</h2>
-        <p class="muted">Pour propositions, collaborations artistiques ou demandes de casting.</p>
+  <p class="muted" id="contact-subtext">Pour propositions, collaborations artistiques ou demandes de casting.</p>
       </div>
       <div class="contact-grid" data-reveal>
         <div class="contact-info">
@@ -345,41 +328,41 @@
     ];
 
     const filmographie = [
-      { annee: 2024, titre: 'Le Soleil est Parti - Arthur Monville', role: 'Premier assitant réalisateur', type: 'Court-métrage', description: 'Création et gestion du planning de tournage. Coordination des équipes techniques et des comédiens.' }
+      { annee: 2024, titre: 'Le Soleil est Parti - Arthur Monville', titre_en:'The Sun Has Left - Arthur Monville', role: 'Premier assitant réalisateur', role_en:'First assistant director', type: 'Court-métrage', type_en:'Short film', description: 'Création et gestion du planning de tournage. Coordination des équipes techniques et des comédiens.', description_en:'Created and managed the shooting schedule. Coordinated technical crews and actors.' }
     ];
 
     // Témoignages supprimés
 
     const awards = [
-      { titre: 'Séance spéciale', event: 'Festival International du Film d\'Amiens - Diffusion de films du Master 2 pro documentaire Empreintes du Réel 2023', detail: 'Bieu conme un Indien' },
-      { titre: 'Sélection officielle', event: 'Fêtons Court - Festival International du Film d\'Amiens 2022', detail: 'GOBELET - Global Offensive By Electrical Light Energy The Terminal' },
+      { titre: 'Séance spéciale', titre_en:'Special screening', event: 'Festival International du Film d\'Amiens - Diffusion de films du Master 2 pro documentaire Empreintes du Réel 2023', event_en:'Amiens International Film Festival - Screening of films from the 2023 Documentary Master\'s program', detail: 'Bieu conme un Indien', detail_en:'Bieu conme un Indien' },
+      { titre: 'Sélection officielle', titre_en:'Official selection', event: 'Fêtons Court - Festival International du Film d\'Amiens 2022', event_en:'Fêtons Court - Amiens International Film Festival 2022', detail: 'GOBELET - Global Offensive By Electrical Light Energy The Terminal', detail_en:'GOBELET - Global Offensive By Electrical Light Energy The Terminal' },
     ];
 
     // Comédien: listes dédiées
     const actingCinema = [
-  { id: '5pD9tEb4ufU', title: 'Si', publishedAt: '2022-01-01', description: 'Film soutenu par le fond Émergence de Pictanovo.', resume: 'Une jeune femme perd son audition et se coupe progressivement du monde.', realisation: 'Alexandra Kokoreva', montage: null, type: 'moyen-métrage' },
-      { id: '2SbHKIoA3oo', title: '23h37', publishedAt: '2021-01-01', description: 'Film étudiant', resume: 'Une jeune femme garde une maison et un enfant caché. Elle est surprise par son groupe d\'amis, venus fêter Halloween avec elle.', realisation: 'Charline Toulza', type: 'court-métrage' },
-      { id: 'fYBwWGi-_es', title: 'A Demain', publishedAt: '2021-01-01', description: 'Film étudiant', resume: 'D\'après une histoire vraie. Une histoire d\'amour tragique.', realisation: 'Christophe Generoso', type: 'court-métrage' },
-      { id: '6YYhZIYyiNc', title: 'La Collection de Madame Laursen', publishedAt: '2023-01-01', description: 'Film étudiant', resume: 'Un homme d\'affaires prend des vacances dans une maison isolée.', realisation: 'Tony Fredj & Valentin Dieudonné', montage: null, type: 'court-métrage' },
-      { id: 'QY-AJ7IV3lE', title: 'Scheol', publishedAt: '2020-01-01', description: 'Film étudiant', resume: 'Un couple est détruit par le traumatisme d\'un viol.', realisation: 'Allan Masson', type: 'court-métrage' }
+      { id: '5pD9tEb4ufU', title: 'Si', title_en:'If', publishedAt: '2022-01-01', description: 'Film soutenu par le fond Émergence de Pictanovo.', description_en:'Film supported by Pictanovo\'s Émergence fund.', resume: 'Une jeune femme perd son audition et se coupe progressivement du monde.', resume_en:'A young woman loses her hearing and gradually cuts herself off from the world.', realisation: 'Alexandra Kokoreva', montage: null, type: 'moyen-métrage', type_en:'Medium-length film' },
+      { id: '2SbHKIoA3oo', title: '23h37', title_en:'11:37 PM', publishedAt: '2021-01-01', description: 'Film étudiant', description_en:'Student film', resume: 'Une jeune femme garde une maison et un enfant caché. Elle est surprise par son groupe d\'amis, venus fêter Halloween avec elle.', resume_en:'A young woman house-sits and hides a child. Her friends show up to celebrate Halloween with her.', realisation: 'Charline Toulza', type: 'court-métrage', type_en:'Short film' },
+      { id: 'fYBwWGi-_es', title: 'A Demain', title_en:'See You Tomorrow', publishedAt: '2021-01-01', description: 'Film étudiant', description_en:'Student film', resume: 'D\'après une histoire vraie. Une histoire d\'amour tragique.', resume_en:'Based on a true story. A tragic love story.', realisation: 'Christophe Generoso', type: 'court-métrage', type_en:'Short film' },
+      { id: '6YYhZIYyiNc', title: 'La Collection de Madame Laursen', title_en:'Mrs. Laursen\'s Collection', publishedAt: '2023-01-01', description: 'Film étudiant', description_en:'Student film', resume: 'Un homme d\'affaires prend des vacances dans une maison isolée.', resume_en:'A businessman takes a vacation in an isolated house.', realisation: 'Tony Fredj & Valentin Dieudonné', montage: null, type: 'court-métrage', type_en:'Short film' },
+      { id: 'QY-AJ7IV3lE', title: 'Scheol', publishedAt: '2020-01-01', description: 'Film étudiant', description_en:'Student film', resume: 'Un couple est détruit par le traumatisme d\'un viol.', resume_en:'A couple is destroyed by the trauma of a rape.', realisation: 'Allan Masson', type: 'court-métrage', type_en:'Short film' }
     ];
     const actingTheatre = [
-      { id: 'L1tkQrXh940', title: 'LAC', publishedAt: '2020-01-01', description: "Projet de fin d'études de comédien", resume: "Trois monologues par autant de membres d'une compagnie de théâtre qui font face au deuil.", realisation: 'Grégoire Aussilou', realisationLabel: 'Mise en scène', montage: null },
-      { title: 'Stevenson', publishedAt: '2022-01-01', description: 'Création Compagnie des Lucioles', resume: "Deux comédiens jouent divers rôles des livres de Stevenson avec un costume évolutif.", realisation: 'Emilien Rousvoal', realisationLabel: 'Mise en scène', montage: null, media: 'image', thumb: 'assets/stevenson.jpg' }
+      { id: 'L1tkQrXh940', title: 'LAC', publishedAt: '2020-01-01', description: "Projet de fin d'études de comédien", description_en:"Final acting school project", resume: "Trois monologues par autant de membres d'une compagnie de théâtre qui font face au deuil.", resume_en:"Three monologues by members of a theatre company facing grief.", realisation: 'Grégoire Aussilou', realisationLabel: 'Mise en scène', realisationLabel_en:'Director', montage: null },
+      { title: 'Stevenson', publishedAt: '2022-01-01', description: 'Création Compagnie des Lucioles', description_en:'Created by Compagnie des Lucioles', resume: "Deux comédiens jouent divers rôles des livres de Stevenson avec un costume évolutif.", resume_en:"Two actors play various roles from Stevenson\'s books with an evolving costume.", realisation: 'Emilien Rousvoal', realisationLabel: 'Mise en scène', realisationLabel_en:'Director', montage: null, media: 'image', thumb: 'assets/stevenson.jpg' }
     ];
 
     // Vidéos curées (Projets personnels + Projets de commande) insérées directement dans la grille principale
     const curatedVideos = [
       // Projets personnels
-  { id: 'Ky2rIGLTFv4', title: 'La Belle et la Caisse', publishedAt: '2025-10-01', channelTitle: 'Projet personnel', description: 'Court-métrage auto-produit.', resume: 'Un conte de fées de garage. Un homme est transformé en voiture après avoir écrasé un cafard magique. Une femme ne s\'exprime qu\'en bruits de véhicules depuis sa naissance.', type: 'fiction', origin: 'perso' },
-  { id: 'kWmNQbJBcok', title: 'Bieu conme un Indien', publishedAt: '2023-06-15', channelTitle: 'Projet personnel', description: 'Film de fin d\'études - Master 2 pro Cinéma Documentaire Empreintes du Réel à l\'Université de Picardie Jules Verne, Amiens.', resume: 'La recherche de mes potentielles origines indiennes, quelque part dans la Première Guerre Mondiale et de vieux secrets de famille.', type: 'documentaire', origin: 'perso' },
-  { id: 'A6F3vW_wpZY', title: 'Garphilde', publishedAt: '2023-05-20', channelTitle: 'Projet personnel', description: 'Court-métrage auto-produit.', resume: 'Un homme est pourchassé par une version corrompue et maléfique de Garfield le chat.', type: 'fiction', origin: 'perso' },
-  { id: '7dLSe8_8rKQ', title: 'GOBELET - Global Offensive By Electrical Light Energy The Terminal', publishedAt: '2022-04-10', channelTitle: 'Projet personnel', description: 'Court-métrage de fin de Licence Arts du Spectacle à l\'Université de Picardie Jules Verne, Amiens. Premier court-métrage de fiction. Faux plan-séquence.', resume: 'Un homme cherche son gobelet pour se rincer la bouche après s\'être brossé les dents.', type: 'fiction', origin: 'perso' },
+  { id: 'Ky2rIGLTFv4', title: 'La Belle et la Caisse', title_en:'Beauty and the Crate', publishedAt: '2025-10-01', channelTitle: 'Projet personnel', channelTitle_en:'Personal project', description: 'Court-métrage auto-produit.', description_en:'Self-produced short film.', resume: 'Un conte de fées de garage. Un homme est transformé en voiture après avoir écrasé un cafard magique. Une femme ne s\'exprime qu\'en bruits de véhicules depuis sa naissance.', resume_en:'A garage fairy tale. A man is turned into a car after crushing a magic cockroach. A woman has only spoken in vehicle sounds since birth.', type: 'fiction', type_en:'Fiction', origin: 'perso' },
+  { id: 'kWmNQbJBcok', title: 'Bieu conme un Indien', publishedAt: '2023-06-15', channelTitle: 'Projet personnel', channelTitle_en:'Personal project', description: 'Film de fin d\'études - Master 2 pro Cinéma Documentaire Empreintes du Réel à l\'Université de Picardie Jules Verne, Amiens.', description_en:'Graduation film - Documentary Master program Empreintes du Réel, University of Picardie Jules Verne, Amiens.', resume: 'La recherche de mes potentielles origines indiennes, quelque part dans la Première Guerre Mondiale et de vieux secrets de famille.', resume_en:'Searching for my potential Indian roots, somewhere in World War I and old family secrets.', type: 'documentaire', type_en:'Documentary', origin: 'perso' },
+  { id: 'A6F3vW_wpZY', title: 'Garphilde', publishedAt: '2023-05-20', channelTitle: 'Projet personnel', channelTitle_en:'Personal project', description: 'Court-métrage auto-produit.', description_en:'Self-produced short film.', resume: 'Un homme est pourchassé par une version corrompue et maléfique de Garfield le chat.', resume_en:'A man is chased by a corrupted, evil version of Garfield the cat.', type: 'fiction', type_en:'Fiction', origin: 'perso' },
+  { id: '7dLSe8_8rKQ', title: 'GOBELET - Global Offensive By Electrical Light Energy The Terminal', title_en:'GOBELET - Global Offensive By Electrical Light Energy The Terminal', publishedAt: '2022-04-10', channelTitle: 'Projet personnel', channelTitle_en:'Personal project', description: 'Court-métrage de fin de Licence Arts du Spectacle à l\'Université de Picardie Jules Verne, Amiens. Premier court-métrage de fiction. Faux plan-séquence.', description_en:'Final short film of a Bachelor in Performing Arts at the University of Picardie Jules Verne, Amiens. First fiction short. Faux one-shot.', resume: 'Un homme cherche son gobelet pour se rincer la bouche après s\'être brossé les dents.', resume_en:'A man looks for his cup to rinse his mouth after brushing his teeth.', type: 'fiction', type_en:'Fiction', origin: 'perso' },
       // Projets de commande
-  { id: 'g-gyTVi_iT8', title: 'Nightmare - Thinking Too Much - Music clip', publishedAt: '2023-03-15', channelTitle: 'Commande', description: 'Commande du groupe de musique rock amiénois Thinking Too Much.', resume: 'Cover de la chanson Nightmare du groupe Avenged Sevenfold.', type: 'clip-musical', origin: 'commande' },
-  { id: 'ILtUNe4Q3LA', title: 'Teaser 54h Chrono! 2024', publishedAt: '2024-02-20', channelTitle: 'Commande', description: 'Commande pour l\'association Bulldog Audiovisuel', resume: 'Teaser d\'introduction pour la compétition de films 54h Chrono!, dans laquelle 20 équipes doivent créer un film en moins de 3 jours. Cette vidéo révèle le thème et la contrainte de la compétition de l\'année 2024. 54h Chrono est un événement organisé par l\'association Bulldog Audiovisuel, à Amiens.', type: 'teaser', origin: 'commande' },
-  { id: '9bKy3DJzbVQ', title: 'Festival de la Photographie au Cinéma', publishedAt: '2024-01-25', channelTitle: 'Commande', description: 'Commande de l\'association Bulldog Audiovisuel', resume: 'Documentaire introductif présentant le projet du Festival de la Photographie au Cinéma, un événement produit par l\'association Bulldog Audiovisuel.', type: 'documentaire', origin: 'commande' },
-  { id: 'Ty9t8MBemzE', title: 'Aftermovie Fenêtre sur Court 2024', publishedAt: '2024-01-05', channelTitle: 'Commande', description: 'Commande de l\'association Bulldog Audiovisuel.', resume: 'Vidéo récapitulative de l\'événement Fenêtre sur Court, où un groupe d\'adolescents et de jeunes adultes conçoivent un court-métrage en une semaine avec un intervenant.', type: 'aftermovie', origin: 'commande' }
+  { id: 'g-gyTVi_iT8', title: 'Nightmare - Thinking Too Much - Music clip', publishedAt: '2023-03-15', channelTitle: 'Commande', channelTitle_en:'Commission', description: 'Commande du groupe de musique rock amiénois Thinking Too Much.', description_en:'Commission for the Amiens rock band Thinking Too Much.', resume: 'Cover de la chanson Nightmare du groupe Avenged Sevenfold.', resume_en:'Cover of the song "Nightmare" by Avenged Sevenfold.', type: 'clip-musical', type_en:'Music video', origin: 'commande' },
+  { id: 'ILtUNe4Q3LA', title: 'Teaser 54h Chrono! 2024', publishedAt: '2024-02-20', channelTitle: 'Commande', channelTitle_en:'Commission', description: 'Commande pour l\'association Bulldog Audiovisuel', description_en:'Commission for the Bulldog Audiovisuel association', resume: 'Teaser d\'introduction pour la compétition de films 54h Chrono!, dans laquelle 20 équipes doivent créer un film en moins de 3 jours. Cette vidéo révèle le thème et la contrainte de la compétition de l\'année 2024. 54h Chrono est un événement organisé par l\'association Bulldog Audiovisuel, à Amiens.', resume_en:'Intro teaser for the 54h Chrono! film competition, where 20 teams create a film in under 3 days. This video reveals the 2024 theme and constraint. 54h Chrono is an event by Bulldog Audiovisuel, in Amiens.', type: 'teaser', type_en:'Teaser', origin: 'commande' },
+  { id: '9bKy3DJzbVQ', title: 'Festival de la Photographie au Cinéma', title_en:'Photography in Cinema Festival', publishedAt: '2024-01-25', channelTitle: 'Commande', channelTitle_en:'Commission', description: 'Commande de l\'association Bulldog Audiovisuel', description_en:'Commission by the Bulldog Audiovisuel association', resume: 'Documentaire introductif présentant le projet du Festival de la Photographie au Cinéma, un événement produit par l\'association Bulldog Audiovisuel.', resume_en:'Introductory documentary presenting the Photography in Cinema Festival, produced by Bulldog Audiovisuel.', type: 'documentaire', type_en:'Documentary', origin: 'commande' },
+  { id: 'Ty9t8MBemzE', title: 'Aftermovie Fenêtre sur Court 2024', title_en:'Aftermovie Fenêtre sur Court 2024', publishedAt: '2024-01-05', channelTitle: 'Commande', channelTitle_en:'Commission', description: 'Commande de l\'association Bulldog Audiovisuel.', description_en:'Commission by Bulldog Audiovisuel.', resume: 'Vidéo récapitulative de l\'événement Fenêtre sur Court, où un groupe d\'adolescents et de jeunes adultes conçoivent un court-métrage en une semaine avec un intervenant.', resume_en:'Recap of the “Fenêtre sur Court” event, where teens and young adults make a short film in one week with a mentor.', type: 'aftermovie', type_en:'Aftermovie', origin: 'commande' }
     ];
 
     // --- Utilitaires ---
@@ -424,13 +407,35 @@
       Object.entries(h).forEach(([sel,key])=> { const el = qs(sel); if(el) el.textContent = t(key); });
       // CTA
       const cta = qs('.cta-row .btn'); if(cta) cta.textContent = t('ctas.contact');
+      // Hero roles and lead
+      const rd = qs('#role-director'); if(rd) rd.textContent = currentLang==='en' ? 'Director' : 'Réalisateur';
+      const re = qs('#role-editor'); if(re) re.textContent = currentLang==='en' ? 'Editor' : 'Monteur';
+      const ra = qs('#role-actor'); if(ra) ra.textContent = currentLang==='en' ? 'Actor' : 'Comédien';
+      const lead = qs('#hero-lead'); if(lead){
+        lead.innerHTML = currentLang==='en'
+          ? 'Between cinema and theatre, I take the absurd very seriously.<br />Personal and commissioned projects, directing and editing, a path from conservatory to a documentary master\'s, and a year in New Zealand.'
+          : 'Entre cinéma et théâtre, je prends l’absurde très au sérieux .<br />\n        Projets personnels et de commande, réalisation et montage, un parcours du conservatoire au master documentaire, et une année en Nouvelle‑Zélande.';
+      }
       // Lightbox static labels
       const lb = qs('#lightbox'); if(lb) lb.setAttribute('aria-label', t('lightbox.playerTitle'));
       const closeBtn = qs('#closeLightbox'); if(closeBtn) closeBtn.textContent = t('lightbox.close');
       const aside = qs('.meta-area'); if(aside) aside.setAttribute('aria-label', t('lightbox.aside'));
       // Re-render dynamic sections that include translated strings
+      renderBio();
+      renderTimeline();
+      renderAwards();
       renderGroupedVideos();
       renderActingSection();
+      // Empty state and contact subtext
+      const empty = qs('#videosEmpty'); if(empty) empty.textContent = currentLang==='en' ? 'No videos found.' : 'Aucune vidéo trouvée.';
+      const contactSub = qs('#contact-subtext'); if(contactSub) contactSub.textContent = currentLang==='en' ? 'For proposals, artistic collaborations or casting requests.' : 'Pour propositions, collaborations artistiques ou demandes de casting.';
+      // Meta title/description
+      const titleEl = document.querySelector('title');
+      if(titleEl) titleEl.textContent = currentLang==='en' ? 'Ludovic Gacquer – Actor · Director · Editor' : 'Ludovic Gacquer – Comédien · Réalisateur · Monteur';
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if(metaDesc) metaDesc.setAttribute('content', currentLang==='en' ? 'Official portfolio of Ludovic Gacquer – actor, director and editor. Filmography, videos and professional contact.' : 'Portfolio officiel de Ludovic Gacquer – comédien, réalisateur et monteur. Filmographie, vidéos et contact professionnel.');
+      const ogDesc = document.querySelector('meta[property="og:description"]');
+      if(ogDesc) ogDesc.setAttribute('content', currentLang==='en' ? 'Actor · Director · Editor – Filmography, videos and professional contact.' : 'Comédien · Réalisateur · Monteur – Filmographie, vidéos et contact professionnel.');
     }
     function toggleLanguage(){
       currentLang = currentLang === 'fr' ? 'en' : 'fr';
@@ -491,25 +496,7 @@
       });
     }
 
-    // Timeline
-    const timeline = qs('#timeline');
-    filmographie.sort((a,b)=> b.annee - a.annee).forEach(item => {
-      const el = document.createElement('div');
-      el.className='timeline-item';
-      el.innerHTML = `<h4>${item.titre}</h4><small>${item.annee} · ${item.type} · ${item.role}</small><p class="muted">${item.description}</p>`;
-      timeline.appendChild(el);
-    });
-
-    // Génération des témoignages supprimée
-
-    // Awards
-    const awardsEl = qs('#awards');
-    awards.forEach(a => {
-      const card = document.createElement('div');
-      card.className='mini-card';
-      card.innerHTML = `<h4>${a.titre}</h4><p>${a.event}<br><span class="muted">${a.detail}</span></p>`;
-      awardsEl.appendChild(card);
-    });
+    // Timeline / Awards are rendered via functions (see renderTimeline/renderAwards)
 
     // Video Aggregation
     let allVideos = [];
@@ -645,7 +632,7 @@
         const grid = document.createElement('div');
         grid.className='videos-grid video-group-grid';
         vids.sort((a,b)=> new Date(b.publishedAt) - new Date(a.publishedAt));
-        vids.forEach(v => grid.appendChild(buildVideoCard(v)));
+  vids.forEach(v => grid.appendChild(buildVideoCard(localizeVideo(v))));
         container.appendChild(grid);
       });
       if(totalCount === 0) empty.style.display='block'; else empty.style.display='none';
@@ -662,7 +649,21 @@
       return [...sortDesc(byGroup.commande), ...sortDesc(byGroup.perso), ...sortDesc(byGroup.other)];
     }
 
+    function localizeVideo(v){
+      if(currentLang==='en'){
+        return {
+          ...v,
+          title: v.title_en || v.title,
+          description: v.description_en || v.description,
+          resume: v.resume_en || v.resume,
+          type: v.type_en || v.type,
+          channelTitle: v.channelTitle_en || v.channelTitle
+        };
+      }
+      return v;
+    }
     function buildVideoCard(v){
+      v = localizeVideo(v);
       const card = document.createElement('article');
       card.className='video-card';
       card.setAttribute('role','button');
@@ -677,6 +678,67 @@
       card.addEventListener('click', ()=> openLightbox(v));
       card.addEventListener('keydown', e=> { if(e.key==='Enter') openLightbox(v); });
       return card;
+    }
+
+    // Bio render
+    function renderBio(){
+      const bioList = qs('#bioList'); if(!bioList) return;
+      const items = [
+        {
+          year:'2024/2025', text_fr:"Expatriation d’un an en Nouvelle-Zélande, sous la forme d’un visa vacances travail", text_en:'One-year expatriation in New Zealand on a working holiday visa', sub_fr:'Pratique et consolidation de mon anglais, travail en restauration.', sub_en:'Practiced and consolidated my English; hospitality work.'
+        },
+        {
+          year:'2023/2024', text_fr:"Service civique pour l’association Bulldog Audiovisuel", text_en:'Civic service for Bulldog Audiovisuel association', sub_fr:"Montage vidéo de teaser, de courts-métrages et d’aftermovies; création et organisations d’événements autour du cinéma; gestion d’ateliers cinéma pour collèges et lycées.", sub_en:'Edited teasers, short films and aftermovies; created and organized cinema events; ran cinema workshops for middle and high schools.'
+        },
+        {
+          year:'2022/2023', text_fr:"Master 2 professionnel Cinéma Documentaire Empreintes du Réel", text_en:'Professional Master 2 – Documentary Cinema “Empreintes du Réel”', sub_fr:'Obtention du diplôme mention Assez Bien.', sub_en:'Graduated with honours (Assez Bien).'
+        },
+        {
+          year:'2022', text_fr:"Obtention de mon diplôme de fin d’études d’art dramatique au Conservatoire à Rayonnement Régional d’Amiens", text_en:'Graduated in Dramatic Arts at the Amiens Regional Conservatory', sub_fr:'Mention Très Bien.', sub_en:'Highest honours.'
+        }
+      ];
+      bioList.innerHTML='';
+      items.forEach(it => {
+        const li = document.createElement('li');
+        const main = currentLang==='en' ? it.text_en : it.text_fr;
+        const sub = currentLang==='en' ? it.sub_en : it.sub_fr;
+        li.innerHTML = `<strong>${it.year}&nbsp;:</strong> ${main}<br /><small class="muted" style="display:block; margin-top:0.25rem;">${sub}</small>`;
+        bioList.appendChild(li);
+      });
+      // Subheadings cinema/theatre
+      const sc = qs('#sub-cinema-title'); if(sc) sc.textContent = currentLang==='en' ? 'Cinema' : 'Cinéma';
+      const st = qs('#sub-theatre-title'); if(st) st.textContent = currentLang==='en' ? 'Theatre' : 'Théâtre';
+    }
+
+    // Timeline render
+    function renderTimeline(){
+      const timeline = qs('#timeline'); if(!timeline) return;
+      timeline.innerHTML='';
+      filmographie.sort((a,b)=> b.annee - a.annee).forEach(item => {
+        const el = document.createElement('div');
+        el.className='timeline-item';
+        const titre = currentLang==='en' ? (item.titre_en||item.titre) : item.titre;
+        const type = currentLang==='en' ? (item.type_en||item.type) : item.type;
+        const role = currentLang==='en' ? (item.role_en||item.role) : item.role;
+        const desc = currentLang==='en' ? (item.description_en||item.description) : item.description;
+        el.innerHTML = `<h4>${titre}</h4><small>${item.annee} · ${type} · ${role}</small><p class="muted">${desc}</p>`;
+        timeline.appendChild(el);
+      });
+    }
+
+    // Awards render
+    function renderAwards(){
+      const awardsEl = qs('#awards'); if(!awardsEl) return;
+      awardsEl.innerHTML='';
+      awards.forEach(a => {
+        const card = document.createElement('div');
+        card.className='mini-card';
+        const titre = currentLang==='en' ? (a.titre_en||a.titre) : a.titre;
+        const event = currentLang==='en' ? (a.event_en||a.event) : a.event;
+        const detail = currentLang==='en' ? (a.detail_en||a.detail) : a.detail;
+        card.innerHTML = `<h4>${titre}</h4><p>${event}<br><span class="muted">${detail}</span></p>`;
+        awardsEl.appendChild(card);
+      });
     }
 
   const typeLabelMap = { fiction:'Fiction', documentaire:'Documentaire', teaser:'Teaser', interview:'Interview', aftermovie:'Aftermovie', 'clip-musical':'Clip musical', autre:'Autre', extrait:'Extrait', 'court-métrage':'Court-métrage', 'moyen-métrage':'Moyen-métrage' };
@@ -698,7 +760,8 @@
       }
       const titleEl = qs('#lbTitle');
       const metaEl = qs('#lbMeta');
-      if(titleEl) titleEl.textContent = v.title || '';
+  const vLoc = localizeVideo(v);
+  if(titleEl) titleEl.textContent = vLoc.title || '';
       if(metaEl){
   const isMain = !!v.origin; // vidéos de la section principale
   // Gestion des overrides éventuels par vidéo
@@ -707,11 +770,11 @@
   if(v.id === 'kWmNQbJBcok') montage = 'Jean Bresson et Ludovic Gacquer';
         const year = v.publishedAt ? new Date(v.publishedAt).getFullYear() : '—';
         const categorie = typeLabelMap[v.type] || (v.type || '—');
-  const info = (v.description && String(v.description).trim()) ? String(v.description).trim() : '—';
+  const info = (vLoc.description && String(vLoc.description).trim()) ? String(vLoc.description).trim() : '—';
         // Génération d'un résumé court basé sur la première phrase/ligne (max ~180 caractères)
-        let resumeTxt = (typeof v.resume === 'string' && v.resume.trim().length) ? v.resume.trim() : '—';
-        if (resumeTxt === '—' && typeof v.description === 'string' && v.description.trim().length){
-          const raw = v.description.trim().replace(/\s+/g,' ');
+        let resumeTxt = (typeof vLoc.resume === 'string' && vLoc.resume.trim().length) ? vLoc.resume.trim() : '—';
+        if (resumeTxt === '—' && typeof vLoc.description === 'string' && vLoc.description.trim().length){
+          const raw = vLoc.description.trim().replace(/\s+/g,' ');
           const match = raw.match(/.*?[.!?](\s|$)/);
           resumeTxt = (match ? match[0] : raw.split('\n')[0] || raw).trim();
         }
