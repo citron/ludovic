@@ -384,10 +384,10 @@
     // Vidéos curées (Projets personnels + Projets de commande) insérées directement dans la grille principale
     const curatedVideos = [
       // Projets personnels
-      { id: 'Ky2rIGLTFv4', title: 'La Belle et la Caisse', publishedAt: '2025-10-01', channelTitle: 'Projet personnel', description: 'Court de fiction', type: 'fiction', origin: 'perso' },
-      { id: 'kWmNQbJBcok', title: 'Bieu conme un Indien', publishedAt: '2023-06-15', channelTitle: 'Projet personnel', description: 'Documentaire', type: 'documentaire', origin: 'perso' },
-  { id: 'A6F3vW_wpZY', title: 'Garphilde', publishedAt: '2023-05-20', channelTitle: 'Projet personnel', description: 'Fiction', type: 'fiction', origin: 'perso' },
-      { id: '7dLSe8_8rKQ', title: 'GOBELET - Global Offensive By Electrical Light Energy The Terminal', publishedAt: '2022-04-10', channelTitle: 'Projet personnel', description: 'Fiction', type: 'fiction', origin: 'perso' },
+  { id: 'Ky2rIGLTFv4', title: 'La Belle et la Caisse', publishedAt: '2025-10-01', channelTitle: 'Projet personnel', description: 'Court-métrage auto-produit.', resume: 'Un conte de fées de garage. Un homme est transformé en voiture après avoir écrasé un cafard magique. Une femme ne s\'exprime qu\'en bruits de véhicules depuis sa naissance.', type: 'fiction', origin: 'perso' },
+  { id: 'kWmNQbJBcok', title: 'Bieu conme un Indien', publishedAt: '2023-06-15', channelTitle: 'Projet personnel', description: 'Film de fin d\'études - Master 2 pro Cinéma Documentaire Empreintes du Réel à l\'Université de Picardie Jules Verne, Amiens.', resume: 'La recherche de mes potentielles origines indiennes, quelque part dans la Première Guerre Mondiale et de vieux secrets de famille.', type: 'documentaire', origin: 'perso' },
+  { id: 'A6F3vW_wpZY', title: 'Garphilde', publishedAt: '2023-05-20', channelTitle: 'Projet personnel', description: 'Court-métrage auto-produit.', resume: 'Un homme est pourchassé par une version corrompue et maléfique de Garfield le chat.', type: 'fiction', origin: 'perso' },
+  { id: '7dLSe8_8rKQ', title: 'GOBELET - Global Offensive By Electrical Light Energy The Terminal', publishedAt: '2022-04-10', channelTitle: 'Projet personnel', description: 'Court-métrage de fin de Licence Arts du Spectacle à l\'Université de Picardie Jules Verne, Amiens. Premier court-métrage de fiction. Faux plan-séquence.', resume: 'Un homme cherche son gobelet pour se rincer la bouche après s\'être brossé les dents.', type: 'fiction', origin: 'perso' },
       // Projets de commande
       { id: 'g-gyTVi_iT8', title: 'Nightmare - Thinking Too Much - Music clip', publishedAt: '2023-03-15', channelTitle: 'Commande', description: 'Clip musical', type: 'clip-musical', origin: 'commande' },
       { id: 'ILtUNe4Q3LA', title: 'Teaser 54h Chrono! 2024', publishedAt: '2024-02-20', channelTitle: 'Commande', description: 'Teaser', type: 'teaser', origin: 'commande' },
@@ -644,13 +644,13 @@
         const categorie = typeLabelMap[v.type] || (v.type || '—');
         const info = (v.description && v.description.trim()) ? v.description.trim() : '—';
         // Génération d'un résumé court basé sur la première phrase/ligne (max ~180 caractères)
-        let resumeTxt = '—';
-        if (typeof v.description === 'string' && v.description.trim().length){
+        let resumeTxt = (typeof v.resume === 'string' && v.resume.trim().length) ? v.resume.trim() : '—';
+        if (resumeTxt === '—' && typeof v.description === 'string' && v.description.trim().length){
           const raw = v.description.trim().replace(/\s+/g,' ');
           const match = raw.match(/.*?[.!?](\s|$)/);
           resumeTxt = (match ? match[0] : raw.split('\n')[0] || raw).trim();
-          if (resumeTxt.length > 180) resumeTxt = resumeTxt.slice(0,177).trimEnd() + '…';
         }
+        if (resumeTxt.length > 180) resumeTxt = resumeTxt.slice(0,177).trimEnd() + '…';
         metaEl.innerHTML = `
           <div class="meta-item"><strong>Réalisation</strong><span>${realisation}</span></div>
           <div class="meta-item"><strong>Montage</strong><span>${montage}</span></div>
