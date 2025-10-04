@@ -63,7 +63,10 @@
     .badge-stack {position:absolute;bottom:-14px;left:16px;display:flex;gap:.6rem;flex-wrap:wrap;}
     .badge {background:#ffffff08;border:1px solid #ffffff12;padding:.45rem .7rem;font-size:.7rem;letter-spacing:.5px;text-transform:uppercase;border-radius:30px;font-weight:600;backdrop-filter:blur(6px);display:inline-flex;align-items:center;gap:.4rem;}
     .badge svg {width:14px;height:14px;}
-  #langToggle {margin-left:.8rem;cursor:pointer;}
+  #langToggle {margin-left:.8rem;cursor:pointer;color:var(--muted);background:transparent;border:none;padding:.4rem .2rem;font-size:.9rem;font-weight:500;letter-spacing:.5px;text-transform:none;position:relative;}
+  #langToggle::after {content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;transform:scaleX(0);transform-origin:left;background:var(--accent-grad);transition:var(--transition);border-radius:2px;}
+  #langToggle:hover,#langToggle:focus {color:var(--text);} 
+  #langToggle:hover::after,#langToggle:focus::after {transform:scaleX(1);} 
     .hero-text h1 {margin-bottom:1.2rem;}
     .hero-roles {display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1.2rem;}
     .hero-roles span {background:linear-gradient(120deg,#ffffff10,#ffffff05);border:1px solid #ffffff18;padding:.55rem .9rem;font-size:.72rem;letter-spacing:.8px;text-transform:uppercase;border-radius:26px;font-weight:600;color:var(--muted);}
@@ -195,7 +198,8 @@
         <div class="hero-roles">
           <span>Réalisateur</span><span>Monteur</span><span>Comédien</span>
         </div>
-  <p class="lead">Entre cinéma et théâtre, je prends l’absurde très au sérieux : projets personnels et de commande, réalisation et montage, un parcours du conservatoire au master documentaire, et une année en Nouvelle‑Zélande.</p>
+  <p class="lead">Entre cinéma et théâtre, je prends l’absurde très au sérieux .<br />
+  Projets personnels et de commande, réalisation et montage, un parcours du conservatoire au master documentaire, et une année en Nouvelle‑Zélande.</p>
         <div class="cta-row">
           <button class="btn btn-outline" data-scroll-to="#contact">Contact Professionnel</button>
         </div>
