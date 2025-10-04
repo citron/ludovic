@@ -372,11 +372,11 @@
 
     // Comédien: listes dédiées
     const actingCinema = [
-      { id: '5pD9tEb4ufU', title: 'Si - Bande annonce', publishedAt: '2022-01-01', description: 'Film soutenu par le fond Émergence de Pictanovo.', resume: 'Une jeune femme perd son audition et se coupe progressivement du monde.', realisation: 'Alexandra Kokoreva', montage: null },
-  { id: '2SbHKIoA3oo', title: '23h37', publishedAt: '2021-01-01', description: 'Film étudiant', resume: 'Une jeune femme garde une maison et un enfant caché. Elle est surprise par son groupe d\'amis, venus fêter Halloween avec elle.', realisation: 'Charline Toulza' },
-  { id: 'fYBwWGi-_es', title: 'A Demain', publishedAt: '2021-01-01', description: 'Film étudiant', resume: 'D\'après une histoire vraie. Une histoire d\'amour tragique.', realisation: 'Christophe Generoso' },
-  { id: '6YYhZIYyiNc', title: 'La Collection de Madame Laursen', publishedAt: '2023-01-01', description: 'Film étudiant', resume: 'Un homme d\'affaires prend des vacances dans une maison isolée.', realisation: 'Tony Fredj & Valentin Dieudonné', montage: null },
-  { id: 'QY-AJ7IV3lE', title: 'Scheol', publishedAt: '2020-01-01', description: 'Film étudiant', resume: 'Un couple est détruit par le traumatisme d\'un viol.', realisation: 'Allan Masson' }
+      { id: '5pD9tEb4ufU', title: 'Si - Bande annonce', publishedAt: '2022-01-01', description: 'Film soutenu par le fond Émergence de Pictanovo.', resume: 'Une jeune femme perd son audition et se coupe progressivement du monde.', realisation: 'Alexandra Kokoreva', montage: null, type: 'moyen-métrage' },
+      { id: '2SbHKIoA3oo', title: '23h37', publishedAt: '2021-01-01', description: 'Film étudiant', resume: 'Une jeune femme garde une maison et un enfant caché. Elle est surprise par son groupe d\'amis, venus fêter Halloween avec elle.', realisation: 'Charline Toulza', type: 'court-métrage' },
+      { id: 'fYBwWGi-_es', title: 'A Demain', publishedAt: '2021-01-01', description: 'Film étudiant', resume: 'D\'après une histoire vraie. Une histoire d\'amour tragique.', realisation: 'Christophe Generoso', type: 'court-métrage' },
+      { id: '6YYhZIYyiNc', title: 'La Collection de Madame Laursen', publishedAt: '2023-01-01', description: 'Film étudiant', resume: 'Un homme d\'affaires prend des vacances dans une maison isolée.', realisation: 'Tony Fredj & Valentin Dieudonné', montage: null, type: 'court-métrage' },
+      { id: 'QY-AJ7IV3lE', title: 'Scheol', publishedAt: '2020-01-01', description: 'Film étudiant', resume: 'Un couple est détruit par le traumatisme d\'un viol.', realisation: 'Allan Masson', type: 'court-métrage' }
     ];
     const actingTheatre = [
       { id: 'L1tkQrXh940', title: 'LAC', publishedAt: '2020-01-01', description: "Projet de fin d'études de comédien", resume: "Trois monologues par autant de membres d'une compagnie de théâtre qui font face au deuil.", realisation: 'Grégoire Aussilou', realisationLabel: 'Mise en scène', montage: null }
@@ -538,13 +538,13 @@
       const theatre = qs('#actingTheatreGrid');
       if(cinema){
         cinema.innerHTML='';
-        const sortedCinema = [...actingCinema].sort((a,b)=> new Date(a.publishedAt) - new Date(b.publishedAt));
+  const sortedCinema = [...actingCinema].sort((a,b)=> new Date(b.publishedAt) - new Date(a.publishedAt));
         sortedCinema.forEach(v => cinema.appendChild(buildVideoCard({
           id: v.id,
           title: v.title,
           channelTitle: 'Cinéma',
           publishedAt: v.publishedAt,
-          type: 'extrait',
+          type: v.type || 'extrait',
           thumb: 'https://img.youtube.com/vi/'+v.id+'/mqdefault.jpg',
           description: v.description,
           resume: v.resume,
@@ -560,7 +560,7 @@
           title: v.title,
           channelTitle: 'Théâtre',
           publishedAt: v.publishedAt,
-          type: 'extrait',
+          type: v.type || 'extrait',
           thumb: 'https://img.youtube.com/vi/'+v.id+'/mqdefault.jpg',
           description: v.description,
           resume: v.resume,
@@ -636,7 +636,7 @@
       return card;
     }
 
-    const typeLabelMap = { fiction:'Fiction', documentaire:'Documentaire', teaser:'Teaser', interview:'Interview', aftermovie:'Aftermovie', 'clip-musical':'Clip musical', autre:'Autre', extrait:'Extrait' };
+  const typeLabelMap = { fiction:'Fiction', documentaire:'Documentaire', teaser:'Teaser', interview:'Interview', aftermovie:'Aftermovie', 'clip-musical':'Clip musical', autre:'Autre', extrait:'Extrait', 'court-métrage':'Court-métrage', 'moyen-métrage':'Moyen-métrage' };
 
     function openLightbox(v){
       const lb = qs('#lightbox');
