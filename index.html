@@ -765,6 +765,11 @@
           img.src = v.thumbs[currentIndex];
         };
         galleryDiv.appendChild(img);
+        // Auto cycle every 2 seconds
+        galleryDiv.interval = setInterval(() => {
+          currentIndex = (currentIndex + 1) % v.thumbs.length;
+          img.src = v.thumbs[currentIndex];
+        }, 2000);
         player.innerHTML = '';
         player.appendChild(galleryDiv);
       } else if (v.media === 'image' || !v.id) {
@@ -810,8 +815,12 @@
     }
     function closeLightbox(){
       const lb = qs('#lightbox');
-  const frame2 = qs('#lightboxFrame');
-  if(frame2) frame2.src='';
+      const player = qs('.player-area');
+      if (player && player.firstChild && player.firstChild.interval) {
+        clearInterval(player.firstChild.interval);
+      }
+      const frame2 = qs('#lightboxFrame');
+      if(frame2) frame2.src='';
       lb.classList.remove('open');
       setTimeout(()=> lb.hidden=true, 350);
     }
