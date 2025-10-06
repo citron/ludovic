@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Ludovic Gacquer – Comédien · Réalisateur · Monteur</title>
-  <meta name="description" content="Portfolio officiel de Ludovic Gacquer – comédien, réalisateur et monteur. Filmographie, vidéos et contact professionnel." />
+  <meta name="description" content="Portfolio officiel de Ludovic Gacquer – comédien, réalisateur et monteur. Fil      { title: 'Stevenson', publishedAt: '2022-01-01', description: 'Création Compagnie des Lucioles', description_en:'Created by Compagnie des Lucioles', resume: "Deux comédiens jouent divers rôles des livres de Stevenson avec un costume évolutif.", resume_en:"Two actors play various roles from Stevenson\'s books with an evolving costume.", realisation: 'Emilien Rousvoal', realisationLabel: 'Mise en scène', realisationLabel_en:'Director', montage: null, media: 'gallery', thumbs: ['assets/stevenson01.jpg', 'assets/stevenson02.jpg', 'assets/stevenson03.jpg', 'assets/stevenson04.jpg', 'assets/stevenson05.jpg', 'assets/stevenson06.jpg', 'assets/stevenson07.jpg'] }ographie, vidéos et contact professionnel." />
   <meta property="og:title" content="Ludovic Gacquer – Portfolio" />
   <meta property="og:description" content="Comédien · Réalisateur · Monteur – Filmographie, vidéos et contact professionnel." />
   <meta property="og:type" content="website" />
@@ -755,30 +755,16 @@
       if (v.media === 'gallery' && v.thumbs && v.thumbs.length > 0) {
         let currentIndex = 0;
         const galleryDiv = document.createElement('div');
-        galleryDiv.style.cssText = 'position:relative; width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:#000;';
+        galleryDiv.style.cssText = 'position:relative; width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:#000; cursor:pointer;';
         const img = document.createElement('img');
         img.src = v.thumbs[currentIndex];
         img.alt = v.title;
         img.style.cssText = 'max-width:100%; max-height:100%; object-fit:contain; display:block;';
+        img.onclick = () => {
+          currentIndex = (currentIndex + 1) % v.thumbs.length;
+          img.src = v.thumbs[currentIndex];
+        };
         galleryDiv.appendChild(img);
-        if (v.thumbs.length > 1) {
-          const prevBtn = document.createElement('button');
-          prevBtn.textContent = '‹';
-          prevBtn.style.cssText = 'position:absolute; left:10px; top:50%; transform:translateY(-50%); background:#0008; color:#fff; border:none; padding:10px 15px; cursor:pointer; font-size:24px; border-radius:50%; backdrop-filter:blur(4px);';
-          prevBtn.onclick = () => {
-            currentIndex = (currentIndex - 1 + v.thumbs.length) % v.thumbs.length;
-            img.src = v.thumbs[currentIndex];
-          };
-          const nextBtn = document.createElement('button');
-          nextBtn.textContent = '›';
-          nextBtn.style.cssText = 'position:absolute; right:10px; top:50%; transform:translateY(-50%); background:#0008; color:#fff; border:none; padding:10px 15px; cursor:pointer; font-size:24px; border-radius:50%; backdrop-filter:blur(4px);';
-          nextBtn.onclick = () => {
-            currentIndex = (currentIndex + 1) % v.thumbs.length;
-            img.src = v.thumbs[currentIndex];
-          };
-          galleryDiv.appendChild(prevBtn);
-          galleryDiv.appendChild(nextBtn);
-        }
         player.innerHTML = '';
         player.appendChild(galleryDiv);
       } else if (v.media === 'image' || !v.id) {
