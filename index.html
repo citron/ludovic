@@ -567,38 +567,20 @@
       if(cinema){
         cinema.innerHTML='';
   const sortedCinema = [...actingCinema].sort((a,b)=> new Date(b.publishedAt) - new Date(a.publishedAt));
-        sortedCinema.forEach(v => cinema.appendChild(buildVideoCard({
-          id: v.id,
-          title: v.title,
-          channelTitle: t('channels.cinema'),
-          publishedAt: v.publishedAt,
-          type: v.type || 'extrait',
-          thumb: 'https://img.youtube.com/vi/'+v.id+'/mqdefault.jpg',
-          description: v.description,
-          resume: v.resume,
-          realisation: v.realisation,
-          montage: v.montage
-        })));
+        sortedCinema.forEach(v => {
+          const localizedV = localizeVideo(v);
+          localizedV.channelTitle = t('channels.cinema');
+          cinema.appendChild(buildVideoCard(localizedV));
+        });
       }
       if(theatre){
         theatre.innerHTML='';
   const sortedTheatre = [...actingTheatre].sort((a,b)=> new Date(b.publishedAt) - new Date(a.publishedAt));
-        sortedTheatre.forEach(v => theatre.appendChild(buildVideoCard({
-          id: v.id,
-          title: v.title,
-          channelTitle: t('channels.theatre'),
-          publishedAt: v.publishedAt,
-          type: v.type || 'extrait',
-          thumb: v.thumbs ? v.thumbs[0] : (v.thumb || (v.id ? 'https://img.youtube.com/vi/'+v.id+'/mqdefault.jpg' : undefined)),
-          description: v.description,
-          resume: v.resume,
-          realisation: v.realisation,
-          realisationLabel: currentLang==='en' ? (v.realisationLabel_en || v.realisationLabel) : v.realisationLabel,
-          montage: v.montage,
-          media: v.media,
-          thumbs: v.thumbs,
-          hideType: true
-        })));
+        sortedTheatre.forEach(v => {
+          const localizedV = localizeVideo(v);
+          localizedV.channelTitle = t('channels.theatre');
+          theatre.appendChild(buildVideoCard(localizedV));
+        });
       }
     }
 
@@ -665,7 +647,6 @@
       return v;
     }
     function buildVideoCard(v){
-      v = localizeVideo(v);
       const card = document.createElement('article');
       card.className='video-card';
       card.setAttribute('role','button');
