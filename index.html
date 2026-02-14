@@ -902,6 +902,11 @@
     // Initially show portfolio
     showPortfolio();
 
+    // Check URL for direct access to book
+    if (window.location.pathname === '/book') {
+      showBook();
+    }
+
     // Year
     qs('#year').textContent = new Date().getFullYear();
 
