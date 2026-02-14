@@ -830,9 +830,28 @@
       lb.classList.remove('open');
       setTimeout(()=> lb.hidden=true, 350);
     }
+    function openImageLightbox(src){
+      const lb = qs('#lightbox');
+      const player = qs('.player-area');
+      player.innerHTML = `<img src="${src}" alt="Book photo" style="max-width:100%; max-height:100%; object-fit:contain;">`;
+      const meta = qs('.meta-area');
+      meta.style.display = 'none';
+      lb.setAttribute('aria-label', 'Visualisation d\'image');
+      lb.classList.add('open');
+      lb.hidden = false;
+    }
     qs('#closeLightbox').addEventListener('click', closeLightbox);
     qs('#lightbox').addEventListener('click', e=> { if(e.target.id==='lightbox') closeLightbox(); });
     document.addEventListener('keydown', e=> { if(e.key==='Escape') closeLightbox(); });
+
+    // Book gallery lightbox
+    const bookImages = document.querySelectorAll('.book-gallery img');
+    bookImages.forEach(img => {
+      img.style.cursor = 'pointer';
+      img.addEventListener('click', () => {
+        openImageLightbox(img.src);
+      });
+    });
 
     async function initVideos(){
       const cached = loadVideosFromCache();
