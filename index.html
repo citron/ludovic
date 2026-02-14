@@ -34,7 +34,9 @@
   header {position:fixed;top:0;left:0;right:0;z-index:80;backdrop-filter:blur(12px);background:#0d0d0fbf;border-bottom:1px solid #ffffff0e;}
     .nav-wrapper {display:flex;align-items:center;justify-content:space-between;max-width:var(--max-w);margin:0 auto;padding:.9rem 2rem;}
     .brand {font-family:var(--font-serif);font-size:1.35rem;font-weight:600;letter-spacing:.5px;display:flex;align-items:center;gap:.6rem;}
-  .brand span.role {background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700;}
+  .brand span.role {background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700;cursor:pointer;transition:opacity 0.3s;}
+  .brand span.role.active {opacity:1;}
+  .brand span.role:not(.active) {opacity:0.5;}
     nav ul {list-style:none;display:flex;gap:1.4rem;}
     nav a {font-size:.9rem;font-weight:500;letter-spacing:.5px;position:relative;padding:.4rem .2rem;color:var(--muted);transition:var(--transition);}
     nav a::after {content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;transform:scaleX(0);transform-origin:left;background:var(--accent-grad);transition:var(--transition);border-radius:2px;}
@@ -72,6 +74,9 @@
     .hero-roles span {background:linear-gradient(120deg,#ffffff10,#ffffff05);border:1px solid #ffffff18;padding:.55rem .9rem;font-size:.72rem;letter-spacing:.8px;text-transform:uppercase;border-radius:26px;font-weight:600;color:var(--muted);}
     .lead {font-size:1.15rem;max-width:620px;margin-bottom:2rem;color:#d7d7df;}
     .cta-row {display:flex;flex-wrap:wrap;gap:1rem;align-items:center;}
+    .book-gallery {display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem;margin-top:2rem;}
+    .book-gallery img {width:100%;height:auto;border-radius:var(--radius);transition:var(--transition);}
+    .book-gallery img:hover {transform:scale(1.02);}
     .btn {--btn-bg:var(--panel);--btn-border:#ffffff18;position:relative;display:inline-flex;align-items:center;gap:.55rem;padding:.9rem 1.35rem;font-weight:600;font-size:.85rem;letter-spacing:.7px;text-transform:uppercase;border-radius:40px;color:var(--text);border:1px solid var(--btn-border);background:var(--btn-bg);cursor:pointer;transition:var(--transition);overflow:hidden;}
   .btn-primary {--btn-bg:var(--accent-grad);}    
     .btn-outline {background:#ffffff05;}
@@ -175,7 +180,7 @@
 <body>
   <header>
     <div class="nav-wrapper">
-      <div class="brand" aria-label="Ludovic Gacquer"><span>Ludovic Gacquer</span><span class="role gradient-text">Portfolio</span></div>
+      <div class="brand" aria-label="Ludovic Gacquer"><span>Ludovic Gacquer</span><span class="role gradient-text active" id="portfolio-tab">Portfolio</span><span class="role" id="book-tab">Book</span></div>
       <nav>
         <div class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></div>
         <ul id="navList">
@@ -282,6 +287,18 @@
         </div>
       </div>
     </section>
+
+    <!-- Book Section -->
+    <section id="book-section" class="book-page" style="display:none;">
+      <div class="section-intro" data-reveal>
+        <h2>Book de Comédien</h2>
+        <p>Photos de Ludovic Gacquer en tant qu'acteur.</p>
+      </div>
+      <div class="book-gallery">
+        <!-- Photos will be added here -->
+      </div>
+    </section>
+
   </main>
 
   <div class="lightbox" id="lightbox" aria-modal="true" role="dialog" aria-label="Lecteur vidéo" hidden>
@@ -848,6 +865,34 @@
         setTimeout(()=> { if(status) status.textContent='Message envoyé (simulation).'; form.reset(); }, 900);
       });
     }
+
+    // Tab switching
+    const portfolioTab = qs('#portfolio-tab');
+    const bookTab = qs('#book-tab');
+    const mainSections = document.querySelectorAll('main > section:not(#book-section)');
+    const bookSection = qs('#book-section');
+
+    function showPortfolio() {
+      mainSections.forEach(s => s.style.display = '');
+      bookSection.style.display = 'none';
+      portfolioTab.classList.add('active');
+      bookTab.classList.remove('active');
+      window.scrollTo(0,0);
+    }
+
+    function showBook() {
+      mainSections.forEach(s => s.style.display = 'none');
+      bookSection.style.display = 'block';
+      bookTab.classList.add('active');
+      portfolioTab.classList.remove('active');
+      window.scrollTo(0,0);
+    }
+
+    portfolioTab.addEventListener('click', showPortfolio);
+    bookTab.addEventListener('click', showBook);
+
+    // Initially show portfolio
+    showPortfolio();
 
     // Year
     qs('#year').textContent = new Date().getFullYear();
