@@ -937,7 +937,6 @@
     const bookTab = qs('#book-tab');
     const mainSections = document.querySelectorAll('main > section:not(#book-section)');
     const bookSection = qs('#book-section');
-    const navList = qs('#navList');
 
     function showPortfolio() {
       mainSections.forEach(s => s.style.display = '');
@@ -945,6 +944,7 @@
       portfolioTab.classList.add('active');
       bookTab.classList.remove('active');
       navList.style.display = '';
+      window.history.replaceState(null, null, window.location.href.replace(/#.*$/, ''));
       window.scrollTo(0,0);
     }
 
