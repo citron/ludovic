@@ -304,6 +304,16 @@
         <img src="assets/Pied_Ludovic_GACQUER.jpg" alt="Pied Ludovic GACQUER">
         <img src="assets/Portrait_Ludovic_GACQUER.jpg" alt="Portrait Ludovic GACQUER">
         <img src="assets/NB_Ludovic_GACQUER.jpg" alt="NB Ludovic GACQUER">
+        <img src="assets/2020_02_09_LudovicGacquer_2000pxHD_YoannLegrosPhotographie-1.jpg" alt="Photo Yoann 1">
+        <img src="assets/2020_02_09_LudovicGacquer_2000pxHD_YoannLegrosPhotographie-10.jpg" alt="Photo Yoann 10">
+        <img src="assets/2020_02_09_LudovicGacquer_2000pxHD_YoannLegrosPhotographie-2.jpg" alt="Photo Yoann 2">
+        <img src="assets/2020_02_09_LudovicGacquer_2000pxHD_YoannLegrosPhotographie-3.jpg" alt="Photo Yoann 3">
+        <img src="assets/2020_02_09_LudovicGacquer_2000pxHD_YoannLegrosPhotographie-5.jpg" alt="Photo Yoann 5">
+        <img src="assets/2020_02_09_LudovicGacquer_2000pxHD_YoannLegrosPhotographie-9.jpg" alt="Photo Yoann 9">
+        <img src="assets/stevenson02.jpg" alt="Photo 2">
+        <img src="assets/stevenson03.jpg" alt="Photo 3">
+        <img src="assets/stevenson04.jpg" alt="Photo 4">
+        <img src="assets/stevenson05.jpg" alt="Photo 5">
       </div>
       <h3>Spectacle Stevenson</h3>
       <div class="book-gallery">
@@ -949,6 +959,11 @@
 
     // Initially show portfolio
     showPortfolio();
+
+    // Check URL hash for direct access to book
+    if (window.location.hash === '#book') {
+      showBook();
+    }
 
     // Year
     qs('#year').textContent = new Date().getFullYear();
