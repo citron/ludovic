@@ -876,12 +876,14 @@
     const bookTab = qs('#book-tab');
     const mainSections = document.querySelectorAll('main > section:not(#book-section)');
     const bookSection = qs('#book-section');
+    const navList = qs('#navList');
 
     function showPortfolio() {
       mainSections.forEach(s => s.style.display = '');
       bookSection.style.display = 'none';
       portfolioTab.classList.add('active');
       bookTab.classList.remove('active');
+      navList.style.display = '';
       window.scrollTo(0,0);
     }
 
@@ -890,6 +892,7 @@
       bookSection.style.display = 'block';
       bookTab.classList.add('active');
       portfolioTab.classList.remove('active');
+      navList.style.display = 'none';
       window.scrollTo(0,0);
     }
 
